@@ -13,6 +13,7 @@ echo   .venv\Scripts\python.exe data_pipeline.py analyze-pending --limit 1000
 echo   .venv\Scripts\python.exe data_pipeline.py compute-trends
 echo   .venv\Scripts\python.exe data_pipeline.py build-index
 echo   .venv\Scripts\python.exe data_pipeline.py data-report
+echo   .venv\Scripts\python.exe data_pipeline.py evaluate-retrieval --queries evaluation_queries.json --k 5
 pause
 exit /b 0
 :fail
