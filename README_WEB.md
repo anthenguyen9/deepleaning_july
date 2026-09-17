@@ -18,6 +18,8 @@ Flask/Jinja/CSS + Waitress; SQLite tích hợp Python, không cần cài databas
 6. Chạy `run_web.bat`, mở http://127.0.0.1:5000.
 7. Lưu hồ sơ, nhập khu vực, bấm **Tìm & phân tích nhà hàng**.
 
+Để thu thập dữ liệu nghiên cứu tăng dần ngoài luồng web, xem `README_PIPELINE.md`.
+
 Nếu vừa train lại model hoặc đổi key, dừng cửa sổ web bằng Ctrl+C rồi chạy lại.
 Chi phí/hạn mức Gemini và SerpApi phụ thuộc gói tài khoản của bạn; ứng dụng không tự
 kiểm tra số dư trên dashboard của hai dịch vụ.
@@ -94,6 +96,12 @@ File tự tạo: `instance/food_reviews.sqlite3`.
 | restaurant_feedback | Phản hồi thích/không thích theo nhà hàng |
 | chat_sessions | Phiên tư vấn gắn với từng lượt tìm kiếm |
 | chat_messages | Context hội thoại user/assistant và ID gợi ý đã kiểm tra |
+| ingestion_seeds | Danh sách khu vực/loại món dùng để thu thập theo đợt |
+| restaurant_crawl_state | Checkpoint phân trang review của từng nhà hàng |
+| pipeline_jobs | Lịch sử, tham số, trạng thái và thống kê từng job |
+| dataset_versions | Snapshot số lượng và khoảng thời gian dữ liệu |
+| monthly_trends | Baseline ABSA/rating theo tháng; chưa phải BERTrend |
+| review_documents, review_fts | Kho tài liệu và chỉ mục BM25 SQLite FTS5 |
 
 Dùng SQL tham số hóa, foreign keys, WAL, transaction và khóa quota.
 Muốn sao lưu: dừng web trước, sao chép cả thư mục `instance`.
@@ -137,7 +145,8 @@ Tài liệu API đã đối chiếu:
 .venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-19 test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
+21 test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
 cache/dedup, quota, lỗi API, ngày nguồn, phân trang, Gemini structured output,
-lọc ID bịa, chat memory, feedback và render trang kết quả. Xem
+lọc ID bịa, chat memory, feedback, checkpoint incremental, ABSA pending, trend baseline,
+BM25 index và render trang kết quả. Xem
 VERIFICATION_WEB.md và VERIFICATION_GEMINI.md để biết phần nào đã chạy thực tế.
