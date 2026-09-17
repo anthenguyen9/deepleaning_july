@@ -15,6 +15,7 @@ from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
 from data_pipeline import build_index, compute_trends, status
 import auth
+from chat_ui import assistant_reply, review_url
 from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, recommend, save_turn
 from locations import lineage, resolve, resolve_area_text
 
@@ -49,6 +50,8 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         SESSION_COOKIE_HTTPONLY=True,SESSION_COOKIE_SAMESITE='Strict',
         TRUSTED_HOSTS=['localhost','127.0.0.1'],DAILY_LIMIT=int(os.getenv('SERPAPI_DAILY_LIMIT','30')))
     if config: app.config.update(config)
+    app.jinja_env.filters['assistant_reply']=assistant_reply
+    app.jinja_env.filters['review_url']=review_url
     store=Store(app.config['DATABASE'])
     analyzer=Analyzer(app.config['MODEL_PATH'])
     lock=threading.Lock()

@@ -44,6 +44,9 @@ xếp hạng bằng cấu hình E, truy xuất review và cung cấp ứng viên
 Gemini. Chat không huấn luyện lại. Khi SerpApi thiếu key hoặc lỗi, app vẫn dùng
 dữ liệu SQLite sẵn có nếu đủ bằng chứng. Khi Gemini thiếu key hoặc lỗi,
 chat hiển thị lỗi cấu hình/hạn mức rõ ràng; app không bị dừng.
+Trên trang `/assistant`, mã trích dẫn `[R1]` liên kết tới review gốc nếu nguồn
+có URL HTTPS; khi thiếu URL, giao diện ghi rõ chưa có link gốc và không hiển thị
+ID provider dài cho người dùng.
 
 Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe pipeline.py train`
 (từ tập ViTASA đã `download` và `prepare`), lưu `outputs/baseline.joblib`.

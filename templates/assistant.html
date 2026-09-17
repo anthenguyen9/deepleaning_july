@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="panel">
+<link rel="stylesheet" href="{{ url_for('static',filename='assistant.css') }}">
+<section class="panel assistant-panel">
   <h1>Restaurant Assistant</h1>
-  <p>Hỏi về món ăn và khu vực tại Đà Nẵng. Câu trả lời chỉ dựa trên nhà hàng và review đã lưu.</p>
-  <div class="chat-log" aria-live="polite">
+  <p class="assistant-intro">Hỏi về món ăn và khu vực tại Đà Nẵng. Gợi ý dựa trên review đã lưu và có liên kết tới nguồn khi khả dụng.</p>
+  <div class="chat-log" aria-live="polite" aria-label="Lịch sử trò chuyện">
     {% for item in messages %}
-    <article class="chat-message {{ item.role }}"><strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}</strong><p>{{ item.content }}</p>
-      {% if item.role=='assistant' and item.context.citations %}<small>Nguồn review: {% for c in item.context.citations %}{{ c.restaurant_name }} · {{ c.review_id }}{% if not loop.last %}; {% endif %}{% endfor %}</small>{% endif %}
+    <article class="chat-message {{ item.role }}">
+      <strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}</strong>
+      <p>{% if item.role=='assistant' %}{{ item.content | assistant_reply(item.context.citations or []) }}{% else %}{{ item.content }}{% endif %}</p>
+      {% if item.role=='assistant' and item.context.citations %}
+      <details class="chat-sources">
+        <summary>{{ item.context.citations | length }} review được trích dẫn</summary>
+        <div class="source-links">
+          {% for c in item.context.citations %}
+          {% set href = c.source_url | review_url %}
+          {% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="Mở review gốc {{ c.citation_id }} của {{ c.restaurant_name }}">[{{ c.citation_id }}] {{ c.restaurant_name }}</a>
+          {% else %}<span>[{{ c.citation_id }}] {{ c.restaurant_name }} · chưa có link gốc</span>{% endif %}
+          {% endfor %}
+        </div>
+      </details>
+      {% endif %}
     </article>
     {% endfor %}
   </div>
-  <form method="post" action="{{ url_for('assistant_send') }}" id="assistant-form">
+  <form method="post" action="{{ url_for('assistant_send') }}" id="assistant-form" class="assistant-form">
     <input type="hidden" name="csrf" value="{{ session.csrf }}">
     <label for="assistant-message">Tin nhắn</label>
-    <input id="assistant-message" name="message" maxlength="1200" required placeholder="Quán hải sản ngon ở Sơn Trà?">
-    <button id="assistant-submit" type="submit">Gửi</button>
+    <div class="assistant-compose">
+      <input id="assistant-message" name="message" maxlength="1200" required placeholder="Quán hải sản ngon ở Sơn Trà?">
+      <button id="assistant-submit" type="submit">Gửi</button>
+    </div>
   </form>
 </section>
-<script>document.getElementById('assistant-form').addEventListener('submit',function(){document.getElementById('assistant-submit').disabled=true;document.getElementById('assistant-submit').textContent='Đang xử lý…';});</script>
+<script src="{{ url_for('static',filename='assistant.js') }}" defer></script>
 {% endblock %}
