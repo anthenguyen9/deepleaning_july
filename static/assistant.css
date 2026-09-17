@@ -6,10 +6,13 @@
 .chat-message.assistant{align-self:flex-start;background:#faf8f0;border-color:#eee9d8}
 .chat-message>strong{display:block;font-size:13px;color:#365b4d;margin-bottom:6px}
 .chat-message p{margin:0;white-space:pre-wrap;line-height:1.65}
-.citation-link{font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.citation-link,.citation-unavailable{display:inline-block;padding:0 5px;border-radius:5px;background:#e6f0e7;font-size:.88em;font-weight:700;white-space:nowrap}
+.citation-link{text-decoration:underline;text-underline-offset:3px}
+.citation-unavailable{background:#ecebe6;color:#5f6a63}
 .citation-link:hover,.source-links a:hover{color:#0c4635}
 .chat-sources{border-top:1px solid #e4e5d8;padding:10px 0 0;margin:14px 0 0}
 .chat-sources summary{font-size:13px;color:#476559;cursor:pointer}
+.chat-sources .source-help{margin-top:8px;color:#52675d;font-size:12px}
 .source-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .source-links a,.source-links span{display:inline-block;max-width:100%;padding:6px 10px;border-radius:999px;background:#edf4ee;font-size:12px;text-decoration:none;overflow-wrap:anywhere}
 .source-links span{background:#f1f1ec;color:#68766f}

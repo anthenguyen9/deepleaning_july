@@ -8,15 +8,16 @@
     {% for item in messages %}
     <article class="chat-message {{ item.role }}">
       <strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}</strong>
-      <p>{% if item.role=='assistant' %}{{ item.content | assistant_reply(item.context.citations or []) }}{% else %}{{ item.content }}{% endif %}</p>
+      <p class="chat-answer">{% if item.role=='assistant' %}{{ item.content | assistant_reply(item.context.citations or []) }}{% else %}{{ item.content }}{% endif %}</p>
       {% if item.role=='assistant' and item.context.citations %}
       <details class="chat-sources">
-        <summary>{{ item.context.citations | length }} review được trích dẫn</summary>
+        <summary>{{ item.context.citations | length }} bình luận làm nguồn</summary>
+        <p class="source-help">“Đánh giá 3”, “Đánh giá 4” là số thứ tự bình luận được dùng làm bằng chứng trong câu trả lời. Chọn một nguồn để mở bình luận gốc.</p>
         <div class="source-links">
           {% for c in item.context.citations %}
           {% set href = c.source_url | review_url %}
-          {% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="Mở review gốc {{ c.citation_id }} của {{ c.restaurant_name }}">[{{ c.citation_id }}] {{ c.restaurant_name }}</a>
-          {% else %}<span>[{{ c.citation_id }}] {{ c.restaurant_name }} · chưa có link gốc</span>{% endif %}
+          {% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="Mở bình luận gốc cho đánh giá {{ c.citation_id[1:] }} của {{ c.restaurant_name }}">Đánh giá {{ c.citation_id[1:] }} · {{ c.restaurant_name }}</a>
+          {% else %}<span>Đánh giá {{ c.citation_id[1:] }} · {{ c.restaurant_name }} · chưa có liên kết</span>{% endif %}
           {% endfor %}
         </div>
       </details>
