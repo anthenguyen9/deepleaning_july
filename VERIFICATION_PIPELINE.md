@@ -10,10 +10,15 @@ Ngày kiểm tra: 2026-09-17 UTC.
 - Deduplicate review theo `(restaurant_id, review_id)`.
 - Chỉ chạy ABSA cho review chưa có kết quả của `model_version` hiện tại.
 - Tạo baseline rating/polarity theo tháng chỉ từ timestamp ISO thật.
+- Tạo moving average, volume/rating change, sentiment shift, trend score và cờ đủ mẫu.
+- Chạy nhiều ingestion seed theo thứ tự seed cũ nhất và dừng khi API báo lỗi/hết hạn mức.
+- Xuất data card JSON/Markdown và data-quality CSV cục bộ.
 - Tạo và truy vấn chỉ mục SQLite FTS5/BM25.
 - Tạo dataset snapshot với số nhà hàng, review và khoảng ngày.
 - Báo cáo coverage, pending ABSA, crawl state và lịch sử job.
-- Toàn bộ test của project: 21/21 thành công.
+- Gemini citation ngoài context bị loại; đề xuất không citation không được áp dụng.
+- Policy từ chối trước khi gọi Gemini nếu không có review có nội dung.
+- Toàn bộ test của project: 24/24 thành công.
 
 ## Chưa kiểm tra trực tiếp
 
