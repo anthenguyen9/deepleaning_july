@@ -84,6 +84,10 @@ Tạo lại chỉ mục SQLite FTS5/BM25:
 .venv\Scripts\python.exe data_pipeline.py search-index "món ngon phục vụ tốt" --limit 5
 ```
 
+Sau `build-index`, luồng chat tự dùng BM25 để tìm tối đa 12 review liên quan trong
+chính danh sách nhà hàng của lượt tìm. Nếu index chưa có kết quả, web dùng review
+snapshot làm fallback và ghi rõ `snapshot-fallback` trong metadata chat.
+
 Đóng dấu một phiên bản dữ liệu để sử dụng trong thí nghiệm:
 
 ```bat
@@ -128,3 +132,12 @@ Các bước sau chưa có trong phiên bản này và phải được đánh gi
 
 Mẫu schema tạo relevance judgment nằm tại `evaluation_queries.example.json`. Người
 đánh giá phải điền restaurant/review ID thủ công; không dùng output của model làm ground truth.
+
+Sau khi điền relevance judgment, chạy:
+
+```bat
+.venv\Scripts\python.exe data_pipeline.py evaluate-retrieval --queries evaluation_queries.json --k 5
+```
+
+Kết quả `Recall@k`, `MRR` và `nDCG@k` ở cấp review/nhà hàng được lưu cục bộ tại
+`outputs/retrieval_metrics.json`. Xem `README_EVALUATION.md`.
