@@ -17,6 +17,7 @@ from data_pipeline import build_index, compute_trends, status
 import auth
 from chat_ui import assistant_reply, review_url
 from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, recommend, save_turn
+from assistant_view import build_assistant_view
 from locations import lineage, resolve, resolve_area_text
 
 ROOT=Path(__file__).resolve().parent
@@ -78,9 +79,12 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.after_request
     def headers(response):
-        response.headers['Content-Security-Policy']="default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+        image_sources="'self' data: https://serpapi.com https://tile.openstreetmap.org" if request.path=='/assistant' else "'self' data:"
+        response.headers['Content-Security-Policy']=("default-src 'self'; style-src 'self'; "
+            f"img-src {image_sources}; script-src 'self'; form-action 'self'; "
+            "frame-ancestors 'none'; base-uri 'self'")
         response.headers['X-Content-Type-Options']='nosniff'
-        response.headers['Referrer-Policy']='no-referrer'
+        response.headers['Referrer-Policy']='strict-origin-when-cross-origin' if request.path=='/assistant' else 'no-referrer'
         response.headers['Cache-Control']='no-store'
         return response
 
@@ -96,7 +100,10 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     @app.get('/assistant')
     def assistant_page():
         if g.user['role']!='user': abort(403)
-        return render_template('assistant.html',messages=assistant_history(store,g.user['id']))
+        messages=assistant_history(store,g.user['id'])
+        view=build_assistant_view(store,analyzer,messages,auth.user_profile(),
+                                  auth.user_memory(),auth.feedback(store))
+        return render_template('assistant.html',messages=messages,view=view,assistant_shell=True)
 
     @app.post('/assistant')
     def assistant_send():

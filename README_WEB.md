@@ -118,9 +118,23 @@ Google rating là điểm toàn bộ do nguồn trả; điểm mẫu là trung b
 nhãn ABSA là dự đoán mô hình. Ba loại này hiển thị riêng. Mẫu mới nhất và số lượng
 nhỏ không đủ để kết luận chất lượng chung, mức độ an toàn hoặc phù hợp dị ứng.
 
-Chưa triển khai PhoBERT multi-task, vector/hybrid RAG, chatbot LLM, RAGAS hoặc
-nghiên cứu người dùng. Script PhoBERT tùy chọn từ v0.1 vẫn được giữ nhưng chưa tích
-hợp suy luận vào web. Chi tiết train/nhãn ViTASA: README.md và VERIFICATION.md.
+Chatbot Gemini, truy xuất hybrid/BM25 và dashboard nghiên cứu đã có trong các
+module tương ứng. Script PhoBERT tùy chọn chưa tích hợp suy luận vào web.
+Chi tiết train/nhãn ViTASA: README.md và VERIFICATION.md.
+
+## Restaurant Assistant mới
+
+Trang `/assistant` dùng Jinja/CSS/JavaScript của Flask, không có bước build
+frontend riêng. `assistant_view.py` chuyển dữ liệu quán/review đang lưu thành
+card, evidence, khía cạnh và tọa độ cho UI; schema SQLite và thuật toán xếp
+hạng không đổi. Điểm xếp hạng hiển thị là giá trị từ cấu hình E, không phải
+xác suất. Thanh khía cạnh là tỷ lệ nhãn tích cực của mẫu khi có ít nhất ba
+nhãn; không hiện khi thiếu dữ liệu. Ảnh lấy từ thumbnail SerpApi đã lưu, bản đồ
+dùng tọa độ nguồn với Leaflet 1.9.4 và ô nền OpenStreetMap; cần mạng để xem ô
+bản đồ. Lựa chọn quán cập nhật cùng một nguồn dữ liệu trên desktop và mobile.
+
+Chạy ứng dụng tại máy bằng `run_web.bat` hoặc `.venv\Scripts\python.exe webapp.py`,
+sau đó mở `http://127.0.0.1:5000/assistant` và đăng nhập tài khoản người dùng.
 
 Tài liệu API đã đối chiếu:
 - https://serpapi.com/google-maps-api

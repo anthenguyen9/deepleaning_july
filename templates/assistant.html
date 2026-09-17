@@ -1,38 +1,92 @@
 {% extends 'base.html' %}
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='vendor/leaflet/leaflet.css') }}">
 <link rel="stylesheet" href="{{ url_for('static',filename='assistant.css') }}">
-<section class="panel assistant-panel">
-  <h1>Restaurant Assistant</h1>
-  <p class="assistant-intro">Hỏi về món ăn và khu vực tại Đà Nẵng. Gợi ý dựa trên review đã lưu và có liên kết tới nguồn khi khả dụng.</p>
-  <div class="chat-log" aria-live="polite" aria-label="Lịch sử trò chuyện">
-    {% for item in messages %}
-    <article class="chat-message {{ item.role }}">
-      <strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}</strong>
-      <p class="chat-answer">{% if item.role=='assistant' %}{{ item.content | assistant_reply(item.context.citations or []) }}{% else %}{{ item.content }}{% endif %}</p>
-      {% if item.role=='assistant' and item.context.citations %}
-      <details class="chat-sources">
-        <summary>{{ item.context.citations | length }} bình luận làm nguồn</summary>
-        <p class="source-help">“Đánh giá 3”, “Đánh giá 4” là số thứ tự bình luận được dùng làm bằng chứng trong câu trả lời. Chọn một nguồn để mở bình luận gốc.</p>
-        <div class="source-links">
-          {% for c in item.context.citations %}
-          {% set href = c.source_url | review_url %}
-          {% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="Mở bình luận gốc cho đánh giá {{ c.citation_id[1:] }} của {{ c.restaurant_name }}">Đánh giá {{ c.citation_id[1:] }} · {{ c.restaurant_name }}</a>
-          {% else %}<span>Đánh giá {{ c.citation_id[1:] }} · {{ c.restaurant_name }} · chưa có liên kết</span>{% endif %}
+
+<div class="fl-app">
+  <aside class="fl-sidebar" aria-label="Điều hướng chính">
+    <a class="fl-brand" href="{{ url_for('home') }}"><span class="fl-brand-icon" aria-hidden="true">✦</span><span><strong>FoodLens</strong><small>Good Food, Better Decisions</small></span></a>
+    <nav class="fl-nav">
+      <a href="{{ url_for('home') }}"><span aria-hidden="true">⌂</span> Trang chủ</a>
+      <a href="{{ url_for('home') }}"><span aria-hidden="true">⌕</span> Tìm kiếm</a>
+      <a href="#results"><span aria-hidden="true">★</span> Gợi ý</a>
+      <a href="{{ url_for('research_dashboard') }}"><span aria-hidden="true">▥</span> Xu hướng</a>
+      <a class="active" aria-current="page" href="{{ url_for('assistant_page') }}"><span aria-hidden="true">▣</span> Trợ lý nhà hàng</a>
+      <button type="button" id="favorites-nav"><span aria-hidden="true">♥</span> Yêu thích</button>
+      <a href="{{ url_for('auth.profile') }}"><span aria-hidden="true">◯</span> Hồ sơ</a>
+      <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button type="submit"><span aria-hidden="true">↪</span> Đăng xuất</button></form>
+    </nav>
+    <div class="fl-sidebar-bottom"><p>⌖ &nbsp;{{ profile.area or 'Đà Nẵng' }}</p><div class="fl-skyline" aria-hidden="true">▁▃▂▄▂▆▃▂▅▂▃▁</div></div>
+    <div class="fl-sidebar-foot">Dữ liệu nhà hàng và review công khai từ Google Maps qua SerpApi</div>
+  </aside>
+
+  <div class="fl-workspace">
+    <div class="fl-mobile-header"><button id="menu-open" type="button" aria-label="Mở điều hướng" aria-expanded="false">☰</button><a href="{{ url_for('home') }}">✦ FoodLens</a><span aria-label="Khu vực">⌖</span></div>
+    <div id="drawer-backdrop" class="fl-drawer-backdrop" hidden></div>
+    <nav id="mobile-drawer" class="fl-drawer" aria-label="Điều hướng di động" hidden>
+      <div class="fl-drawer-head"><strong>✦ FoodLens</strong><button id="menu-close" type="button" aria-label="Đóng điều hướng">✕</button></div>
+      <a href="{{ url_for('home') }}">⌂ &nbsp;Trang chủ</a><a href="{{ url_for('home') }}">⌕ &nbsp;Tìm kiếm</a>
+      <a href="#results">★ &nbsp;Gợi ý</a><a href="{{ url_for('research_dashboard') }}">▥ &nbsp;Xu hướng</a>
+      <a aria-current="page" href="{{ url_for('assistant_page') }}">▣ &nbsp;Trợ lý nhà hàng</a>
+      <button type="button" id="mobile-favorites-nav">♥ &nbsp;Yêu thích</button>
+      <a href="{{ url_for('auth.profile') }}">◯ &nbsp;Hồ sơ</a>
+      <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button type="submit">↪ &nbsp;Đăng xuất</button></form>
+    </nav>
+
+    <div class="fl-page-head"><div><p class="fl-eyebrow">FOODLENS · RESTAURANT DISCOVERY</p><h1>Restaurant Assistant</h1><p>Hỏi, khám phá và chọn quán dựa trên review thật đã lưu.</p></div><span class="fl-location">⌖ &nbsp;{{ profile.area or 'Đà Nẵng' }}</span></div>
+
+    <div class="fl-columns">
+      <section class="fl-main" aria-label="Trợ lý và kết quả nhà hàng">
+        <div class="fl-conversation" aria-live="polite">
+          {% if messages %}
+          {% for item in messages[-2:] %}
+          <article class="fl-message {{ item.role }}"><span class="fl-avatar" aria-hidden="true">{{ '♙' if item.role=='user' else '✦' }}</span><div class="fl-message-body"><strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý FoodLens' }}</strong><p>{% if item.role=='assistant' %}{{ item.content | assistant_reply(item.context.citations or []) }}{% else %}{{ item.content }}{% endif %}</p>{% if item.role=='assistant' and item.context.citations %}<details class="fl-message-sources"><summary>{{ item.context.citations|length }} bình luận nguồn</summary><div>{% for c in item.context.citations %}{% set href=c.source_url|review_url %}{% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer">Nguồn {{ c.citation_id }} · {{ c.restaurant_name }}</a>{% endif %}{% endfor %}</div></details>{% endif %}</div></article>
+          {% endfor %}
+          {% if messages|length > 2 %}<details class="fl-history"><summary>Xem lịch sử trò chuyện</summary>{% for item in messages[:-2] %}<p><strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}:</strong> {{ item.content }}</p>{% endfor %}</details>{% endif %}
+          {% else %}
+          <div class="fl-welcome"><span aria-hidden="true">✦</span><div><strong>Hôm nay bạn muốn ăn gì?</strong><p>Hỏi tên món và khu vực. FoodLens sẽ tìm quán từ dữ liệu đang có và dẫn về review nguồn.</p></div></div>
+          {% endif %}
+        </div>
+
+        {% if view.error %}<div class="fl-source-error" role="status">Không thể cập nhật một phần dữ liệu nguồn. FoodLens đang hiển thị thông tin đã lưu; bạn có thể gửi lại câu hỏi để thử tiếp.</div>{% endif %}
+
+        {% if view.restaurants %}
+        <div class="fl-filter-row" aria-label="Bộ lọc kết quả">
+          {% if view.cuisine %}<span class="fl-filter-label">♧ &nbsp;{{ view.cuisine }}</span>{% endif %}
+          <span class="fl-filter-label">⌖ &nbsp;{{ view.location }}</span>
+          <button id="favorites-filter" class="fl-filter-label" type="button" hidden>♥ Yêu thích · bỏ lọc ✕</button>
+          <label class="fl-filter-select">Sắp xếp <select id="sort-results" aria-label="Sắp xếp kết quả"><option value="score">Phù hợp</option><option value="rating">Điểm Google</option><option value="reviews">Số review</option></select></label>
+          <label class="fl-filter-select">Hiển thị <select id="count-results" aria-label="Số lượng kết quả"><option value="all">Tất cả</option><option value="3">3 quán</option></select></label>
+        </div>
+        {% endif %}
+
+        <div class="fl-results-heading" id="results"><div><p class="fl-eyebrow">KẾT QUẢ THỰC TẾ</p><h2>Quán phù hợp <span id="visible-count">{{ view.restaurants|length }}</span></h2></div><span class="fl-score-note">Điểm xếp hạng theo mô hình hiện có</span></div>
+        <div id="restaurant-list" class="fl-restaurant-list">
+          {% for r in view.restaurants %}
+          <article class="fl-card {{ 'selected' if loop.first }}" data-id="{{ r.id }}" data-score="{{ r.score }}" data-rating="{{ r.rating or 0 }}" data-reviews="{{ r.reviewCount or 0 }}" tabindex="0" role="button" aria-label="Xem chi tiết {{ r.name }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">
+            <div class="fl-card-media"><span class="fl-image-fallback" aria-hidden="true">✦</span>{% if r.image %}<img src="{{ r.image }}" alt="Ảnh {{ r.name }}" loading="lazy">{% endif %}<span class="fl-rank">{{ loop.index }}</span></div>
+            <div class="fl-card-info"><div class="fl-card-title"><h3>{{ r.name }}</h3><button class="fl-favorite" type="button" data-id="{{ r.id }}" aria-label="Lưu {{ r.name }} vào yêu thích" aria-pressed="false">♡</button></div><p class="fl-card-rating"><span aria-hidden="true">★</span> {{ r.rating if r.rating is not none else 'Chưa có điểm' }}{% if r.reviewCount is not none %} <span class="fl-dim">· {{ '{:,}'.format(r.reviewCount) }} review Google</span>{% endif %}</p><p class="fl-card-address">⌖ &nbsp;{{ r.address or 'Chưa có địa chỉ' }}</p><div class="fl-tags"><span>{{ r.category }}</span>{% if r.price %}<span>{{ r.price }}</span>{% endif %}</div>{% if r.reviewSnippet %}<p class="fl-card-quote">“{{ r.reviewSnippet }}”</p>{% else %}<p class="fl-card-quote fl-dim">Chưa có review có nội dung.</p>{% endif %}<div class="fl-mobile-score">Điểm xếp hạng <strong>{{ '%.3f'|format(r.score) }}</strong><span aria-hidden="true">›</span></div></div>
+            <div class="fl-card-score"><div><small>Điểm xếp hạng</small><strong>{{ '%.3f'|format(r.score) }}</strong></div><p>{{ r.scoreReason }}</p>{% for a in r.aspects[:3] %}<div class="fl-aspect-mini"><span>{{ a.label }}</span><progress value="{{ a.percent }}" max="100"></progress><small>{{ a.percent }}%</small></div>{% endfor %}{% if not r.aspects %}<small class="fl-dim">Chưa đủ nhãn khía cạnh</small>{% endif %}</div>
+          </article>
+          {% else %}
+          <div class="fl-empty"><span aria-hidden="true">⌕</span><h3>Chưa có kết quả để hiển thị</h3><p>Hãy hỏi một món ăn và khu vực cụ thể để tìm nhà hàng từ dữ liệu đã lưu.</p></div>
           {% endfor %}
         </div>
-      </details>
-      {% endif %}
-    </article>
-    {% endfor %}
-  </div>
-  <form method="post" action="{{ url_for('assistant_send') }}" id="assistant-form" class="assistant-form">
-    <input type="hidden" name="csrf" value="{{ session.csrf }}">
-    <label for="assistant-message">Tin nhắn</label>
-    <div class="assistant-compose">
-      <input id="assistant-message" name="message" maxlength="1200" required placeholder="Quán hải sản ngon ở Sơn Trà?">
-      <button id="assistant-submit" type="submit">Gửi</button>
+        <div id="filtered-empty" class="fl-empty" hidden><h3>Không tìm thấy nhà hàng phù hợp.</h3><p>Thử bỏ chế độ yêu thích hoặc đổi cách sắp xếp.</p><button type="button" id="clear-filter">Hiện tất cả</button></div>
+        <div id="loading-cards" class="fl-loading" hidden aria-live="polite"><div></div><div></div><div></div><p>Đang tìm quán và đối chiếu review nguồn…</p></div>
+
+        <div class="fl-compose-wrap"><form method="post" action="{{ url_for('assistant_send') }}" id="assistant-form" class="fl-compose"><input type="hidden" name="csrf" value="{{ session.csrf }}"><label class="fl-sr-only" for="assistant-message">Tin nhắn</label><input id="assistant-message" name="message" maxlength="1200" required autocomplete="off" placeholder="Hỏi thêm về món ăn, giá cả, hoặc khu vực khác..."><button id="assistant-submit" type="submit" aria-label="Gửi câu hỏi">➤</button></form><div class="fl-suggestions" aria-label="Câu hỏi gợi ý"><span>Gợi ý:</span><button type="button" data-suggestion="Quán hải sản có view biển ở Đà Nẵng">Quán hải sản view biển</button><button type="button" data-suggestion="Quán nào có tôm hùm ở Đà Nẵng?">Quán có tôm hùm</button><button type="button" data-suggestion="Quán ăn giá hợp lý ở Đà Nẵng">Quán giá hợp lý</button><button type="button" data-suggestion="So sánh 3 quán phù hợp nhất trong kết quả">So sánh top 3</button></div></div>
+      </section>
+
+      <aside class="fl-evidence" aria-label="Bằng chứng và bản đồ"><div class="fl-tabs" role="tablist" aria-label="Thông tin nhà hàng"><button class="active" type="button" role="tab" data-panel="reviews" aria-selected="true">Bình luận</button><button type="button" role="tab" data-panel="map" aria-selected="false">Bản đồ</button><button type="button" role="tab" data-panel="trends" aria-selected="false">Xu hướng</button></div><div class="fl-evidence-body"><div id="evidence-reviews" class="fl-tab-panel" role="tabpanel"><div class="fl-panel-title"><h2>Bình luận từ review thật</h2><span id="evidence-name"></span></div><div id="review-evidence"></div><h2 class="fl-section-title">Khía cạnh trong review</h2><p class="fl-metric-note">Tỷ lệ nhãn tích cực trong mẫu đã phân tích; chỉ hiện khi có ít nhất 3 nhãn.</p><div id="aspect-summary"></div><h2 class="fl-section-title">Vị trí các quán</h2><div id="map-preview" class="fl-map" aria-label="Bản đồ nhà hàng"></div><p id="map-preview-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></div><div id="evidence-map" class="fl-tab-panel" role="tabpanel" hidden><h2>Bản đồ nhà hàng</h2><p class="fl-dim">Chọn ghim để xem quán tương ứng.</p><div id="map-large" class="fl-map fl-map-large" aria-label="Bản đồ các nhà hàng"></div><p id="map-large-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></div><div id="evidence-trends" class="fl-tab-panel" role="tabpanel" hidden><h2>Xu hướng đánh giá</h2><p class="fl-metric-note">Dựa trên ngày review gốc đã lưu; chỉ mô tả mẫu hiện có.</p><div id="trend-summary"></div></div></div></aside>
     </div>
-  </form>
-</section>
+    <div class="fl-footnote">FoodLens đối chiếu kết quả với review đã lưu. Điểm xếp hạng là điểm mô hình, không phải xác suất hài lòng. Bản đồ © OpenStreetMap contributors.</div>
+  </div>
+</div>
+
+<dialog id="mobile-details" class="fl-detail-dialog" aria-labelledby="detail-title"><div class="fl-detail-head"><div><p class="fl-eyebrow">CHI TIẾT NHÀ HÀNG</p><h2 id="detail-title"></h2></div><button id="detail-close" type="button" aria-label="Đóng chi tiết">✕</button></div><div class="fl-detail-tabs" role="tablist" aria-label="Chi tiết nhà hàng"><button type="button" class="active" data-detail-tab="overview" aria-selected="true">Tổng quan</button><button type="button" data-detail-tab="reviews" aria-selected="false">Review</button><button type="button" data-detail-tab="map" aria-selected="false">Bản đồ</button></div><div class="fl-detail-content"><section data-detail-panel="overview"><div id="detail-overview"></div></section><section data-detail-panel="reviews" hidden><div id="detail-reviews"></div></section><section data-detail-panel="map" hidden><div id="map-mobile" class="fl-map fl-map-mobile" aria-label="Bản đồ nhà hàng"></div><p id="map-mobile-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></section></div></dialog>
+
+<script id="assistant-data" type="application/json">{{ view.restaurants|tojson }}</script>
+<script src="{{ url_for('static',filename='vendor/leaflet/leaflet.js') }}" defer></script>
 <script src="{{ url_for('static',filename='assistant.js') }}" defer></script>
 {% endblock %}
