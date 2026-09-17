@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel"><h1>Đăng ký và tạo hồ sơ</h1><p>Nhập đầy đủ thông tin để bắt đầu dùng gợi ý cá nhân hóa.</p>
+<form method="post" action="{{ url_for('auth.register') }}">
+<input type="hidden" name="csrf" value="{{ session.csrf }}">
+<div class="row"><label>Tên đăng nhập<input name="username" minlength="3" maxlength="40" required autocomplete="username" value="{{ request.form.get('username','') }}"></label>
+<label>Tên hiển thị<input name="name" maxlength="80" required value="{{ request.form.get('name','') }}"></label></div>
+<div class="row"><label>Mật khẩu (ít nhất 8 ký tự)<input name="password" type="password" minlength="8" maxlength="128" required autocomplete="new-password"></label>
+<label>Nhập lại mật khẩu<input name="confirm_password" type="password" required autocomplete="new-password"></label></div>
+<div class="row"><label>Khu vực mặc định<input name="area" minlength="2" maxlength="160" required value="{{ request.form.get('area','') }}"></label>
+<label>Món / loại hình ưa thích<input name="cuisine" maxlength="80" required value="{{ request.form.get('cuisine','') }}"></label></div>
+<label>Sở thích và hạn chế bạn tự khai báo<textarea name="explicit_notes" maxlength="800" required rows="3" placeholder="Nếu không có, nhập: Chưa có">{{ request.form.get('explicit_notes','') }}</textarea></label>
+<div class="row"><label>Khía cạnh ưu tiên<select name="aspect" required>{% for code,label in aspect_names.items() %}<option value="{{ code }}" {% if code==request.form.get('aspect','food') %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Điểm Google tối thiểu<input name="min_rating" type="number" min="0" max="5" step="0.1" required value="{{ request.form.get('min_rating','0') }}"></label></div>
+<button type="submit">Tạo tài khoản</button> <a href="{{ url_for('auth.login') }}">Đã có tài khoản?</a>
+</form></section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel"><h1>Hồ sơ của tôi</h1><p>Tài khoản: <strong>{{ current_user.username }}</strong></p>
+<form method="post" action="{{ url_for('auth.profile') }}">
+<input type="hidden" name="csrf" value="{{ session.csrf }}">
+<div class="row"><label>Tên hiển thị<input name="name" maxlength="80" required value="{{ current_user.name }}"></label>
+<label>Khu vực mặc định<input name="area" maxlength="160" required value="{{ current_user.area }}"></label></div>
+<label>Món / loại hình ưa thích<input name="cuisine" maxlength="80" required value="{{ current_user.cuisine }}"></label>
+<label>Sở thích và hạn chế bạn tự khai báo<textarea name="explicit_notes" maxlength="800" required rows="4">{{ current_user.explicit_notes }}</textarea></label>
+<div class="row"><label>Khía cạnh ưu tiên<select name="aspect">{% for code,label in aspect_names.items() %}<option value="{{ code }}" {% if code==current_user.aspect %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Điểm Google tối thiểu<input name="min_rating" type="number" min="0" max="5" step="0.1" required value="{{ current_user.min_rating }}"></label></div>
+<button type="submit">Lưu hồ sơ</button></form>
+<h2>Bộ nhớ đã học</h2><p>{{ current_user.learned_summary or 'Chưa có.' }}</p>
+<p class="muted">{{ feedback_count }} quán đã có phản hồi thích/không thích.</p>
+<form action="{{ url_for('memory_clear') }}" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="danger">Xóa bộ nhớ học tự động</button></form>
+</section>
+{% endblock %}

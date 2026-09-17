@@ -6,6 +6,16 @@ outputs/*.joblib
 outputs/data_card.json
 outputs/data_card.md
 outputs/data_quality.csv
+outputs/temporal_aggregates.csv
 outputs/retrieval_metrics.json
 outputs/recommendation_metrics.json
 __pycache__/
+.env.*
+!.env.example
+.cache/
+outputs/*predictions*.json
+outputs/*comparison*.json
+outputs/*summary*.json
+outputs/live*.json
+outputs/*topic*.json
+outputs/*rag*.json

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='admin.css') }}">
+<div class="heading"><div><h1>Gán nhãn review</h1><p>{{ reviewed }} nhãn đã lưu / {{ total }} review có nội dung. Dự đoán mô hình không được dùng làm nhãn gold.</p></div>
+<div><a href="{{ url_for('admin.export') }}">Xuất JSON nhãn đã lưu</a></div></div>
+{% for row in rows %}
+<section class="panel">
+  <h2>{{ row.restaurant_name }}</h2>
+  <p class="muted">Review {{ row.id }} · {{ row.published_at or 'Không có ngày ISO' }} · {{ row.rating if row.rating is not none else 'Không có điểm' }} sao</p>
+  <p class="review">{{ row.text }}</p>
+  {% if row.labels_json and not row.current %}<p class="notice error">Nội dung review đã thay đổi; cần gán lại nhãn.</p>{% endif %}
+  <form method="post" action="{{ url_for('admin.save') }}">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    <input type="hidden" name="restaurant_id" value="{{ row.restaurant_id }}">
+    <input type="hidden" name="review_id" value="{{ row.id }}">
+    <input type="hidden" name="text_hash" value="{{ row.current_hash }}">
+    <input type="hidden" name="page" value="{{ page }}">
+    <div class="annotation-grid">
+    {% for aspect in aspects %}<fieldset><legend>{{ aspect_names[aspect] }}</legend>
+      {% for polarity in polarities %}{% set label = aspect ~ ':' ~ polarity %}
+      <label><input type="checkbox" name="labels" value="{{ label }}" {% if label in row.labels %}checked{% endif %}> {{ polarity }}</label>
+      {% endfor %}
+    </fieldset>{% endfor %}
+    </div>
+    <p class="muted">Nếu review không đề cập khía cạnh nào, để trống tất cả ô rồi lưu.</p>
+    <button type="submit">Lưu nhãn</button>
+  </form>
+</section>
+{% endfor %}
+<nav class="row">{% if page > 1 %}<a href="{{ url_for('admin.index',page=page-1) }}">← Trang trước</a>{% endif %}
+<span>Trang {{ page }} / {{ pages }}</span>{% if page < pages %}<a href="{{ url_for('admin.index',page=page+1) }}">Trang sau →</a>{% endif %}</nav>
+{% endblock %}

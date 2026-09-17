@@ -193,18 +193,36 @@ def compute_trends(store, model_version=None):
                 AND a.review_id=r.id AND a.model_version=?
             WHERE r.published_at IS NOT NULL''', (model_version,)).fetchall()
     grouped = defaultdict(lambda: {'reviews': set(), 'ratings': [], 'polarity': Counter()})
+    period_grouped = defaultdict(lambda: {'reviews': set(), 'ratings': [], 'polarity': Counter()})
     for row in rows:
         month = row['published_at'][:7]
+        periods = [('day', row['published_at'][:10]), ('month', month),
+                   ('year', row['published_at'][:4])]
         labels = json.loads(row['labels']) if row['labels'] else []
         for aspect in ASPECTS:
             bucket = grouped[(row['restaurant_id'], month, aspect)]
             bucket['reviews'].add(row['id'])
             if row['rating'] is not None:
                 bucket['ratings'].append(row['rating'])
+            for granularity, period in periods:
+                bucket = period_grouped[(row['restaurant_id'], granularity, period, aspect)]
+                bucket['reviews'].add(row['id'])
+                if row['rating'] is not None:
+                    bucket['ratings'].append(row['rating'])
         for label in labels:
             aspect, polarity = label.split(':', 1)
             grouped[(row['restaurant_id'], month, aspect)]['polarity'][polarity] += 1
+            for granularity, period in periods:
+                period_grouped[(row['restaurant_id'], granularity, period, aspect)]['polarity'][polarity] += 1
     with store.connect() as db:
+        db.execute('DELETE FROM period_aggregates WHERE model_version=?', (model_version,))
+        for (rid, granularity, period, aspect), value in period_grouped.items():
+            ratings = value['ratings']; p = value['polarity']
+            db.execute('''INSERT INTO period_aggregates VALUES(?,?,?,?,?,?,?,?,?,?,?)''',
+                (rid, granularity, period, aspect, len(value['reviews']),
+                 p['POSITIVE'], p['NEUTRAL'], p['NEGATIVE'],
+                 round(sum(ratings)/len(ratings), 3) if ratings else None,
+                 model_version, now()))
         db.execute('DELETE FROM monthly_trends WHERE model_version=?', (model_version,))
         for (rid, month, aspect), value in grouped.items():
             ratings = value['ratings']; p = value['polarity']
@@ -229,7 +247,13 @@ def compute_trends(store, model_version=None):
                 previous_sentiment=(previous['positive_count']-previous['negative_count'])/previous_mentions if previous_mentions else None
                 sentiment_shift=sentiment-previous_sentiment if sentiment is not None and previous_sentiment is not None else None
                 moving=round(sum(ratings[-3:])/len(ratings[-3:]),3) if ratings else None
-                enough=len(items)>=2 and item['review_count']>=3
+                current_month=datetime.strptime(item['month'],'%Y-%m')
+                prev_month=datetime.strptime(previous['month'],'%Y-%m') if previous else None
+                adjacent=bool(prev_month and (current_month.year-prev_month.year)*12+
+                    current_month.month-prev_month.month==1)
+                enough=bool(adjacent and item['review_count']>=3 and previous['review_count']>=3
+                            and mentions>=3 and previous_mentions>=3)
+                if not adjacent: volume_change=rating_change=sentiment_shift=None
                 volume_norm=(volume_change/max(previous['review_count'],1)) if previous and volume_change is not None else 0
                 score=.35*max(-1,min(1,volume_norm))+.4*(sentiment_shift or 0)+.25*((rating_change or 0)/4)
                 score=round(max(-1,min(1,score)),3)
@@ -241,7 +265,10 @@ def compute_trends(store, model_version=None):
                      round(sentiment_shift,3) if sentiment_shift is not None else None,
                      score,level,int(enough),model_version,now()))
                 signal_count+=1;previous=item
-    return {'monthly_rows': len(grouped), 'trend_signal_rows':signal_count,
+    return {'daily_rows':sum(key[1]=='day' for key in period_grouped),
+            'monthly_rows': len(grouped),
+            'yearly_rows':sum(key[1]=='year' for key in period_grouped),
+            'trend_signal_rows':signal_count,
             'dated_reviews': len({(r['restaurant_id'],r['id']) for r in rows}),
             'model_version': model_version, 'claim': 'retrospective-baseline-not-BERTrend'}
 
@@ -257,28 +284,44 @@ def data_report(store, output_dir=ROOT/'outputs'):
         months=[dict(r) for r in db.execute('''SELECT substr(published_at,1,7) month,COUNT(*) reviews,
             COUNT(DISTINCT restaurant_id) restaurants FROM reviews WHERE published_at IS NOT NULL
             GROUP BY month ORDER BY month''')]
+        period_rows=[dict(r) for r in db.execute('''SELECT a.granularity,a.period,a.restaurant_id,
+            r.name restaurant_name,a.aspect,a.review_count,a.positive_count,a.neutral_count,
+            a.negative_count,a.average_rating,a.model_version FROM period_aggregates a
+            JOIN restaurants r ON r.id=a.restaurant_id ORDER BY a.granularity,a.period,a.restaurant_id,a.aspect''')]
         labels=Counter()
         for row in db.execute('SELECT labels FROM analyses'):
             labels.update(json.loads(row['labels']))
     card={'generated_at':now(),'source':'SerpApi Google Maps','summary':summary,
-          'rating_distribution':ratings,'restaurant_categories':categories,
-          'monthly_coverage':months,'predicted_label_distribution':dict(labels),
+            'rating_distribution':ratings,'restaurant_categories':categories,
+            'monthly_coverage':months,'period_aggregate_rows':len(period_rows),
+            'predicted_label_distribution':dict(labels),
           'limitations':['SerpApi snapshot is not a probability sample.',
             'ABSA labels are model predictions, not manual ground truth.',
             'Only source-provided ISO timestamps are used for temporal analysis.']}
     (output_dir/'data_card.json').write_text(json.dumps(card,ensure_ascii=False,indent=2),encoding='utf-8')
     lines=['# FoodLens data card','',f"Generated: {card['generated_at']}",'',
            '## Coverage','',f"- Restaurants: {summary['restaurants']}",f"- Reviews: {summary['reviews']}",
-           f"- Dated reviews: {summary['dated_reviews']}",f"- Distinct months: {summary['coverage']['distinct_months']}",
+           f"- Dated reviews: {summary['dated_reviews']}",
+           f"- Distinct days: {summary['coverage']['distinct_days']}",
+           f"- Distinct months: {summary['coverage']['distinct_months']}",
+           f"- Distinct years: {summary['coverage']['distinct_years']}",
            f"- Date range: {summary['coverage']['min_date']} to {summary['coverage']['max_date']}",'',
            '## Limitations','']+[f'- {x}' for x in card['limitations']]
     (output_dir/'data_card.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    period_path=output_dir/'temporal_aggregates.csv'
+    with period_path.open('w',encoding='utf-8-sig',newline='') as handle:
+        fields=['granularity','period','restaurant_id','restaurant_name','aspect',
+                'review_count','positive_count','neutral_count','negative_count',
+                'average_rating','model_version']
+        writer=csv.DictWriter(handle,fieldnames=fields)
+        writer.writeheader();writer.writerows(period_rows)
     with (output_dir/'data_quality.csv').open('w',encoding='utf-8',newline='') as handle:
         writer=csv.writer(handle);writer.writerow(['metric','value'])
         for key in ['restaurants','reviews','dated_reviews','pending_absa','review_documents','monthly_trends']:
             writer.writerow([key,summary[key]])
     return {'json':str(output_dir/'data_card.json'),'markdown':str(output_dir/'data_card.md'),
-            'csv':str(output_dir/'data_quality.csv'),'summary':summary}
+            'csv':str(output_dir/'data_quality.csv'),'temporal_csv':str(period_path),
+            'summary':summary}
 
 
 def build_index(store, model_version=None):
@@ -329,12 +372,15 @@ def snapshot(store, notes=''):
 def status(store):
     with store.connect() as db:
         counts = {name: db.execute(f'SELECT COUNT(*) FROM {name}').fetchone()[0] for name in
-                  ['restaurants','reviews','analyses','review_documents','monthly_trends','trend_signals','dataset_versions']}
+                  ['restaurants','reviews','analyses','review_documents','monthly_trends',
+                   'period_aggregates','trend_signals','dataset_versions']}
         counts['dated_reviews'] = db.execute('SELECT COUNT(*) FROM reviews WHERE published_at IS NOT NULL').fetchone()[0]
         coverage = db.execute('''SELECT COUNT(DISTINCT restaurant_id),MIN(published_at),MAX(published_at),
-            COUNT(DISTINCT substr(published_at,1,7)) FROM reviews WHERE published_at IS NOT NULL''').fetchone()
+            COUNT(DISTINCT substr(published_at,1,7)),COUNT(DISTINCT substr(published_at,1,10)),
+            COUNT(DISTINCT substr(published_at,1,4)) FROM reviews WHERE published_at IS NOT NULL''').fetchone()
         counts['coverage'] = {'restaurants_with_dated_reviews': coverage[0], 'min_date': coverage[1],
-                              'max_date': coverage[2], 'distinct_months': coverage[3]}
+                              'max_date': coverage[2], 'distinct_months': coverage[3],
+                              'distinct_days':coverage[4],'distinct_years':coverage[5]}
         counts['pending_absa'] = db.execute('''SELECT COUNT(*) FROM reviews r WHERE trim(r.text)<>'' AND NOT EXISTS
             (SELECT 1 FROM analyses a WHERE a.restaurant_id=r.restaurant_id AND a.review_id=r.id)''').fetchone()[0]
         counts['crawl_states'] = {r['status']: r['n'] for r in db.execute(

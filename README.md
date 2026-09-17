@@ -14,7 +14,40 @@ Các giới hạn metadata bên dưới nói về ViTASA; bản web bổ sung me
 
 # Food Review Research — baseline v0.1 (tài liệu nền)
 
-## Phạm vi bàn giao
+## Trạng thái hiện tại
+
+FoodLens hiện có ứng dụng Flask để thu thập review nhà hàng từ SerpApi, phân tích
+cảm xúc bằng baseline ViTASA, thống kê theo tháng, truy xuất BM25/dense/hybrid
+và chatbot Gemini có kiểm tra trích dẫn. Có bộ lệnh thực nghiệm cho PhoBERT
+ACD+SPC, BERTopic và đánh giá retrieval. Xem [RESEARCH_STATUS.md](RESEARCH_STATUS.md)
+để biết phần nào đã chạy trên dữ liệu thật và phần nào còn cần gold label,
+relevance judgments hoặc người tham gia nghiên cứu. Khóa API chỉ đặt trong `.env`.
+
+Chạy ứng dụng mới trên Windows sau khi cài `requirements_research.txt`:
+
+```bat
+.venv\Scripts\python.exe research.py status
+.venv\Scripts\python.exe research.py build-dense
+.venv\Scripts\python.exe webapp.py
+```
+
+Mở `http://127.0.0.1:5000`; trang `/research` hiển thị độ phủ dữ liệu và
+tín hiệu xu hướng. Hướng dẫn thu thập, checkpoint và provenance có trong
+[README_PIPELINE.md](README_PIPELINE.md).
+
+Ứng dụng mở đầu tại `/login`. Tài khoản quản trị khởi tạo lần đầu là `admin` /
+`admin` trên máy cá nhân; cấu hình `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong
+`.env` trước lần khởi tạo nếu muốn đổi. Người dùng thường chọn `/register` và
+phải nhập tài khoản, mật khẩu, tên, khu vực, món ưa thích, sở thích, khía cạnh
+ưu tiên và ngưỡng điểm. Hồ sơ chỉnh sửa tại `/profile`. Tài khoản, hồ sơ,
+phản hồi và quyền truy cập lưu trong SQLite; mật khẩu chỉ lưu dưới dạng hash.
+Người dùng thường chỉ thấy lượt tìm của mình và không được truy cập `/admin/`.
+Admin có thể gán nhãn khía cạnh–cảm xúc cho từng review, xuất JSON qua
+`/admin/export`. Nhãn thủ công nằm trong bảng `gold_annotations`, tách khỏi
+dự đoán ABSA; bản xuất bỏ qua nhãn nếu nội dung review đã thay đổi. Một tài
+khoản admin không tạo được đánh giá agreement độc lập giữa hai người.
+
+## Phạm vi bản demo ban đầu
 
 Bản đầu có pipeline ViTASA Restaurant, kiểm tra dữ liệu, split tái lập,
 TF-IDF ký tự + One-vs-Rest SVM, majority baseline, báo cáo F1 và demo Streamlit.

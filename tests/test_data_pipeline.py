@@ -72,6 +72,13 @@ class IncrementalPipelineTests(unittest.TestCase):
         self.assertEqual(trends['dated_reviews'], 3)
         self.assertEqual(trends['claim'], 'retrospective-baseline-not-BERTrend')
         self.assertGreater(trends['trend_signal_rows'], 0)
+        with self.store.connect() as db:
+            counts={row['granularity']:row['n'] for row in db.execute('''SELECT granularity,
+                SUM(review_count) n FROM period_aggregates WHERE aspect='food'
+                GROUP BY granularity''')}
+            self.assertEqual(counts, {'day':3,'month':3,'year':3})
+            dates={row['period'] for row in db.execute("SELECT period FROM period_aggregates WHERE granularity='day'")}
+            self.assertEqual(dates, {'2026-08-01','2026-08-02'})
 
         index = build_index(self.store, 'fake-v1')
         self.assertEqual(index['indexed'], 3)
@@ -90,6 +97,9 @@ class IncrementalPipelineTests(unittest.TestCase):
         self.assertTrue(Path(report['json']).exists())
         self.assertTrue(Path(report['markdown']).exists())
         self.assertTrue(Path(report['csv']).exists())
+        self.assertTrue(Path(report['temporal_csv']).exists())
+        self.assertEqual(current['coverage']['distinct_days'],2)
+        self.assertEqual(current['coverage']['distinct_years'],1)
 
     def test_seed_scheduler(self):
         add_seed(self.store,'Hải Châu','món Việt')

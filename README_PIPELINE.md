@@ -10,7 +10,7 @@ và lưu checkpoint để có thể tiếp tục sau khi hết quota hoặc đó
 - Dự đoán ABSA trên SerpApi không được dùng làm ground truth để tự đánh giá model.
 - Chỉ ngày ISO thật từ nguồn được dùng cho thống kê tháng; ngày tương đối không được đoán.
 - `monthly_trends` là baseline hồi cứu, không được gọi là BERTopic/BERTrend.
-- `review_fts` là BM25 lexical retrieval, chưa phải dense/hybrid RAG.
+- `review_fts` là BM25; chỉ mục E5 riêng và hybrid RRF chạy sau `research.py build-dense`.
 
 ## Chuẩn bị
 
@@ -21,7 +21,12 @@ Kiểm tra trạng thái:
 
 ```bat
 .venv\Scripts\python.exe data_pipeline.py status
+.venv\Scripts\python.exe research.py serp-quota
 ```
+
+`serp-quota` đọc Account API miễn phí của SerpApi và chỉ in số lượt dùng/còn
+lại, không in khóa. Giữ một phần lượt còn lại cho demo trực tiếp; cache và
+database cục bộ cho phép demo dữ liệu đã thu mà không gọi API mới.
 
 ## Thu thập theo từng khu vực
 
@@ -73,9 +78,11 @@ Tạo baseline thống kê rating và polarity theo tháng:
 .venv\Scripts\python.exe data_pipeline.py compute-trends
 ```
 
-Lệnh tạo `monthly_trends` và `trend_signals`, gồm thay đổi volume, rating,
-sentiment index, moving average ba tháng và mức `insufficient/stable/weak/strong`.
-Đây là công thức baseline cố định, không phải dự báo hoặc BERTrend.
+Lệnh tạo `period_aggregates` theo **ngày, tháng, năm** từ ngày ISO do nguồn cung
+cấp; không suy đoán ngày từ mô tả tương đối. Bảng `monthly_trends` và
+`trend_signals` thêm thay đổi volume, rating, sentiment index, moving average
+ba tháng và mức `insufficient/stable/weak/strong`. Đây là công thức baseline
+cố định, không phải dự báo hoặc BERTrend.
 
 Tạo lại chỉ mục SQLite FTS5/BM25:
 
@@ -84,9 +91,12 @@ Tạo lại chỉ mục SQLite FTS5/BM25:
 .venv\Scripts\python.exe data_pipeline.py search-index "món ngon phục vụ tốt" --limit 5
 ```
 
-Sau `build-index`, luồng chat tự dùng BM25 để tìm tối đa 12 review liên quan trong
-chính danh sách nhà hàng của lượt tìm. Nếu index chưa có kết quả, web dùng review
-snapshot làm fallback và ghi rõ `snapshot-fallback` trong metadata chat.
+Sau `build-index`, chạy `.venv\Scripts\python.exe research.py build-dense` để tạo
+vector E5. Luồng chat dùng hybrid RRF trong danh sách nhà hàng của lượt tìm;
+nếu chỉ mục dense thiếu hoặc cũ, nó ghi lý do và dùng BM25. Khi không tìm được
+review phù hợp, chatbot từ chối gợi ý thay vì dùng review không được truy xuất.
+Đặt `AUTO_BUILD_DENSE=1` trong `.env` để web cập nhật vector tự động sau mỗi
+lượt tìm kiếm mới; cần cài `requirements_research.txt` và tải model embedding.
 
 Đóng dấu một phiên bản dữ liệu để sử dụng trong thí nghiệm:
 
@@ -100,9 +110,10 @@ Xuất data card và báo cáo chất lượng:
 .venv\Scripts\python.exe data_pipeline.py data-report
 ```
 
-Đầu ra cục bộ gồm `outputs/data_card.json`, `outputs/data_card.md` và
-`outputs/data_quality.csv`. Các file này được `.gitignore` để tránh vô tình công bố
-thống kê của database cá nhân.
+Đầu ra cục bộ gồm `outputs/data_card.json`, `outputs/data_card.md`,
+`outputs/data_quality.csv` và `outputs/temporal_aggregates.csv` (một dòng cho
+mỗi nhà hàng, khía cạnh, ngày/tháng/năm). Các file này được `.gitignore` để
+tránh vô tình công bố thống kê của database cá nhân.
 
 ## Trình tự chạy khuyến nghị
 
@@ -120,15 +131,13 @@ ingest-restaurants
 Mỗi job chính được ghi trong `pipeline_jobs` với tham số, thời gian, trạng thái,
 thống kê và lỗi rút gọn. API key không được lưu trong bảng job, cache hoặc snapshot.
 
-## Hoàn thiện nghiên cứu tiếp theo
+## Thực nghiệm cần dữ liệu đánh giá
 
-Các bước sau chưa có trong phiên bản này và phải được đánh giá riêng trước khi claim:
-
-1. PhoBERT multi-task ACD + SPC và so sánh với baseline.
-2. BERTopic/BERTrend, temporal topic matching và event validation.
-3. Dense embedding index, hybrid retrieval và reranker.
-4. Citation validation, RAGAS và retrieval metrics.
-5. Ablation A-E và user study cho taste profile.
+Code hai đầu PhoBERT ACD+SPC, BERTopic hồi cứu, BM25/dense/hybrid,
+kiểm tra trích dẫn và tổng hợp khảo sát đã có. Kết quả thực nghiệm chỉ được
+công bố sau khi chạy model, gán nhãn gold, đánh giá relevance/claim và khảo sát
+người dùng. BERTrend online learning, reranker và RAGAS chưa được tích hợp.
+Xem [RESEARCH_STATUS.md](RESEARCH_STATUS.md) để phân biệt code và kết quả thật.
 
 Mẫu schema tạo relevance judgment nằm tại `evaluation_queries.example.json`. Người
 đánh giá phải điền restaurant/review ID thủ công; không dùng output của model làm ground truth.
@@ -137,6 +146,7 @@ Sau khi điền relevance judgment, chạy:
 
 ```bat
 .venv\Scripts\python.exe data_pipeline.py evaluate-retrieval --queries evaluation_queries.json --k 5
+.venv\Scripts\python.exe research.py evaluate-retrieval --queries evaluation_queries.json --split test
 ```
 
 Kết quả `Recall@k`, `MRR` và `nDCG@k` ở cấp review/nhà hàng được lưu cục bộ tại

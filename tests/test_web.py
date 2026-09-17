@@ -27,6 +27,12 @@ class WebTests(unittest.TestCase):
 
     def client(self,**kw): return SerpClient(self.store,key='fake-key',transport=fake_api,**kw)
 
+    def login_admin(self,client):
+        client.get('/login')
+        with client.session_transaction() as state: token=state['csrf']
+        client.post('/login',data={'csrf':token,'username':'admin','password':'admin'},follow_redirects=True)
+        with client.session_transaction() as state: return state['csrf']
+
     def test_ingestion_cache_dedup_and_date(self):
         sid=search_area(self.store,self.client(),self.analyzer,'Đà Nẵng',limit=1)
         result=self.store.get_search(sid)['result']
@@ -86,13 +92,15 @@ class WebTests(unittest.TestCase):
         app=create_app({'TESTING':True,'DATABASE':str(self.store.path),'MODEL_PATH':str(self.path/'missing')},
             client_factory=lambda s:SerpClient(s,key='fake',transport=fake_api))
         client=app.test_client()
+        self.assertEqual(client.get('/').status_code,302)
+        token=self.login_admin(client)
         self.assertEqual(client.get('/').status_code,200)
         self.assertEqual(client.post('/search',data={'area':'Đà Nẵng'}).status_code,400)
-        with client.session_transaction() as session: token=session['csrf']
         result=client.post('/profile',data={'csrf':token,'name':"An'; DROP TABLE profile;--",'area':'Hải Châu',
-            'cuisine':'món Việt','aspect':'price','min_rating':'3.5'},follow_redirects=True)
+            'cuisine':'món Việt','aspect':'price','min_rating':'3.5','explicit_notes':'Thích món Việt'},follow_redirects=True)
         self.assertEqual(result.status_code,200)
-        self.assertEqual(self.store.profile()['aspect'],'price')
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT aspect FROM accounts WHERE username='admin'").fetchone()[0],'price')
         result=client.post('/search',data={'csrf':token,'area':'Đà Nẵng','limit':'1','pages':'1'},follow_redirects=True)
         self.assertEqual(result.status_code,200)
         self.assertNotIn(b'<script>alert',result.data)
@@ -105,8 +113,7 @@ class WebTests(unittest.TestCase):
     def test_invalid_input_does_not_call_api(self):
         def forbidden(s): raise AssertionError('API should not run')
         app=create_app({'TESTING':True,'DATABASE':str(self.store.path),'MODEL_PATH':str(self.path/'missing')},client_factory=forbidden)
-        client=app.test_client();client.get('/')
-        with client.session_transaction() as session: token=session['csrf']
+        client=app.test_client();token=self.login_admin(client)
         response=client.post('/search',data={'csrf':token,'area':'Đà Nẵng','limit':'999'},follow_redirects=True)
         self.assertEqual(response.status_code,200)
         self.assertEqual(len(self.store.history()),0)
@@ -115,7 +122,7 @@ class WebTests(unittest.TestCase):
         captured={}
         def transport(body):
             captured.update(body)
-            return {'output_text':json.dumps({'reply':'Quán phù hợp là quán trong danh sách.',
+            return {'output_text':json.dumps({'reply':'Quán phù hợp là quán trong danh sách [R1].',
                 'learned_preferences':'Thích món Việt và nơi yên tĩnh.',
                 'recommended_restaurant_ids':['r1','made-up','r1'],'citations':['R1','R999']})}
         client=GeminiClient(key='fake-gemini-key-1234567890',model='gemini-2.5-flash',transport=transport)
@@ -147,7 +154,8 @@ class WebTests(unittest.TestCase):
             'evidence':[{'id':'v1','text':'Món ngon.','rating':5}],'aspects':{}}}
         result=client.advise(self.store.profile(),self.store.memory(),[],[],[restaurant],'Gợi ý')
         self.assertEqual(result['recommended_restaurant_ids'],[])
-        self.assertEqual(result['citation_status'],'missing')
+        self.assertEqual(result['citation_status'],'abstained')
+        self.assertTrue(result['abstained'])
 
     def test_gemini_missing_key(self):
         with self.assertRaises(GeminiError):
@@ -160,7 +168,7 @@ class WebTests(unittest.TestCase):
         restaurant={'id':'r1','name':'Quán Việt','assessment':{'n':1,
             'evidence':[{'id':'v1','text':'Món ngon.','rating':5}],'aspects':{}}}
         result=client.advise(self.store.profile(),self.store.memory(),[],[],[restaurant],'hello')
-        self.assertEqual(result['reply'],'Có căn cứ.')
+        self.assertTrue(result['abstained'])
 
     def test_chat_feedback_and_memory_routes(self):
         class FakeGemini:
@@ -169,8 +177,7 @@ class WebTests(unittest.TestCase):
                         'recommended_restaurant_ids':['r1'],'candidate_ids':['r1'],'model':'gemini-test'}
         app=create_app({'TESTING':True,'DATABASE':str(self.store.path),'MODEL_PATH':str(self.path/'missing')},
             client_factory=lambda s:SerpClient(s,key='fake',transport=fake_api),gemini_factory=lambda:FakeGemini())
-        client=app.test_client();client.get('/')
-        with client.session_transaction() as session: token=session['csrf']
+        client=app.test_client();token=self.login_admin(client)
         response=client.post('/search',data={'csrf':token,'area':'Đà Nẵng','limit':'1','pages':'1'},follow_redirects=False)
         sid=int(response.headers['Location'].rstrip('/').split('/')[-1])
         build_index(self.store,'rating-only')
@@ -181,11 +188,16 @@ class WebTests(unittest.TestCase):
         self.assertEqual(chat['messages'][1]['model'],'gemini-test')
         self.assertEqual(chat['messages'][1]['context']['retrieval_method'],'bm25')
         self.assertGreater(chat['messages'][1]['context']['retrieval_result_count'],0)
-        self.assertEqual(self.store.memory()['learned_summary'],'Thích món Việt.')
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT learned_summary FROM accounts WHERE username='admin'").fetchone()[0],'Thích món Việt.')
         response=client.post(f'/results/{sid}/feedback/r1',data={'csrf':token,'signal':'like'},follow_redirects=True)
-        self.assertEqual(response.status_code,200);self.assertEqual(self.store.feedback()[0]['signal'],'like')
+        with self.store.connect() as db:
+            self.assertEqual(response.status_code,200)
+            self.assertEqual(db.execute('SELECT signal FROM user_feedback').fetchone()[0],'like')
         client.post('/memory/clear',data={'csrf':token})
-        self.assertEqual(self.store.memory()['learned_summary'],'');self.assertEqual(self.store.feedback(),[])
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT learned_summary FROM accounts WHERE username='admin'").fetchone()[0],'')
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM user_feedback').fetchone()[0],0)
         client.post(f'/results/{sid}/chat/clear',data={'csrf':token})
         self.assertEqual(self.store.chat(sid)['messages'],[])
 

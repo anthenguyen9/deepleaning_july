@@ -1,0 +1,5 @@
+.annotation-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px }
+.annotation-grid fieldset { border:1px solid #dce5dc; border-radius:10px }
+.annotation-grid label { display:flex; align-items:center; gap:6px; margin:5px 0 }
+.annotation-grid input { width:auto; margin:0 }
+.admin-login { max-width:440px; margin:auto }
