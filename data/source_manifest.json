@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/kh4nh12/ViTASA",
+  "commit": "cda6a4525bfdf7a7632a7d7c7ccdbe00af5b3094",
+  "files": {
+    "restaurant.jsonl": {
+      "sha256": "07ba4669addb57bb45b6dfa759138577a1c9262486936087d584a3dc0ab25db0",
+      "bytes": 1140798
+    },
+    "LICENSE": {
+      "sha256": "3219b4b5a3a93dddbade4a0a21dfffde75d7379c074596b48fda31bbdee6ed80",
+      "bytes": 1072
+    },
+    "README.md": {
+      "sha256": "a0fb91cd3d9739717af1ac6421138acd508fcfc206c79482460b13574e0f1334",
+      "bytes": 5531
+    }
+  }
+}

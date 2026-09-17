@@ -1,0 +1,66 @@
+{
+  "raw_rows": 2000,
+  "clean_rows": 1998,
+  "invalid": [],
+  "conflicting_duplicates": [],
+  "exact_duplicates_removed": 2,
+  "split_counts": {
+    "train": 1398,
+    "dev": 200,
+    "test": 400
+  },
+  "label_counts": {
+    "train": {
+      "food:POSITIVE": 1131,
+      "price:NEGATIVE": 107,
+      "ambience:POSITIVE": 221,
+      "price:POSITIVE": 376,
+      "service:POSITIVE": 265,
+      "ambience:NEGATIVE": 103,
+      "food:NEGATIVE": 298,
+      "location:NEGATIVE": 38,
+      "service:NEGATIVE": 67,
+      "price:NEUTRAL": 16,
+      "food:NEUTRAL": 77,
+      "location:POSITIVE": 37,
+      "service:NEUTRAL": 3,
+      "ambience:NEUTRAL": 8
+    },
+    "dev": {
+      "food:POSITIVE": 164,
+      "food:NEGATIVE": 48,
+      "price:POSITIVE": 51,
+      "ambience:NEGATIVE": 8,
+      "service:POSITIVE": 28,
+      "ambience:POSITIVE": 35,
+      "service:NEGATIVE": 9,
+      "food:NEUTRAL": 10,
+      "location:POSITIVE": 3,
+      "price:NEGATIVE": 17,
+      "location:NEGATIVE": 5,
+      "ambience:NEUTRAL": 1
+    },
+    "test": {
+      "food:NEGATIVE": 76,
+      "food:POSITIVE": 331,
+      "price:POSITIVE": 109,
+      "ambience:POSITIVE": 58,
+      "ambience:NEGATIVE": 24,
+      "service:POSITIVE": 73,
+      "food:NEUTRAL": 24,
+      "price:NEUTRAL": 5,
+      "service:NEGATIVE": 21,
+      "location:POSITIVE": 12,
+      "price:NEGATIVE": 23,
+      "location:NEGATIVE": 10,
+      "ambience:NEUTRAL": 8
+    }
+  },
+  "label_source": "label (span annotations); labels is preserved only in raw source, NOT merged",
+  "limitations": [
+    "No timestamp or restaurant identity",
+    "Random exact-deduplicated split; not temporal or restaurant-disjoint",
+    "Not equivalent to original ViTASA targeted-span benchmark",
+    "Near duplicates not removed"
+  ]
+}

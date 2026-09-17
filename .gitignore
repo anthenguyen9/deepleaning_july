@@ -1,0 +1,6 @@
+.env
+.venv/
+instance/
+data/
+outputs/*.joblib
+__pycache__/

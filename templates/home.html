@@ -1,0 +1,23 @@
+{% extends 'base.html' %}{% block content %}
+<section class="hero"><p class="eyebrow">KHÁM PHÁ • ĐỐI CHIẾU • LỰA CHỌN</p><h1>Hôm nay, ăn ở đâu?</h1><p>Nhập khu vực bạn muốn đến. Xem nhà hàng, nhận xét gần đây và phân tích theo điều bạn quan tâm.</p></section>
+<div class="layout"><section class="panel"><h2>Tìm nhà hàng theo khu vực</h2>
+<form action="{{ url_for('search') }}" method="post" class="search-form"><input type="hidden" name="csrf" value="{{ session.csrf }}">
+<label>Khu vực<input name="area" required minlength="2" maxlength="160" value="{{ profile.area }}" placeholder="Ví dụ: Hải Châu, Đà Nẵng"></label>
+<div class="row"><label>Số nhà hàng<select name="limit">{% for n in range(1,6) %}<option value="{{ n }}" {% if n==3 %}selected{% endif %}>{{ n }} nhà hàng</option>{% endfor %}</select></label>
+<label>Trang review mỗi nhà hàng<select name="pages"><option value="1">1 trang — nhanh</option><option value="2">2 trang</option><option value="3">3 trang</option></select></label></div>
+<p class="muted">Mặc định tối đa 4 lượt gọi API khi chưa có cache: 1 lượt tìm và 3 lượt lấy review. Tối đa 16 lượt nếu chọn 5 nhà hàng × 3 trang. Cache dùng lại trong 24 giờ.</p>
+<button type="submit">Tìm & phân tích nhà hàng →</button><p class="loading" hidden>Đang lấy dữ liệu và phân tích… Có thể mất vài phút, vui lòng giữ trang mở.</p></form>
+{% if not model_ready %}<div class="notice">Chưa có mô hình ABSA. Web vẫn tổng hợp điểm sao và review; chạy train_model.bat để bật phân tích cảm xúc theo khía cạnh.</div>{% endif %}
+{% if not gemini_ready %}<div class="notice">Chưa cấu hình Gemini. Tìm kiếm và xếp hạng quy tắc vẫn hoạt động; chạy configure_key.py để bật chat cá nhân hóa.</div>{% endif %}
+<h2>Tìm kiếm đã lưu</h2>{% for h in history %}<a class="history" href="{{ url_for('results',sid=h.id) }}"><strong>{{ h.area }}</strong><span>{{ h.created_at[:16].replace('T',' ') }} UTC · {{ 'Chưa đầy đủ' if h.status=='partial' else 'Đã lưu' }}</span></a>{% else %}<p class="muted">Lịch sử sẽ xuất hiện sau lượt tìm đầu tiên.</p>{% endfor %}</section>
+<aside class="panel"><h2>Hồ sơ & sở thích</h2><p class="muted">Lưu cục bộ trong SQLite. Đây là hồ sơ cá nhân, không phải tài khoản đăng nhập.</p>
+<form action="{{ url_for('profile_save') }}" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}">
+<label>Tên hiển thị<input name="name" maxlength="80" required value="{{ profile.name }}"></label>
+<label>Khu vực mặc định<input name="area" maxlength="160" required value="{{ profile.area }}"></label>
+<label>Món / loại hình ưa thích<input name="cuisine" maxlength="80" value="{{ profile.cuisine }}" placeholder="Hải sản, món Việt…"></label>
+<label>Sở thích và hạn chế bạn tự khai báo<textarea name="explicit_notes" maxlength="800" rows="4" placeholder="Ví dụ: thích món cay vừa, ưu tiên quán yên tĩnh, không ăn hải sản">{{ memory.explicit_notes }}</textarea></label>
+<label>Khía cạnh ưu tiên<select name="aspect">{% for code,label in aspect_names.items() %}<option value="{{ code }}" {% if code==profile.aspect %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Điểm Google tối thiểu<input name="min_rating" type="number" min="0" max="5" step="0.1" value="{{ profile.min_rating }}"></label><button class="secondary">Lưu hồ sơ</button></form>
+<h3>Bộ nhớ đã học</h3><p>{{ memory.learned_summary or 'Chưa có. Gemini chỉ học khi bạn chat hoặc đánh dấu quán.' }}</p><p class="muted">{{ feedback_count }} quán đã có phản hồi thích/không thích. Bạn có thể xóa phần học tự động mà vẫn giữ hồ sơ tự khai báo.</p>
+<form action="{{ url_for('memory_clear') }}" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="danger" type="submit">Xóa bộ nhớ học tự động</button></form></aside></div>
+{% endblock %}
