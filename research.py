@@ -37,6 +37,8 @@ def prepare_gold(source,output,seed=42):
     raw=json.loads(Path(source).read_text(encoding='utf-8-sig'))['records']
     rows=[];texts={};ids=set()
     for r in raw:
+        if r.get('annotation_origin') == 'ai' or str(r.get('annotator','')).lower().startswith('ai:'):
+            raise ValueError('AI-assisted labels are not independent human gold labels')
         if r.get('reviewed') is not True or not r.get('annotator'):
             raise ValueError('All records need a human annotator and reviewed=true')
         labels=r.get('labels')
@@ -71,7 +73,10 @@ def agreement(first,second):
     import numpy as np
     def records(path):
         data=json.loads(Path(path).read_text(encoding='utf-8-sig'))['records']
-        return {(x['restaurant_id'],x['review_id']):x for x in data if x.get('reviewed') and x.get('annotator')}
+        return {(x['restaurant_id'],x['review_id']):x for x in data
+                if x.get('reviewed') and x.get('annotator')
+                and x.get('annotation_origin') != 'ai'
+                and not str(x['annotator']).lower().startswith('ai:')}
     a,b=records(first),records(second);shared=sorted(a.keys()&b.keys())
     if not shared: raise ValueError('No independently reviewed shared records')
     kappa={}

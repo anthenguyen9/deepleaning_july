@@ -1,5 +1,11 @@
 # Quy trình gán nhãn và đánh giá FoodLens
 
+`ai_annotation.py` có thể gán nhãn toàn bộ template bằng Gemini, lưu checkpoint
+vào `data/annotation_ai_20260917.json` và đánh dấu `annotation_origin=ai`.
+Đây là nhãn AI hỗ trợ để khám phá dữ liệu, thử nghiệm và ưu tiên kiểm tra thủ
+công; không phải gold label hay bằng chứng đồng thuận giữa người gán nhãn.
+`prepare-gold` từ chối các bản ghi này kể cả khi sửa `reviewed=true`.
+
 Tập SerpApi là review ứng dụng, không có gold label. `research.py
 annotation-template --output data/annotation.json` xuất review duy nhất cùng ID
 nguồn. Mỗi người gán nhãn làm trên một bản sao riêng; không điền nhãn bằng dự
