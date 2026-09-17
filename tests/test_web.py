@@ -6,6 +6,7 @@ from storage import Store
 from restaurant_service import Analyzer, ApiError, SerpClient, iso_date, now, sanitize, search_area
 from webapp import create_app
 from gemini_service import GeminiClient, GeminiError
+from data_pipeline import build_index
 
 def fake_api(params):
     if params['engine']=='google_maps':
@@ -172,11 +173,14 @@ class WebTests(unittest.TestCase):
         with client.session_transaction() as session: token=session['csrf']
         response=client.post('/search',data={'csrf':token,'area':'Đà Nẵng','limit':'1','pages':'1'},follow_redirects=False)
         sid=int(response.headers['Location'].rstrip('/').split('/')[-1])
+        build_index(self.store,'rating-only')
         response=client.post(f'/results/{sid}/chat',data={'csrf':token,'message':'Tôi thích món Việt'},follow_redirects=True)
         self.assertEqual(response.status_code,200)
         chat=self.store.chat(sid)
         self.assertEqual([m['role'] for m in chat['messages']],['user','assistant'])
         self.assertEqual(chat['messages'][1]['model'],'gemini-test')
+        self.assertEqual(chat['messages'][1]['context']['retrieval_method'],'bm25')
+        self.assertGreater(chat['messages'][1]['context']['retrieval_result_count'],0)
         self.assertEqual(self.store.memory()['learned_summary'],'Thích món Việt.')
         response=client.post(f'/results/{sid}/feedback/r1',data={'csrf':token,'signal':'like'},follow_redirects=True)
         self.assertEqual(response.status_code,200);self.assertEqual(self.store.feedback()[0]['signal'],'like')
