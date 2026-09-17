@@ -7,4 +7,5 @@ outputs/data_card.json
 outputs/data_card.md
 outputs/data_quality.csv
 outputs/retrieval_metrics.json
+outputs/recommendation_metrics.json
 __pycache__/
