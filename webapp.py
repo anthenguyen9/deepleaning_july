@@ -142,7 +142,11 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             result=advisor.advise(store.profile(),store.memory(),store.feedback(),chat['messages'],
                                   record['result']['restaurants'],message)
             context={'recommended_restaurant_ids':result['recommended_restaurant_ids'],
-                     'candidate_ids':result['candidate_ids']}
+                     'candidate_ids':result['candidate_ids'],'citations':result.get('citations',[]),
+                     'citation_sources':result.get('citation_sources',[]),
+                     'citation_status':result.get('citation_status','unknown'),
+                     'abstained':result.get('abstained',False),
+                     'abstention_reason':result.get('abstention_reason','')}
             store.add_chat_turn(sid,message,result['reply'],result['model'],context)
             if result['learned_preferences']:
                 store.save_memory(learned_summary=result['learned_preferences'])
