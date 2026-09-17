@@ -115,7 +115,7 @@ class WebTests(unittest.TestCase):
         captured={}
         def transport(body):
             captured.update(body)
-            return {'output_text':json.dumps({'reply':'Quán phù hợp là quán trong danh sách.',
+            return {'output_text':json.dumps({'reply':'Quán phù hợp là quán trong danh sách [R1].',
                 'learned_preferences':'Thích món Việt và nơi yên tĩnh.',
                 'recommended_restaurant_ids':['r1','made-up','r1'],'citations':['R1','R999']})}
         client=GeminiClient(key='fake-gemini-key-1234567890',model='gemini-2.5-flash',transport=transport)
@@ -147,7 +147,8 @@ class WebTests(unittest.TestCase):
             'evidence':[{'id':'v1','text':'Món ngon.','rating':5}],'aspects':{}}}
         result=client.advise(self.store.profile(),self.store.memory(),[],[],[restaurant],'Gợi ý')
         self.assertEqual(result['recommended_restaurant_ids'],[])
-        self.assertEqual(result['citation_status'],'missing')
+        self.assertEqual(result['citation_status'],'abstained')
+        self.assertTrue(result['abstained'])
 
     def test_gemini_missing_key(self):
         with self.assertRaises(GeminiError):
@@ -160,7 +161,7 @@ class WebTests(unittest.TestCase):
         restaurant={'id':'r1','name':'Quán Việt','assessment':{'n':1,
             'evidence':[{'id':'v1','text':'Món ngon.','rating':5}],'aspects':{}}}
         result=client.advise(self.store.profile(),self.store.memory(),[],[],[restaurant],'hello')
-        self.assertEqual(result['reply'],'Có căn cứ.')
+        self.assertTrue(result['abstained'])
 
     def test_chat_feedback_and_memory_routes(self):
         class FakeGemini:

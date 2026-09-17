@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FoodLens · Khám phá nhà hàng</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
-<body><header><a class="brand" href="{{ url_for('home') }}">Food<span>Lens</span></a><span>Ẩm thực qua góc nhìn dữ liệu</span><span class="badge">Hồ sơ: {{ profile.name }}</span></header>
+<body><header><a class="brand" href="{{ url_for('home') }}">Food<span>Lens</span></a><a href="{{ url_for('research_dashboard') }}">Dữ liệu & biến động</a><span class="badge">Hồ sơ: {{ profile.name }}</span></header>
 <main>{% for category,message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}">{{ message }}</div>{% endfor %}
 {% block content %}{% endblock %}</main><footer>Google Maps qua SerpApi · Phân tích tham khảo từ review công khai · Ứng dụng cá nhân chạy tại máy</footer>
 <script src="{{ url_for('static',filename='app.js') }}" defer></script></body></html>

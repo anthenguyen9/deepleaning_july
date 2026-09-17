@@ -1,0 +1,2 @@
+-r requirements_phobert.txt
+sentence-transformers>=3,<6

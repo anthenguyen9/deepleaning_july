@@ -21,10 +21,13 @@ Query chưa có relevance ID bị bỏ qua khi tính metric và được tính t
 
 ```bat
 .venv\Scripts\python.exe data_pipeline.py build-index
-.venv\Scripts\python.exe data_pipeline.py evaluate-retrieval --queries evaluation_queries.json --k 5
+.venv\Scripts\python.exe research.py build-dense
+.venv\Scripts\python.exe research.py evaluate-retrieval --queries evaluation_queries.json --split test --k 5
 ```
 
-Output mặc định: `outputs/retrieval_metrics.json`.
+Output mặc định: `outputs/retrieval_comparison.json`, gồm BM25, dense E5 và
+hybrid RRF trên cùng tập query được chấm độc lập. Nếu dense chưa sẵn sàng,
+lệnh thất bại thay vì ghi kết quả BM25 thay cho dense.
 
 ## Chỉ số
 
@@ -41,4 +44,4 @@ thành score cao hơn chỉ để hiển thị; thứ hạng vẫn theo `bm25()`
 - Không thay relevance judgment sau khi xem kết quả test.
 - Ghi dataset snapshot và model version dùng để build index.
 - Báo cáo số query được judgment, không chỉ báo cáo trung bình metric.
-- So sánh BM25 với dense và hybrid trên cùng query set khi các module đó được bổ sung.
+- So sánh BM25 với dense và hybrid trên cùng query set, dùng cùng snapshot.

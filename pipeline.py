@@ -97,8 +97,13 @@ def targets(rows):
     return np.array([[int(c in r['labels']) for c in CLASSES] for r in rows])
 
 def metrics(y, pred):
-    from sklearn.metrics import classification_report, f1_score, accuracy_score
-    return {'pair_micro_f1':f1_score(y,pred,average='micro',zero_division=0),
+    from sklearn.metrics import classification_report, f1_score, accuracy_score, multilabel_confusion_matrix
+    import numpy as np
+    acd_y=np.asarray(y).reshape(-1,5,3).max(axis=2)
+    acd_pred=np.asarray(pred).reshape(-1,5,3).max(axis=2)
+    return {'acd_macro_f1':f1_score(acd_y,acd_pred,average='macro',zero_division=0),
+        'confusion_matrices':dict(zip(CLASSES,multilabel_confusion_matrix(y,pred).tolist())),
+        'pair_micro_f1':f1_score(y,pred,average='micro',zero_division=0),
         'pair_macro_f1_15_labels':f1_score(y,pred,average='macro',zero_division=0),
         'exact_match':accuracy_score(y,pred),
         'per_label':classification_report(y,pred,target_names=CLASSES,output_dict=True,zero_division=0)}

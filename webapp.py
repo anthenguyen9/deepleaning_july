@@ -10,6 +10,7 @@ from gemini_service import GeminiClient, GeminiError
 from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
+from data_pipeline import build_index, compute_trends, status
 
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
@@ -17,7 +18,9 @@ LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience'
 def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
     app=Flask(__name__)
-    app.config.update(SECRET_KEY=secrets.token_hex(32),DATABASE=str(ROOT/'instance'/'food_reviews.sqlite3'),
+    app.config.update(SECRET_KEY=os.getenv('FLASK_SECRET_KEY') or secrets.token_hex(32),
+        RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),DATABASE=str(ROOT/'instance'/'food_reviews.sqlite3'),
+        AUTO_BUILD_DENSE=os.getenv('AUTO_BUILD_DENSE','0')=='1',
         MODEL_PATH=str(ROOT/'outputs'/'baseline.joblib'),MAX_CONTENT_LENGTH=16384,
         SESSION_COOKIE_HTTPONLY=True,SESSION_COOKIE_SAMESITE='Strict',
         TRUSTED_HOSTS=['localhost','127.0.0.1'],DAILY_LIMIT=int(os.getenv('SERPAPI_DAILY_LIMIT','30')))
@@ -49,6 +52,21 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     @app.get('/')
     def home(): return render_template('home.html',history=store.history())
 
+    @app.get('/research')
+    def research_dashboard():
+        granularity=request.args.get('granularity','month')
+        if granularity not in {'day','month','year'}: abort(400)
+        with store.connect() as db:
+            trends=[dict(r) for r in db.execute('''SELECT t.*,r.name FROM trend_signals t
+                JOIN restaurants r ON r.id=t.restaurant_id ORDER BY t.month DESC,r.name,t.aspect LIMIT 200''')]
+            aggregates=[dict(r) for r in db.execute('''SELECT a.*,r.name FROM period_aggregates a
+                JOIN restaurants r ON r.id=a.restaurant_id WHERE a.granularity=?
+                ORDER BY a.period DESC,r.name,a.aspect LIMIT 200''',(granularity,))]
+            quota=db.execute("SELECT COUNT(*) FROM api_calls WHERE created_at>=date('now')").fetchone()[0]
+        return render_template('research.html',stats=status(store),trends=trends,
+            aggregates=aggregates,granularity=granularity,
+            quota=quota,daily_limit=app.config['DAILY_LIMIT'],method=app.config['RETRIEVAL_METHOD'])
+
     @app.post('/profile')
     def profile_save():
         try:
@@ -79,6 +97,14 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         try:
             client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
             sid=search_area(store,client,analyzer,area,store.profile()['cuisine'],limit,pages)
+            build_index(store,analyzer.version)
+            if app.config['AUTO_BUILD_DENSE'] and not app.config['TESTING'] and app.config['RETRIEVAL_METHOD'] in {'dense','hybrid'}:
+                try:
+                    from dense_service import build_dense
+                    build_dense(store)
+                except (ImportError,OSError,RuntimeError,ValueError):
+                    flash('Chỉ mục ngữ nghĩa chưa sẵn sàng; chatbot sẽ dùng BM25.','error')
+            compute_trends(store,analyzer.version)
             return redirect(url_for('results',sid=sid))
         except ApiError as e:
             flash(str(e),'error');return redirect(url_for('home'))
@@ -122,8 +148,10 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             return redirect(url_for('results',sid=sid,_anchor='chat'))
         chat=store.chat(sid)
         try:
-            candidates=record['result']['restaurants']
-            retrieval=retrieve(store,message,[x['id'] for x in candidates],limit=12,search_id=sid)
+            candidates=[x for x in record['result']['restaurants']
+                if (x.get('rating') or 0)>=store.profile()['min_rating']]
+            retrieval=retrieve(store,message,[x['id'] for x in candidates],limit=12,search_id=sid,
+                method=app.config['RETRIEVAL_METHOD'],fallback=True)
             grounded=[]
             if retrieval['results']:
                 by_restaurant={}
@@ -138,7 +166,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                         clone={**item,'assessment':{**item.get('assessment',{}),'evidence':by_restaurant[item['id']]}}
                         grounded.append(clone)
             else:
-                grounded=candidates
+                grounded=[]
             advisor=gemini_factory() if gemini_factory else GeminiClient()
             result=advisor.advise(store.profile(),store.memory(),store.feedback(),chat['messages'],
                                   grounded,message)
@@ -148,7 +176,10 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                      'citation_status':result.get('citation_status','unknown'),
                      'abstained':result.get('abstained',False),
                      'abstention_reason':result.get('abstention_reason',''),
-                     'retrieval_method':retrieval['method'] if retrieval['results'] else 'snapshot-fallback',
+                     'retrieval_method':retrieval['method'],
+                     'retrieval_fallback':retrieval.get('fallback_reason'),
+                     'generation_duration_ms':result.get('duration_ms'),
+                     'usage':result.get('usage',{}),
                      'retrieval_result_count':len(retrieval['results']),
                      'retrieval_duration_ms':retrieval['duration_ms']}
             store.add_chat_turn(sid,message,result['reply'],result['model'],context)

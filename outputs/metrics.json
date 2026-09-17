@@ -16,6 +16,159 @@
     }
   ],
   "test": {
+    "acd_macro_f1": 0.6491476258180915,
+    "confusion_matrices": {
+      "food:NEGATIVE": [
+        [
+          299,
+          25
+        ],
+        [
+          28,
+          48
+        ]
+      ],
+      "food:NEUTRAL": [
+        [
+          374,
+          2
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "food:POSITIVE": [
+        [
+          34,
+          35
+        ],
+        [
+          15,
+          316
+        ]
+      ],
+      "price:NEGATIVE": [
+        [
+          375,
+          2
+        ],
+        [
+          17,
+          6
+        ]
+      ],
+      "price:NEUTRAL": [
+        [
+          395,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ],
+      "price:POSITIVE": [
+        [
+          261,
+          30
+        ],
+        [
+          39,
+          70
+        ]
+      ],
+      "service:NEGATIVE": [
+        [
+          378,
+          1
+        ],
+        [
+          18,
+          3
+        ]
+      ],
+      "service:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "service:POSITIVE": [
+        [
+          316,
+          11
+        ],
+        [
+          26,
+          47
+        ]
+      ],
+      "ambience:NEGATIVE": [
+        [
+          369,
+          7
+        ],
+        [
+          20,
+          4
+        ]
+      ],
+      "ambience:NEUTRAL": [
+        [
+          392,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "ambience:POSITIVE": [
+        [
+          331,
+          11
+        ],
+        [
+          17,
+          41
+        ]
+      ],
+      "location:NEGATIVE": [
+        [
+          387,
+          3
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "location:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "location:POSITIVE": [
+        [
+          388,
+          0
+        ],
+        [
+          12,
+          0
+        ]
+      ]
+    },
     "pair_micro_f1": 0.7459986082115518,
     "pair_macro_f1_15_labels": 0.3134916747558284,
     "exact_match": 0.4475,
@@ -137,6 +290,159 @@
     }
   },
   "majority_test": {
+    "acd_macro_f1": 0.18609625668449198,
+    "confusion_matrices": {
+      "food:NEGATIVE": [
+        [
+          324,
+          0
+        ],
+        [
+          76,
+          0
+        ]
+      ],
+      "food:NEUTRAL": [
+        [
+          376,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "food:POSITIVE": [
+        [
+          0,
+          69
+        ],
+        [
+          0,
+          331
+        ]
+      ],
+      "price:NEGATIVE": [
+        [
+          377,
+          0
+        ],
+        [
+          23,
+          0
+        ]
+      ],
+      "price:NEUTRAL": [
+        [
+          395,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ],
+      "price:POSITIVE": [
+        [
+          291,
+          0
+        ],
+        [
+          109,
+          0
+        ]
+      ],
+      "service:NEGATIVE": [
+        [
+          379,
+          0
+        ],
+        [
+          21,
+          0
+        ]
+      ],
+      "service:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "service:POSITIVE": [
+        [
+          327,
+          0
+        ],
+        [
+          73,
+          0
+        ]
+      ],
+      "ambience:NEGATIVE": [
+        [
+          376,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "ambience:NEUTRAL": [
+        [
+          392,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "ambience:POSITIVE": [
+        [
+          342,
+          0
+        ],
+        [
+          58,
+          0
+        ]
+      ],
+      "location:NEGATIVE": [
+        [
+          390,
+          0
+        ],
+        [
+          10,
+          0
+        ]
+      ],
+      "location:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "location:POSITIVE": [
+        [
+          388,
+          0
+        ],
+        [
+          12,
+          0
+        ]
+      ]
+    },
     "pair_micro_f1": 0.5638841567291312,
     "pair_macro_f1_15_labels": 0.06037391700866393,
     "exact_match": 0.315,

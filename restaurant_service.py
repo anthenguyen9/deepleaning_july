@@ -24,7 +24,8 @@ def safe_url(value):
 
 def sanitize(value, secret=''):
     if isinstance(value, dict):
-        return {k:sanitize(v,secret) for k,v in value.items() if k.lower() not in {'api_key','key','authorization'}}
+        return {k:sanitize(v,secret) for k,v in value.items() if k.lower() not in
+                {'api_key','key','authorization','user','contributor_id','profile_photo','thumbnail'}}
     if isinstance(value, list): return [sanitize(x,secret) for x in value]
     if isinstance(value, str):
         if secret: value = value.replace(secret, '[REDACTED]')
@@ -133,12 +134,15 @@ def save_reviews(store, restaurant_id, rows, stamp):
             rid = row.get('review_id') or row.get('link')
             if not rid:
                 rid=hashlib.sha256(encode([text,row.get('rating'),row.get('iso_date'),row.get('user',{}).get('contributor_id')]).encode()).hexdigest()
+            old=db.execute('SELECT text FROM reviews WHERE restaurant_id=? AND id=?',(restaurant_id,rid)).fetchone()
+            if old and old['text'] != text:
+                db.execute('DELETE FROM analyses WHERE restaurant_id=? AND review_id=?',(restaurant_id,rid))
             db.execute('''INSERT INTO reviews VALUES(?,?,?,?,?,?,?,?,?)
               ON CONFLICT(restaurant_id,id) DO UPDATE SET text=excluded.text,rating=excluded.rating,
               published_at=excluded.published_at,date_text=excluded.date_text,source_url=excluded.source_url,
               fetched_at=excluded.fetched_at,payload=excluded.payload''',
               (restaurant_id,rid,text,number(row.get('rating')),iso_date(row.get('iso_date')),
-               row.get('date',''),safe_url(row.get('link','')),stamp,encode(row)))
+               row.get('date',''),safe_url(row.get('link','')),stamp,encode(sanitize(row))))
 
 class Analyzer:
     def __init__(self, model_path):

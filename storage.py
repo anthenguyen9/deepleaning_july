@@ -70,6 +70,14 @@ CREATE TABLE IF NOT EXISTS monthly_trends (
  neutral_count INTEGER NOT NULL, negative_count INTEGER NOT NULL,
  average_rating REAL, model_version TEXT NOT NULL, updated_at TEXT NOT NULL,
  PRIMARY KEY(restaurant_id,month,aspect,model_version));
+CREATE TABLE IF NOT EXISTS period_aggregates (
+ restaurant_id TEXT NOT NULL REFERENCES restaurants(id),
+ granularity TEXT NOT NULL CHECK(granularity IN ('day','month','year')),
+ period TEXT NOT NULL, aspect TEXT NOT NULL, review_count INTEGER NOT NULL,
+ positive_count INTEGER NOT NULL, neutral_count INTEGER NOT NULL,
+ negative_count INTEGER NOT NULL, average_rating REAL,
+ model_version TEXT NOT NULL, updated_at TEXT NOT NULL,
+ PRIMARY KEY(restaurant_id,granularity,period,aspect,model_version));
 CREATE TABLE IF NOT EXISTS trend_signals (
  restaurant_id TEXT NOT NULL REFERENCES restaurants(id), month TEXT NOT NULL,
  aspect TEXT NOT NULL, review_count INTEGER NOT NULL, volume_change INTEGER,
