@@ -40,6 +40,8 @@ Không đưa `.env` lên Git hoặc gửi kèm báo cáo. Key chỉ được g�
 - `chat_sessions`, `chat_messages`: context chat cục bộ theo từng lượt tìm kiếm.
 - Mỗi request chỉ gửi tối đa 12 tin nhắn gần nhất, 5 nhà hàng, 3 review rút gọn
   mỗi nhà hàng, hồ sơ và tối đa 20 phản hồi quán.
+- Câu hỏi được truy xuất bằng SQLite FTS5/BM25, lọc trong các nhà hàng của lượt tìm.
+  Tối đa 12 hit được gom theo nhà hàng trước khi tạo context Gemini.
 - Gemini nhận `store=false`; nguồn dữ liệu lâu dài của ứng dụng là SQLite local.
 - Structured output buộc trả `reply`, `learned_preferences` và danh sách ID gợi ý.
   ID ngoài tập ứng viên bị loại ở phía server.
@@ -50,6 +52,7 @@ Không đưa `.env` lên Git hoặc gửi kèm báo cáo. Key chỉ được g�
   ưu tiên, điểm Google, số review và từ khóa khẩu vị. Gemini tạo giải thích và
   thêm tín hiệu ID gợi ý, không tự tạo dữ liệu nhà hàng.
 - Người dùng có nút xóa chat theo lượt tìm và xóa toàn bộ bộ nhớ học tự động.
+- `retrieval_events` ghi method, số kết quả và latency; không ghi API key.
 
 Không tự suy đoán dị ứng, sức khỏe, tôn giáo, thu nhập hoặc thuộc tính nhạy cảm.
 Các hạn chế ăn uống chỉ được ghi nhận khi người dùng chủ động nhập/nói rõ.
