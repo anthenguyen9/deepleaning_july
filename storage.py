@@ -70,6 +70,18 @@ CREATE TABLE IF NOT EXISTS monthly_trends (
  neutral_count INTEGER NOT NULL, negative_count INTEGER NOT NULL,
  average_rating REAL, model_version TEXT NOT NULL, updated_at TEXT NOT NULL,
  PRIMARY KEY(restaurant_id,month,aspect,model_version));
+CREATE TABLE IF NOT EXISTS trend_signals (
+ restaurant_id TEXT NOT NULL REFERENCES restaurants(id), month TEXT NOT NULL,
+ aspect TEXT NOT NULL, review_count INTEGER NOT NULL, volume_change INTEGER,
+ average_rating REAL, rating_change REAL, moving_average_rating REAL,
+ sentiment_index REAL, sentiment_shift REAL, trend_score REAL,
+ signal_level TEXT NOT NULL, sufficient_sample INTEGER NOT NULL,
+ model_version TEXT NOT NULL, updated_at TEXT NOT NULL,
+ PRIMARY KEY(restaurant_id,month,aspect,model_version));
+CREATE TABLE IF NOT EXISTS evaluation_queries (
+ id TEXT PRIMARY KEY, query TEXT NOT NULL, constraints_json TEXT NOT NULL,
+ relevant_restaurants_json TEXT NOT NULL, relevant_reviews_json TEXT NOT NULL,
+ split TEXT NOT NULL CHECK(split IN ('dev','test')), notes TEXT NOT NULL DEFAULT '');
 CREATE TABLE IF NOT EXISTS review_documents (
  document_key TEXT PRIMARY KEY, restaurant_id TEXT NOT NULL, review_id TEXT NOT NULL,
  text TEXT NOT NULL, restaurant_name TEXT NOT NULL, category TEXT NOT NULL,
