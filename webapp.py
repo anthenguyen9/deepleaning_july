@@ -8,6 +8,7 @@ from storage import Store
 from restaurant_service import Analyzer, ApiError, SerpClient, search_area
 from gemini_service import GeminiClient, GeminiError
 from pipeline import ASPECTS
+from retrieval_service import retrieve
 
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
@@ -138,15 +139,35 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             return redirect(url_for('results',sid=sid,_anchor='chat'))
         chat=store.chat(sid)
         try:
+            candidates=record['result']['restaurants']
+            retrieval=retrieve(store,message,[x['id'] for x in candidates],limit=12,search_id=sid)
+            grounded=[]
+            if retrieval['results']:
+                by_restaurant={}
+                for hit in retrieval['results']:
+                    by_restaurant.setdefault(hit['restaurant_id'],[]).append({
+                        'id':hit['metadata']['review_id'],'text':hit['text'],
+                        'rating':hit['metadata'].get('rating'),'published_at':hit['metadata'].get('published_at'),
+                        'date_text':'','source_url':hit['metadata'].get('source_url',''),
+                        'labels':hit['metadata'].get('labels',[]),'retrieval_score':hit['score']})
+                for item in candidates:
+                    if item['id'] in by_restaurant:
+                        clone={**item,'assessment':{**item.get('assessment',{}),'evidence':by_restaurant[item['id']]}}
+                        grounded.append(clone)
+            else:
+                grounded=candidates
             advisor=gemini_factory() if gemini_factory else GeminiClient()
             result=advisor.advise(store.profile(),store.memory(),store.feedback(),chat['messages'],
-                                  record['result']['restaurants'],message)
+                                  grounded,message)
             context={'recommended_restaurant_ids':result['recommended_restaurant_ids'],
                      'candidate_ids':result['candidate_ids'],'citations':result.get('citations',[]),
                      'citation_sources':result.get('citation_sources',[]),
                      'citation_status':result.get('citation_status','unknown'),
                      'abstained':result.get('abstained',False),
-                     'abstention_reason':result.get('abstention_reason','')}
+                     'abstention_reason':result.get('abstention_reason',''),
+                     'retrieval_method':retrieval['method'] if retrieval['results'] else 'snapshot-fallback',
+                     'retrieval_result_count':len(retrieval['results']),
+                     'retrieval_duration_ms':retrieval['duration_ms']}
             store.add_chat_turn(sid,message,result['reply'],result['model'],context)
             if result['learned_preferences']:
                 store.save_memory(learned_summary=result['learned_preferences'])
