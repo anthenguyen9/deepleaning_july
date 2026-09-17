@@ -9,6 +9,7 @@ from restaurant_service import Analyzer, ApiError, SerpClient, search_area
 from gemini_service import GeminiClient, GeminiError
 from pipeline import ASPECTS
 from retrieval_service import retrieve
+from recommendation_service import rank_restaurants
 
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
@@ -89,8 +90,6 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         if not record: abort(404)
         p=store.profile()
         memory=store.memory(); feedback_rows=store.feedback()
-        feedback={x['restaurant_id']:x for x in feedback_rows}
-        liked_text=' '.join((x.get('name','')+' '+x.get('category','')) for x in feedback_rows if x['signal']=='like')
         chat=store.chat(sid)
         recommended=[]
         for message in reversed(chat['messages']):
@@ -98,23 +97,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                 recommended=message['context'].get('recommended_restaurant_ids',[]);break
         all_items=record['result']['restaurants']
         items=[x for x in all_items if (x['rating'] or 0)>=p['min_rating']]
-        def priority(item):
-            c=item['assessment']['aspects'][p['aspect']]
-            total=sum(c.values())
-            # Heuristic on mentions, not a probability or medical/dietary suitability claim.
-            score=c.get('POSITIVE',0)/total if total>=3 else -1
-            item['preference_score']=round(score*100) if score>=0 else None
-            personal=0
-            signal=feedback.get(item['id'],{}).get('signal')
-            if signal=='like': personal+=2
-            if signal=='dislike': personal-=2
-            if item['id'] in recommended: personal+=1
-            words=set((p['cuisine']+' '+memory['explicit_notes']+' '+memory['learned_summary']+' '+liked_text).lower().split())
-            haystack=(item.get('name','')+' '+item.get('category','')).lower()
-            personal+=min(sum(1 for word in words if len(word)>=4 and word in haystack),3)*.15
-            item['feedback_signal']=signal;item['personal_rank']=round(personal,2)
-            return personal,score,item['rating'] or 0,item['total_reviews'] or 0
-        items.sort(key=priority,reverse=True)
+        items=rank_restaurants(items,p,memory,feedback_rows,recommended,config='E')
         return render_template('results.html',record=record,items=items,hidden_count=len(all_items)-len(items),chat=chat)
 
     @app.post('/results/<int:sid>/feedback/<path:restaurant_id>')
