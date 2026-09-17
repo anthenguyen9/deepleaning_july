@@ -1,4 +1,4 @@
-# FoodLens v0.3 — Web + SQLite + SerpApi + Gemini
+# FoodLens v0.2 — Web + SQLite + SerpApi
 
 Ứng dụng web chạy trên Windows tại http://127.0.0.1:5000.
 Flask/Jinja/CSS + Waitress; SQLite tích hợp Python, không cần cài database server.
@@ -8,21 +8,16 @@ Flask/Jinja/CSS + Waitress; SQLite tích hợp Python, không cần cài databas
 
 1. Cài Python 3.11 x64. Kiểm tra `py -3.11 --version` trong CMD.
 2. Giải nén ZIP, mở thư mục `food_review_windows`, chạy `setup_web.bat`.
-3. Dán SerpApi key và Gemini API key khi được hỏi. Ký tự không hiện trên màn hình
-   là bình thường. Các key được lưu trong `.env` trên máy bạn; không gửi file này
-   cho người khác.
+3. Dán SerpApi key khi được hỏi. Ký tự không hiện trên màn hình là bình thường.
+   Key được lưu trong `.env` trên máy bạn; không gửi file này cho người khác.
 4. Chạy `train_model.bat` để tải ViTASA và huấn luyện SVM. Cần Internet lần đầu.
    Có thể bỏ qua bước này để thử tìm nhà hàng và tổng hợp điểm sao trước;
    khi chưa có model, web thông báo rõ chưa có phân tích ABSA.
-5. Chạy lại `configure_key.py` khi cần đổi một trong hai key. Xem README_GEMINI.md.
-6. Chạy `run_web.bat`, mở http://127.0.0.1:5000.
-7. Lưu hồ sơ, nhập khu vực, bấm **Tìm & phân tích nhà hàng**.
-
-Để thu thập dữ liệu nghiên cứu tăng dần ngoài luồng web, xem `README_PIPELINE.md`.
+5. Chạy `run_web.bat`, mở http://127.0.0.1:5000.
+6. Lưu hồ sơ, nhập khu vực, bấm **Tìm & phân tích nhà hàng**.
 
 Nếu vừa train lại model hoặc đổi key, dừng cửa sổ web bằng Ctrl+C rồi chạy lại.
-Chi phí/hạn mức Gemini và SerpApi phụ thuộc gói tài khoản của bạn; ứng dụng không tự
-kiểm tra số dư trên dashboard của hai dịch vụ.
+Không cần trả phí LLM để chạy các chức năng hiện tại. SerpApi có hạn mức theo tài khoản.
 
 ### Khi `python`/`py` đang trỏ nhầm Python đã gỡ
 
@@ -38,6 +33,10 @@ Dùng đường dẫn Python 3.11 thực tế trên máy để tạo môi trư�
 .venv\Scripts\python.exe pipeline.py train
 .venv\Scripts\python.exe webapp.py
 ```
+
+## Recommendation cá nhân hóa
+
+Trang kết quả dùng cấu hình E của bộ xếp hạng A–E: độ phổ biến, sentiment theo khía cạnh, độ khớp hồ sơ, lịch sử thích/không hợp, độ phủ bằng chứng và gợi ý chat gần nhất. Mỗi kết quả hiển thị điểm cùng lý do xếp hạng. Xem `README_RECOMMENDATION.md` để chạy ablation Recall@K/MRR/nDCG.
 
 Nếu đường dẫn ví dụ không tồn tại, dùng vị trí Python 3.11 thực tế; không chọn Python313
 đã bị gỡ. Khi đã tạo `.venv` thành công, các BAT sử dụng Python trong đó.
@@ -55,8 +54,7 @@ Nếu đường dẫn ví dụ không tồn tại, dùng vị trí Python 3.11 t
 - Lưu dữ liệu API đã loại key, nhà hàng, review và kết quả SVM; cập nhật review trùng
   theo `(restaurant_id, review_id)`. Không ghép Google review với ViTASA bằng tên.
 - Nhận xét tự động dựa trên điểm mẫu và số nhãn theo khía cạnh; có review/link nguồn.
-- Gemini chat dùng context SQLite, hồ sơ, feedback và tập nhà hàng đã truy xuất.
-  Đây là grounded recommendation chat, chưa phải vector/hybrid RAG hoàn chỉnh.
+  Không dùng LLM, không tuyên bố đây là chatbot RAG hoàn chỉnh.
 - Xếp hạng theo tỷ lệ nhãn tích cực ở khía cạnh ưu tiên khi có >=3 nhãn;
   tie-break bằng Google rating và số lượt đánh giá. Không phải điểm xác suất đã hiệu chỉnh.
 - Lịch sử mở lại không gọi API. Kết quả phân tích là snapshot; bộ lọc/sắp xếp theo
@@ -92,16 +90,6 @@ File tự tạo: `instance/food_reviews.sqlite3`.
 | searches | Truy vấn và snapshot kết quả/lỗi một phần |
 | api_cache | JSON nguồn đã loại key và thời điểm lấy |
 | api_calls | Engine, thời điểm, trạng thái request; không lưu key |
-| preference_memory | Sở thích tự khai báo và tóm tắt khẩu vị Gemini đã học |
-| restaurant_feedback | Phản hồi thích/không thích theo nhà hàng |
-| chat_sessions | Phiên tư vấn gắn với từng lượt tìm kiếm |
-| chat_messages | Context hội thoại user/assistant và ID gợi ý đã kiểm tra |
-| ingestion_seeds | Danh sách khu vực/loại món dùng để thu thập theo đợt |
-| restaurant_crawl_state | Checkpoint phân trang review của từng nhà hàng |
-| pipeline_jobs | Lịch sử, tham số, trạng thái và thống kê từng job |
-| dataset_versions | Snapshot số lượng và khoảng thời gian dữ liệu |
-| monthly_trends | Baseline ABSA/rating theo tháng; chưa phải BERTrend |
-| review_documents, review_fts | Kho tài liệu và chỉ mục BM25 SQLite FTS5 |
 
 Dùng SQL tham số hóa, foreign keys, WAL, transaction và khóa quota.
 Muốn sao lưu: dừng web trước, sao chép cả thư mục `instance`.
@@ -130,10 +118,9 @@ Google rating là điểm toàn bộ do nguồn trả; điểm mẫu là trung b
 nhãn ABSA là dự đoán mô hình. Ba loại này hiển thị riêng. Mẫu mới nhất và số lượng
 nhỏ không đủ để kết luận chất lượng chung, mức độ an toàn hoặc phù hợp dị ứng.
 
-Chưa triển khai PhoBERT multi-task, vector/hybrid retrieval, RAGAS hoặc nghiên cứu
-người dùng. Gemini đã được tích hợp cho hội thoại và học sở thích, nhưng chỉ được
-ground trên ứng viên của lượt tìm hiện tại. Script PhoBERT tùy chọn từ v0.1 vẫn được
-giữ nhưng chưa tích hợp suy luận vào web. Chi tiết: README_GEMINI.md.
+Chưa triển khai PhoBERT multi-task, vector/hybrid RAG, chatbot LLM, RAGAS hoặc
+nghiên cứu người dùng. Script PhoBERT tùy chọn từ v0.1 vẫn được giữ nhưng chưa tích
+hợp suy luận vào web. Chi tiết train/nhãn ViTASA: README.md và VERIFICATION.md.
 
 Tài liệu API đã đối chiếu:
 - https://serpapi.com/google-maps-api
@@ -145,8 +132,6 @@ Tài liệu API đã đối chiếu:
 .venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-26 test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
-cache/dedup, quota, lỗi API, ngày nguồn, phân trang, Gemini structured output,
-lọc ID bịa, chat memory, feedback, checkpoint incremental, ABSA pending, trend baseline,
-BM25 retrieval tích hợp, IR metrics, seed scheduler, data card, citation/abstention và render trang kết quả. Xem
-VERIFICATION_WEB.md và VERIFICATION_GEMINI.md để biết phần nào đã chạy thực tế.
+Test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
+cache/dedup, quota, lỗi API, ngày nguồn, phân trang và render trang kết quả.
+Xem VERIFICATION_WEB.md để biết phần nào đã chạy thực tế.
