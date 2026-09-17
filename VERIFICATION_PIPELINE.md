@@ -14,11 +14,13 @@ Ngày kiểm tra: 2026-09-17 UTC.
 - Chạy nhiều ingestion seed theo thứ tự seed cũ nhất và dừng khi API báo lỗi/hết hạn mức.
 - Xuất data card JSON/Markdown và data-quality CSV cục bộ.
 - Tạo và truy vấn chỉ mục SQLite FTS5/BM25.
+- Chat truy xuất BM25 trong candidate restaurant set và lưu method/result count/latency.
+- Evaluator tính Recall@k, MRR và nDCG@k riêng ở cấp review và nhà hàng.
 - Tạo dataset snapshot với số nhà hàng, review và khoảng ngày.
 - Báo cáo coverage, pending ABSA, crawl state và lịch sử job.
 - Gemini citation ngoài context bị loại; đề xuất không citation không được áp dụng.
 - Policy từ chối trước khi gọi Gemini nếu không có review có nội dung.
-- Toàn bộ test của project: 24/24 thành công.
+- Toàn bộ test của project: 26/26 thành công.
 
 ## Chưa kiểm tra trực tiếp
 
