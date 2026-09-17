@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 from restaurant_service import Analyzer, ApiError, SerpClient, encode, now, save_restaurant, save_reviews
 from storage import Store
+from retrieval_service import evaluate as evaluate_retrieval
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_DB = ROOT / 'instance' / 'food_reviews.sqlite3'
@@ -360,6 +361,7 @@ def main(argv=None):
     p = sub.add_parser('search-index'); p.add_argument('query'); p.add_argument('--limit', type=int, default=5)
     p = sub.add_parser('snapshot'); p.add_argument('--notes', default='')
     p = sub.add_parser('data-report'); p.add_argument('--output-dir',default=str(ROOT/'outputs'))
+    p = sub.add_parser('evaluate-retrieval'); p.add_argument('--queries',required=True); p.add_argument('--k',type=int,default=5); p.add_argument('--output',default=str(ROOT/'outputs'/'retrieval_metrics.json'))
     sub.add_parser('status')
     args = parser.parse_args(argv); store = Store(args.db)
     if args.command == 'status': result = status(store)
@@ -367,6 +369,7 @@ def main(argv=None):
     elif args.command == 'search-index': result = search_index(store,args.query,args.limit)
     elif args.command == 'snapshot': result = snapshot(store,args.notes)
     elif args.command == 'data-report': result = data_report(store,args.output_dir)
+    elif args.command == 'evaluate-retrieval': result = evaluate_retrieval(store,args.queries,args.k,args.output)
     else:
         params = vars(args).copy(); params.pop('db'); params.pop('model'); job_id = start_job(store,args.command,params)
         try:
