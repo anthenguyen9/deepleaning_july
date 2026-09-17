@@ -2,7 +2,7 @@ import os
 import secrets
 import threading
 from pathlib import Path
-from flask import Flask, abort, flash, redirect, render_template, request, session, url_for
+from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
 from dotenv import load_dotenv
 from storage import Store
 from restaurant_service import Analyzer, ApiError, SerpClient, search_area
@@ -11,6 +11,7 @@ from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
 from data_pipeline import build_index, compute_trends, status
+import auth
 
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
@@ -19,6 +20,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
     app=Flask(__name__)
     app.config.update(SECRET_KEY=os.getenv('FLASK_SECRET_KEY') or secrets.token_hex(32),
+        ADMIN_USERNAME=os.getenv('ADMIN_USERNAME','admin'),ADMIN_PASSWORD=os.getenv('ADMIN_PASSWORD','admin'),
         RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),DATABASE=str(ROOT/'instance'/'food_reviews.sqlite3'),
         AUTO_BUILD_DENSE=os.getenv('AUTO_BUILD_DENSE','0')=='1',
         MODEL_PATH=str(ROOT/'outputs'/'baseline.joblib'),MAX_CONTENT_LENGTH=16384,
@@ -29,12 +31,19 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     analyzer=Analyzer(app.config['MODEL_PATH'])
     lock=threading.Lock()
     app.extensions['store']=store
+    auth.init_auth(app,store)
+    from admin_annotations import register_admin
+    register_admin(app,store)
 
     @app.before_request
     def csrf():
         if 'csrf' not in session: session['csrf']=secrets.token_hex(32)
         if request.method=='POST' and not secrets.compare_digest(session['csrf'], request.form.get('csrf','')):
             abort(400, description='Phiên làm việc hết hạn. Tải lại trang và thử lại.')
+        auth.load_user(store)
+        if request.endpoint is None: return None
+        if request.endpoint not in {'auth.login','auth.register','static'} and g.user is None:
+            return redirect(url_for('auth.login'))
 
     @app.after_request
     def headers(response):
@@ -45,12 +54,13 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         return response
 
     @app.context_processor
-    def context(): return {'profile':store.profile(),'memory':store.memory(),'aspect_names':LABELS,
+    def context(): return {'profile':auth.user_profile() if g.user else {'name':'Khách'},
+        'memory':auth.user_memory() if g.user else {},'current_user':g.user,'aspect_names':LABELS,
         'model_ready':analyzer.bundle is not None,'gemini_ready':bool(os.getenv('GEMINI_API_KEY','').strip()),
-        'feedback_count':len(store.feedback())}
+        'feedback_count':len(auth.feedback(store)) if g.user else 0}
 
     @app.get('/')
-    def home(): return render_template('home.html',history=store.history())
+    def home(): return render_template('home.html',history=auth.history(store))
 
     @app.get('/research')
     def research_dashboard():
@@ -67,21 +77,6 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             aggregates=aggregates,granularity=granularity,
             quota=quota,daily_limit=app.config['DAILY_LIMIT'],method=app.config['RETRIEVAL_METHOD'])
 
-    @app.post('/profile')
-    def profile_save():
-        try:
-            name=request.form.get('name','').strip(); area=request.form.get('area','').strip()
-            cuisine=request.form.get('cuisine','').strip(); aspect=request.form.get('aspect','food')
-            notes=request.form.get('explicit_notes','').strip()
-            rating=float(request.form.get('min_rating','0'))
-            if not name or len(name)>80 or not area or len(area)>160 or len(cuisine)>80 or len(notes)>800 or aspect not in ASPECTS or not 0<=rating<=5:
-                raise ValueError()
-            store.save_profile(name,area,cuisine,rating,aspect)
-            store.save_memory(explicit_notes=notes)
-            flash('Đã lưu hồ sơ. Sở thích được áp dụng khi tìm và sắp xếp kết quả.','success')
-        except ValueError: flash('Hồ sơ không hợp lệ. Kiểm tra các trường đã nhập.','error')
-        return redirect(url_for('home'))
-
     @app.post('/search')
     def search():
         area=' '.join(request.form.get('area','').split())
@@ -96,7 +91,8 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             return redirect(url_for('home'))
         try:
             client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
-            sid=search_area(store,client,analyzer,area,store.profile()['cuisine'],limit,pages)
+            sid=search_area(store,client,analyzer,area,g.user['cuisine'],limit,pages)
+            auth.own_search(store,sid)
             build_index(store,analyzer.version)
             if app.config['AUTO_BUILD_DENSE'] and not app.config['TESTING'] and app.config['RETRIEVAL_METHOD'] in {'dense','hybrid'}:
                 try:
@@ -112,10 +108,10 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.get('/results/<int:sid>')
     def results(sid):
-        record=store.get_search(sid)
+        record=auth.get_search(store,sid)
         if not record: abort(404)
-        p=store.profile()
-        memory=store.memory(); feedback_rows=store.feedback()
+        p=auth.user_profile()
+        memory=auth.user_memory(); feedback_rows=auth.feedback(store)
         chat=store.chat(sid)
         recommended=[]
         for message in reversed(chat['messages']):
@@ -128,19 +124,19 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.post('/results/<int:sid>/feedback/<path:restaurant_id>')
     def restaurant_feedback(sid,restaurant_id):
-        record=store.get_search(sid)
+        record=auth.get_search(store,sid)
         if not record: abort(404)
         valid={x['id'] for x in record['result']['restaurants']}
         signal=request.form.get('signal','')
         note=request.form.get('note','').strip()
         if restaurant_id not in valid or signal not in {'like','dislike','clear'} or len(note)>300: abort(400)
-        store.save_feedback(restaurant_id,signal,note)
+        auth.save_feedback(store,restaurant_id,signal,note)
         flash('Đã cập nhật phản hồi để cá nhân hóa các lần gợi ý sau.','success')
         return redirect(url_for('results',sid=sid))
 
     @app.post('/results/<int:sid>/chat')
     def chat_send(sid):
-        record=store.get_search(sid)
+        record=auth.get_search(store,sid)
         if not record: abort(404)
         message=request.form.get('message','').strip()
         if not message or len(message)>1200:
@@ -149,7 +145,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         chat=store.chat(sid)
         try:
             candidates=[x for x in record['result']['restaurants']
-                if (x.get('rating') or 0)>=store.profile()['min_rating']]
+                if (x.get('rating') or 0)>=g.user['min_rating']]
             retrieval=retrieve(store,message,[x['id'] for x in candidates],limit=12,search_id=sid,
                 method=app.config['RETRIEVAL_METHOD'],fallback=True)
             grounded=[]
@@ -168,7 +164,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             else:
                 grounded=[]
             advisor=gemini_factory() if gemini_factory else GeminiClient()
-            result=advisor.advise(store.profile(),store.memory(),store.feedback(),chat['messages'],
+            result=advisor.advise(auth.user_profile(),auth.user_memory(),auth.feedback(store),chat['messages'],
                                   grounded,message)
             context={'recommended_restaurant_ids':result['recommended_restaurant_ids'],
                      'candidate_ids':result['candidate_ids'],'citations':result.get('citations',[]),
@@ -184,19 +180,24 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                      'retrieval_duration_ms':retrieval['duration_ms']}
             store.add_chat_turn(sid,message,result['reply'],result['model'],context)
             if result['learned_preferences']:
-                store.save_memory(learned_summary=result['learned_preferences'])
+                with store.connect() as db:
+                    db.execute('UPDATE accounts SET learned_summary=? WHERE id=?',
+                               (result['learned_preferences'],g.user['id']))
         except GeminiError as e: flash(str(e),'error')
         return redirect(url_for('results',sid=sid,_anchor='chat'))
 
     @app.post('/results/<int:sid>/chat/clear')
     def chat_clear(sid):
-        if not store.get_search(sid): abort(404)
+        if not auth.get_search(store,sid): abort(404)
         store.clear_chat(sid);flash('Đã xóa lịch sử chat của lượt tìm này.','success')
         return redirect(url_for('results',sid=sid,_anchor='chat'))
 
     @app.post('/memory/clear')
     def memory_clear():
-        store.clear_learned_memory();flash('Đã xóa sở thích học tự động và phản hồi quán.','success')
+        with store.connect() as db:
+            db.execute("UPDATE accounts SET learned_summary='' WHERE id=?",(g.user['id'],))
+            db.execute('DELETE FROM user_feedback WHERE user_id=?',(g.user['id'],))
+        flash('Đã xóa sở thích học tự động và phản hồi quán.','success')
         return redirect(url_for('home'))
 
     @app.errorhandler(500)
