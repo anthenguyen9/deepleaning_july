@@ -147,6 +147,37 @@ class WebTests(unittest.TestCase):
         self.assertEqual(result['recommended_restaurant_ids'],[])
         self.assertEqual(called,[])
 
+    def test_gemini_uses_inline_citations_when_json_list_is_incomplete(self):
+        payload={'reply':'Quán này có bình luận về món ăn [R1].','learned_preferences':'',
+                 'recommended_restaurant_ids':['r1'],'citations':[]}
+        calls=[]
+        client=GeminiClient(key='fake',transport=lambda body:(calls.append(body),payload)[1])
+        restaurant={'id':'r1','name':'Quán Việt','assessment':{'evidence':[
+            {'id':'v1','text':'Món ăn ngon.','source_url':'https://example.test/review'}]}}
+        result=client.advise({}, {}, [], [], [restaurant],'Gợi ý')
+        self.assertEqual(result['citations'],['R1'])
+        self.assertEqual(result['citation_attempts'],1)
+        self.assertEqual(len(calls),1)
+
+    def test_gemini_retries_stale_citation_then_uses_local_evidence(self):
+        calls=[]
+        payload={'reply':'Quán này ngon [R9].','learned_preferences':'',
+                 'recommended_restaurant_ids':['r1'],'citations':['R9']}
+        def transport(body):
+            calls.append(body)
+            return payload
+        client=GeminiClient(key='fake',transport=transport)
+        restaurant={'id':'r1','name':'Quán Việt','address':'Đà Nẵng','assessment':{'evidence':[
+            {'id':'v1','text':'Món ăn ngon.','source_url':'https://example.test/review'}]}}
+        result=client.advise({}, {}, [], [{'role':'assistant','content':'Quán cũ [R9].'}],
+                             [restaurant],'Gợi ý')
+        self.assertEqual(len(calls),2)
+        self.assertNotIn('[R9]',calls[0]['input'])
+        self.assertEqual(result['citation_status'],'fallback')
+        self.assertEqual(result['citations'],['R1'])
+        self.assertIn('Món ăn ngon',result['reply'])
+        self.assertNotIn('Quán này ngon',result['reply'])
+
     def test_gemini_rejects_uncited_recommendation(self):
         payload={'reply':'Chọn quán này.','learned_preferences':'','recommended_restaurant_ids':['r1'],'citations':[]}
         client=GeminiClient(key='fake-gemini-key-1234567890',transport=lambda body:payload)

@@ -160,6 +160,9 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                         context.update(candidate_ids=result['candidate_ids'],
                                        recommended_restaurant_ids=result['recommended_restaurant_ids'],
                                        citations=result.get('citation_sources',[]),
+                                       citation_status=result.get('citation_status'),
+                                       abstention_reason=result.get('abstention_reason'),
+                                       citation_attempts=result.get('citation_attempts',1),
                                        retrieval_method=retrieval['method'])
         except GeminiError as exc:
             reply=str(exc)

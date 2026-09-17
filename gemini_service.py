@@ -6,6 +6,8 @@ import time
 import urllib.error
 import urllib.request
 
+from chat_ui import review_url
+
 ENDPOINT='https://generativelanguage.googleapis.com/v1beta/interactions'
 
 class GeminiError(Exception): pass
@@ -55,6 +57,27 @@ def restaurant_context(items):
             'sample_rating':assessment.get('sample_rating'),'aspect_counts':assessment.get('aspects',{}),
             'sample_reviews':evidence})
     return result
+
+
+def evidence_fallback(candidates):
+    """Show only locally verified review excerpts when model citations fail twice."""
+    lines=['Mình tìm thấy các bình luận sau để bạn tự tham khảo:']
+    sources=[]
+    for candidate in candidates:
+        review=next((r for r in candidate['sample_reviews'] if review_url(r.get('source_url'))),None)
+        if not review: continue
+        number=len(sources)+1
+        name=candidate['name']
+        address=candidate.get('address') or ''
+        excerpt=clipped(review['text'],180)
+        lines.append(f'{number}. **{name}**' + (f' ({address})' if address else '') +
+                     f' — bình luận gốc: “{excerpt}” [{review["citation_id"]}].')
+        sources.append({'citation_id':review['citation_id'],'restaurant_id':candidate['id'],
+                        'restaurant_name':name,'review_id':review.get('review_id'),
+                        'date':review.get('date'),'text':review['text'],
+                        'source_url':review['source_url']})
+        if len(sources)==3: break
+    return '\n\n'.join(lines) if sources else '',sources
 
 class GeminiClient:
     def __init__(self,key=None,model=None,transport=None):
@@ -129,7 +152,8 @@ class GeminiClient:
                 'learned_preferences':'','recommended_restaurant_ids':[],'citations':[],
                 'citation_sources':[],'citation_status':'abstained','abstained':True,
                 'abstention_reason':'no_text_evidence','model':'policy','candidate_ids':sorted(allowed)}
-        recent=[{'role':m['role'],'content':clipped(m['content'],1000)} for m in history[-12:]]
+        recent=[{'role':m['role'],'content':re.sub(r'\[R\d+\]','',clipped(m['content'],1000))}
+                for m in history[-12:]]
         context={
             'PROFILE':{'area':profile.get('area'),'cuisine':profile.get('cuisine'),
                 'min_rating':profile.get('min_rating'),'priority_aspect':profile.get('aspect')},
@@ -142,38 +166,44 @@ class GeminiClient:
         body={'model':self.model,'store':False,'system_instruction':SYSTEM,'input':json.dumps(context,ensure_ascii=False),
               'response_format':{'type':'text','mime_type':'application/json','schema':SCHEMA}}
         started=time.perf_counter()
-        payload=self.transport(body)
-        if not isinstance(payload,dict) or payload.get('error'): raise GeminiError('Gemini báo lỗi xử lý yêu cầu.')
-        try: result=json.loads(self._output(payload))
-        except (ValueError,TypeError): raise GeminiError('Gemini không trả về JSON hợp lệ.') from None
-        if not isinstance(result,dict) or not isinstance(result.get('reply'),str) or not isinstance(result.get('learned_preferences',''),str):
-            raise GeminiError('Gemini trả về cấu trúc không hợp lệ.')
-        for field in ('recommended_restaurant_ids','citations'):
-            if not isinstance(result.get(field,[]),list) or any(not isinstance(x,str) for x in result.get(field,[])):
+        last_reason='missing_citations'
+        for attempt in range(2):
+            payload=self.transport(body)
+            if not isinstance(payload,dict) or payload.get('error'): raise GeminiError('Gemini báo lỗi xử lý yêu cầu.')
+            try: result=json.loads(self._output(payload))
+            except (ValueError,TypeError): raise GeminiError('Gemini không trả về JSON hợp lệ.') from None
+            if not isinstance(result,dict) or not isinstance(result.get('reply'),str) or not isinstance(result.get('learned_preferences',''),str):
                 raise GeminiError('Gemini trả về cấu trúc không hợp lệ.')
-        reply=clipped(result.get('reply'),5000)
-        learned=clipped(result.get('learned_preferences'),1000)
-        recommended=[]
-        for rid in result.get('recommended_restaurant_ids',[]):
-            if rid in allowed and rid not in recommended: recommended.append(rid)
-        citations=[]
-        for citation in result.get('citations',[]):
-            citation=str(citation).strip().strip('[]')
-            if citation in citation_map and citation not in citations: citations.append(citation)
-        inline=set(re.findall(r'\[(R\d+)\]',reply))
-        covered={citation_map[c]['restaurant_id'] for c in inline if c in citation_map}
-        invalid=bool(inline-set(citations)) or bool(set(recommended)-covered)
-        if invalid or not citations or not inline:
-            return {'reply':'Chưa đủ bằng chứng trích dẫn hợp lệ để trả lời câu hỏi này.',
-                'learned_preferences':'','recommended_restaurant_ids':[],'citations':[],
-                'citation_sources':[],'citation_status':'abstained','abstained':True,
-                'abstention_reason':'invalid_citations' if invalid else 'missing_citations',
-                'model':self.model,'candidate_ids':sorted(allowed),
-                'duration_ms':round((time.perf_counter()-started)*1000,3)}
-        citation_status='valid'
-        if not reply: raise GeminiError('Gemini trả về câu trả lời rỗng.')
-        return {'reply':reply,'learned_preferences':learned,'recommended_restaurant_ids':recommended,
-                'citations':citations,'citation_sources':[citation_map[x] for x in citations],
-                'citation_status':citation_status,'abstained':False,'abstention_reason':'',
-                'duration_ms':round((time.perf_counter()-started)*1000,3),
-                'usage':payload.get('usage',{}),'model':self.model,'candidate_ids':sorted(allowed)}
+            for field in ('recommended_restaurant_ids','citations'):
+                if not isinstance(result.get(field,[]),list) or any(not isinstance(x,str) for x in result.get(field,[])):
+                    raise GeminiError('Gemini trả về cấu trúc không hợp lệ.')
+            reply=re.sub(r'[ \t]+',' ',result['reply'].replace('\r\n','\n').replace('\r','\n')).strip()[:5000]
+            learned=clipped(result.get('learned_preferences'),1000)
+            recommended=[]
+            for rid in result.get('recommended_restaurant_ids',[]):
+                if rid in allowed and rid not in recommended: recommended.append(rid)
+            inline=list(dict.fromkeys(re.findall(r'\[(R\d+)\]',reply)))
+            covered={citation_map[c]['restaurant_id'] for c in inline if c in citation_map}
+            if inline and all(c in citation_map for c in inline) and set(recommended)<=covered:
+                return {'reply':reply,'learned_preferences':learned,'recommended_restaurant_ids':recommended,
+                    'citations':inline,'citation_sources':[citation_map[x] for x in inline],
+                    'citation_status':'valid','abstained':False,'abstention_reason':'',
+                    'duration_ms':round((time.perf_counter()-started)*1000,3),
+                    'usage':payload.get('usage',{}),'model':self.model,'candidate_ids':sorted(allowed),
+                    'citation_attempts':attempt+1}
+            last_reason='missing_citations' if not inline else 'invalid_citations'
+            body={**body,'system_instruction':SYSTEM+'\nLần trả lời trước thiếu trích dẫn hợp lệ. '
+                'Chỉ dùng mã [R1]... hiện có trong CANDIDATES của yêu cầu này. '
+                'Mỗi quán được đề xuất phải có ít nhất một mã nguồn của chính quán đó ngay trong reply.'}
+        reply,sources=evidence_fallback(candidates)
+        if sources:
+            return {'reply':reply,'learned_preferences':'','recommended_restaurant_ids':[],
+                'citations':[x['citation_id'] for x in sources],'citation_sources':sources,
+                'citation_status':'fallback','abstained':False,'abstention_reason':last_reason,
+                'model':'local-evidence','candidate_ids':sorted(allowed),
+                'citation_attempts':2,'duration_ms':round((time.perf_counter()-started)*1000,3)}
+        return {'reply':'Chưa đủ bằng chứng trích dẫn hợp lệ để trả lời câu hỏi này.',
+            'learned_preferences':'','recommended_restaurant_ids':[],'citations':[],
+            'citation_sources':[],'citation_status':'abstained','abstained':True,
+            'abstention_reason':last_reason,'model':self.model,'candidate_ids':sorted(allowed),
+            'citation_attempts':2,'duration_ms':round((time.perf_counter()-started)*1000,3)}
