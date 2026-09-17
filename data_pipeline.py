@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import csv
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -78,6 +79,24 @@ def ingest_restaurants(store, client, area, cuisine='', limit=20):
                    (' '.join(area.split()), ' '.join(cuisine.split()), now()))
     return {'inserted': inserted, 'updated': updated, 'skipped': skipped,
             'api_calls': client.calls, 'cache_hits': client.hits}
+
+
+def ingest_seeds(store, client, max_seeds=5, per_seed_limit=20):
+    if not 1 <= max_seeds <= 100:
+        raise ValueError('max-seeds phải từ 1 đến 100.')
+    with store.connect() as db:
+        seeds = [dict(r) for r in db.execute('''SELECT area,cuisine FROM ingestion_seeds
+            WHERE enabled=1 ORDER BY COALESCE(last_run_at,''),id LIMIT ?''', (max_seeds,))]
+    results=[]
+    for seed in seeds:
+        try:
+            result=ingest_restaurants(store,client,seed['area'],seed['cuisine'],per_seed_limit)
+            results.append({**seed,**result,'status':'success'})
+        except ApiError as exc:
+            results.append({**seed,'status':'stopped','error':str(exc)})
+            break
+    return {'seeds_attempted':len(results),'results':results,'api_calls':client.calls,
+            'cache_hits':client.hits,'stopped_early':bool(results and results[-1]['status']=='stopped')}
 
 
 def _crawl_candidates(store, maximum, refresh):
@@ -191,8 +210,74 @@ def compute_trends(store, model_version=None):
             db.execute('''INSERT INTO monthly_trends VALUES(?,?,?,?,?,?,?,?,?,?)''',
                 (rid, month, aspect, len(value['reviews']), p['POSITIVE'], p['NEUTRAL'], p['NEGATIVE'],
                  round(sum(ratings)/len(ratings), 3) if ratings else None, model_version, now()))
-    return {'monthly_rows': len(grouped), 'dated_reviews': len({(r['restaurant_id'],r['id']) for r in rows}),
+        trend_rows=db.execute('''SELECT * FROM monthly_trends WHERE model_version=?
+            ORDER BY restaurant_id,aspect,month''',(model_version,)).fetchall()
+        db.execute('DELETE FROM trend_signals WHERE model_version=?',(model_version,))
+        series=defaultdict(list)
+        for row in trend_rows: series[(row['restaurant_id'],row['aspect'])].append(dict(row))
+        signal_count=0
+        for (rid,aspect),items in series.items():
+            ratings=[];previous=None
+            for item in items:
+                if item['average_rating'] is not None: ratings.append(item['average_rating'])
+                mentions=item['positive_count']+item['neutral_count']+item['negative_count']
+                sentiment=(item['positive_count']-item['negative_count'])/mentions if mentions else None
+                volume_change=item['review_count']-previous['review_count'] if previous else None
+                rating_change=(item['average_rating']-previous['average_rating']) if previous and item['average_rating'] is not None and previous['average_rating'] is not None else None
+                previous_mentions=(previous['positive_count']+previous['neutral_count']+previous['negative_count']) if previous else 0
+                previous_sentiment=(previous['positive_count']-previous['negative_count'])/previous_mentions if previous_mentions else None
+                sentiment_shift=sentiment-previous_sentiment if sentiment is not None and previous_sentiment is not None else None
+                moving=round(sum(ratings[-3:])/len(ratings[-3:]),3) if ratings else None
+                enough=len(items)>=2 and item['review_count']>=3
+                volume_norm=(volume_change/max(previous['review_count'],1)) if previous and volume_change is not None else 0
+                score=.35*max(-1,min(1,volume_norm))+.4*(sentiment_shift or 0)+.25*((rating_change or 0)/4)
+                score=round(max(-1,min(1,score)),3)
+                level='insufficient' if not enough else ('strong' if abs(score)>=.5 else 'weak' if abs(score)>=.25 else 'stable')
+                db.execute('''INSERT INTO trend_signals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                    (rid,item['month'],aspect,item['review_count'],volume_change,item['average_rating'],
+                     round(rating_change,3) if rating_change is not None else None,moving,
+                     round(sentiment,3) if sentiment is not None else None,
+                     round(sentiment_shift,3) if sentiment_shift is not None else None,
+                     score,level,int(enough),model_version,now()))
+                signal_count+=1;previous=item
+    return {'monthly_rows': len(grouped), 'trend_signal_rows':signal_count,
+            'dated_reviews': len({(r['restaurant_id'],r['id']) for r in rows}),
             'model_version': model_version, 'claim': 'retrospective-baseline-not-BERTrend'}
+
+
+def data_report(store, output_dir=ROOT/'outputs'):
+    output_dir=Path(output_dir);output_dir.mkdir(parents=True,exist_ok=True)
+    with store.connect() as db:
+        summary=status(store)
+        ratings={str(r['rating']):r['n'] for r in db.execute(
+            'SELECT rating,COUNT(*) n FROM reviews GROUP BY rating ORDER BY rating')}
+        categories=[dict(r) for r in db.execute('''SELECT COALESCE(NULLIF(category,''),'Unknown') category,
+            COUNT(*) restaurants FROM restaurants GROUP BY category ORDER BY restaurants DESC''')]
+        months=[dict(r) for r in db.execute('''SELECT substr(published_at,1,7) month,COUNT(*) reviews,
+            COUNT(DISTINCT restaurant_id) restaurants FROM reviews WHERE published_at IS NOT NULL
+            GROUP BY month ORDER BY month''')]
+        labels=Counter()
+        for row in db.execute('SELECT labels FROM analyses'):
+            labels.update(json.loads(row['labels']))
+    card={'generated_at':now(),'source':'SerpApi Google Maps','summary':summary,
+          'rating_distribution':ratings,'restaurant_categories':categories,
+          'monthly_coverage':months,'predicted_label_distribution':dict(labels),
+          'limitations':['SerpApi snapshot is not a probability sample.',
+            'ABSA labels are model predictions, not manual ground truth.',
+            'Only source-provided ISO timestamps are used for temporal analysis.']}
+    (output_dir/'data_card.json').write_text(json.dumps(card,ensure_ascii=False,indent=2),encoding='utf-8')
+    lines=['# FoodLens data card','',f"Generated: {card['generated_at']}",'',
+           '## Coverage','',f"- Restaurants: {summary['restaurants']}",f"- Reviews: {summary['reviews']}",
+           f"- Dated reviews: {summary['dated_reviews']}",f"- Distinct months: {summary['coverage']['distinct_months']}",
+           f"- Date range: {summary['coverage']['min_date']} to {summary['coverage']['max_date']}",'',
+           '## Limitations','']+[f'- {x}' for x in card['limitations']]
+    (output_dir/'data_card.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    with (output_dir/'data_quality.csv').open('w',encoding='utf-8',newline='') as handle:
+        writer=csv.writer(handle);writer.writerow(['metric','value'])
+        for key in ['restaurants','reviews','dated_reviews','pending_absa','review_documents','monthly_trends']:
+            writer.writerow([key,summary[key]])
+    return {'json':str(output_dir/'data_card.json'),'markdown':str(output_dir/'data_card.md'),
+            'csv':str(output_dir/'data_quality.csv'),'summary':summary}
 
 
 def build_index(store, model_version=None):
@@ -243,7 +328,7 @@ def snapshot(store, notes=''):
 def status(store):
     with store.connect() as db:
         counts = {name: db.execute(f'SELECT COUNT(*) FROM {name}').fetchone()[0] for name in
-                  ['restaurants','reviews','analyses','review_documents','monthly_trends','dataset_versions']}
+                  ['restaurants','reviews','analyses','review_documents','monthly_trends','trend_signals','dataset_versions']}
         counts['dated_reviews'] = db.execute('SELECT COUNT(*) FROM reviews WHERE published_at IS NOT NULL').fetchone()[0]
         coverage = db.execute('''SELECT COUNT(DISTINCT restaurant_id),MIN(published_at),MAX(published_at),
             COUNT(DISTINCT substr(published_at,1,7)) FROM reviews WHERE published_at IS NOT NULL''').fetchone()
@@ -267,23 +352,28 @@ def main(argv=None):
     sub = parser.add_subparsers(dest='command', required=True)
     p = sub.add_parser('seed'); p.add_argument('--area', required=True); p.add_argument('--cuisine', default='')
     p = sub.add_parser('ingest-restaurants'); p.add_argument('--area', required=True); p.add_argument('--cuisine', default=''); p.add_argument('--limit', type=int, default=20)
+    p = sub.add_parser('ingest-seeds'); p.add_argument('--max-seeds',type=int,default=5); p.add_argument('--per-seed-limit',type=int,default=20)
     p = sub.add_parser('ingest-reviews'); p.add_argument('--max-restaurants', type=int, default=20); p.add_argument('--pages', type=int, default=1); p.add_argument('--refresh', action='store_true')
     p = sub.add_parser('analyze-pending'); p.add_argument('--limit', type=int, default=1000)
     p = sub.add_parser('compute-trends'); p.add_argument('--model-version')
     p = sub.add_parser('build-index'); p.add_argument('--model-version')
     p = sub.add_parser('search-index'); p.add_argument('query'); p.add_argument('--limit', type=int, default=5)
     p = sub.add_parser('snapshot'); p.add_argument('--notes', default='')
+    p = sub.add_parser('data-report'); p.add_argument('--output-dir',default=str(ROOT/'outputs'))
     sub.add_parser('status')
     args = parser.parse_args(argv); store = Store(args.db)
     if args.command == 'status': result = status(store)
     elif args.command == 'seed': result = add_seed(store,args.area,args.cuisine)
     elif args.command == 'search-index': result = search_index(store,args.query,args.limit)
     elif args.command == 'snapshot': result = snapshot(store,args.notes)
+    elif args.command == 'data-report': result = data_report(store,args.output_dir)
     else:
         params = vars(args).copy(); params.pop('db'); params.pop('model'); job_id = start_job(store,args.command,params)
         try:
             if args.command == 'ingest-restaurants':
                 result = ingest_restaurants(store,SerpClient(store,daily_limit=args.daily_limit),args.area,args.cuisine,args.limit)
+            elif args.command == 'ingest-seeds':
+                result = ingest_seeds(store,SerpClient(store,daily_limit=args.daily_limit),args.max_seeds,args.per_seed_limit)
             elif args.command == 'ingest-reviews':
                 result = ingest_reviews(store,SerpClient(store,daily_limit=args.daily_limit),args.max_restaurants,args.pages,args.refresh)
             elif args.command == 'analyze-pending': result = analyze_pending(store,Analyzer(args.model),args.limit)
