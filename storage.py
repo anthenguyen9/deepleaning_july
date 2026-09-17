@@ -45,6 +45,38 @@ CREATE TABLE IF NOT EXISTS chat_messages (
  role TEXT NOT NULL CHECK(role IN ('user','assistant')), content TEXT NOT NULL,
  model TEXT NOT NULL, context_json TEXT NOT NULL, created_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session ON chat_messages(session_id,id);
+CREATE TABLE IF NOT EXISTS ingestion_seeds (
+ id INTEGER PRIMARY KEY, area TEXT NOT NULL, cuisine TEXT NOT NULL,
+ enabled INTEGER NOT NULL DEFAULT 1, last_run_at TEXT,
+ UNIQUE(area,cuisine));
+CREATE TABLE IF NOT EXISTS restaurant_crawl_state (
+ restaurant_id TEXT PRIMARY KEY REFERENCES restaurants(id), next_page_token TEXT,
+ pages_fetched INTEGER NOT NULL DEFAULT 0, review_requests INTEGER NOT NULL DEFAULT 0,
+ status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','running','complete','error')),
+ last_attempt_at TEXT, last_success_at TEXT, error TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS pipeline_jobs (
+ id INTEGER PRIMARY KEY, job_type TEXT NOT NULL, parameters TEXT NOT NULL,
+ status TEXT NOT NULL CHECK(status IN ('running','success','partial','failed')),
+ started_at TEXT NOT NULL, finished_at TEXT, stats TEXT NOT NULL DEFAULT '{}',
+ error TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS dataset_versions (
+ id INTEGER PRIMARY KEY, version TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL,
+ restaurant_count INTEGER NOT NULL, review_count INTEGER NOT NULL,
+ dated_review_count INTEGER NOT NULL, min_review_date TEXT, max_review_date TEXT,
+ source TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS monthly_trends (
+ restaurant_id TEXT NOT NULL REFERENCES restaurants(id), month TEXT NOT NULL,
+ aspect TEXT NOT NULL, review_count INTEGER NOT NULL, positive_count INTEGER NOT NULL,
+ neutral_count INTEGER NOT NULL, negative_count INTEGER NOT NULL,
+ average_rating REAL, model_version TEXT NOT NULL, updated_at TEXT NOT NULL,
+ PRIMARY KEY(restaurant_id,month,aspect,model_version));
+CREATE TABLE IF NOT EXISTS review_documents (
+ document_key TEXT PRIMARY KEY, restaurant_id TEXT NOT NULL, review_id TEXT NOT NULL,
+ text TEXT NOT NULL, restaurant_name TEXT NOT NULL, category TEXT NOT NULL,
+ metadata_json TEXT NOT NULL, updated_at TEXT NOT NULL,
+ FOREIGN KEY(restaurant_id,review_id) REFERENCES reviews(restaurant_id,id));
+CREATE VIRTUAL TABLE IF NOT EXISTS review_fts USING fts5(
+ document_key UNINDEXED, text, restaurant_name, category, tokenize='unicode61');
 '''
 
 def utcnow():
