@@ -43,6 +43,9 @@ Không đưa `.env` lên Git hoặc gửi kèm báo cáo. Key chỉ được g�
 - Gemini nhận `store=false`; nguồn dữ liệu lâu dài của ứng dụng là SQLite local.
 - Structured output buộc trả `reply`, `learned_preferences` và danh sách ID gợi ý.
   ID ngoài tập ứng viên bị loại ở phía server.
+- Mỗi review gửi model có mã `R1`, `R2`...; citation ngoài context bị loại. Nếu model
+  đề xuất quán nhưng không có citation hợp lệ, server loại tín hiệu đề xuất đó.
+- Khi không có review có nội dung, policy trả lời từ chối ngay mà không gọi Gemini.
 - Xếp hạng cuối vẫn có thành phần kiểm chứng được: phản hồi like/dislike, khía cạnh
   ưu tiên, điểm Google, số review và từ khóa khẩu vị. Gemini tạo giải thích và
   thêm tín hiệu ID gợi ý, không tự tạo dữ liệu nhà hàng.
