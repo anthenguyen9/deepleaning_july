@@ -1,7 +1,9 @@
 import os
 import json
+import hashlib
 import secrets
 import threading
+import time
 from pathlib import Path
 from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
 from dotenv import load_dotenv
@@ -19,10 +21,27 @@ from locations import lineage, resolve, resolve_area_text
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
 
+def session_secret():
+    configured=os.getenv('FLASK_SECRET_KEY','').strip()
+    if configured: return configured
+    path=ROOT/'instance'/'.flask_secret_key'
+    path.parent.mkdir(parents=True,exist_ok=True)
+    try:
+        with path.open('x',encoding='ascii') as handle:
+            handle.write(secrets.token_urlsafe(48))
+    except FileExistsError:
+        pass
+    for _ in range(20):
+        value=path.read_text(encoding='ascii').strip()
+        if len(value)>=32: return value
+        time.sleep(0.05)
+    raise RuntimeError('Không đọc được khóa phiên cục bộ trong instance/.flask_secret_key.')
+
 def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
     app=Flask(__name__)
-    app.config.update(SECRET_KEY=os.getenv('FLASK_SECRET_KEY') or secrets.token_hex(32),
+    app.config.update(SECRET_KEY=session_secret(),
+        SESSION_COOKIE_NAME='foodlens_'+hashlib.sha256(str(ROOT).encode()).hexdigest()[:12],
         ADMIN_USERNAME=os.getenv('ADMIN_USERNAME','admin'),ADMIN_PASSWORD=os.getenv('ADMIN_PASSWORD','admin'),
         RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),DATABASE=str(ROOT/'instance'/'food_reviews.sqlite3'),
         AUTO_BUILD_DENSE=os.getenv('AUTO_BUILD_DENSE','0')=='1',
@@ -43,10 +62,13 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.before_request
     def csrf():
+        auth.load_user(store)
         if 'csrf' not in session: session['csrf']=secrets.token_hex(32)
         if request.method=='POST' and not secrets.compare_digest(session['csrf'], request.form.get('csrf','')):
-            abort(400, description='Phiên làm việc hết hạn. Tải lại trang và thử lại.')
-        auth.load_user(store)
+            session['csrf']=secrets.token_hex(32)
+            flash('Phiên biểu mẫu đã hết hạn. Vui lòng gửi lại sau khi trang tải lại.','error')
+            target='auth.login' if g.user is None else ('assistant_page' if request.path=='/assistant' and g.user['role']=='user' else 'home')
+            return redirect(url_for(target),code=303)
         if request.endpoint is None: return None
         if request.endpoint not in {'auth.login','auth.register','static'} and g.user is None:
             return redirect(url_for('auth.login'))

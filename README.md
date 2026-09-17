@@ -55,6 +55,11 @@ Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe pipeline.py 
 Biến môi trường nằm trong `.env` (Git bỏ qua): `SERPAPI_API_KEY`,
 `SERPAPI_DAILY_LIMIT`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `ADMIN_USERNAME`,
 `ADMIN_PASSWORD`, `FLASK_SECRET_KEY`. Không đưa key xuống HTML hay log.
+Nếu `FLASK_SECRET_KEY` để trống, ứng dụng tạo khóa phiên một lần trong
+`instance/.flask_secret_key` (thư mục này không được đưa lên Git). Các tiến trình
+cùng project, kể cả khi chạy ở cổng 5000 và 5001, dùng chung khóa và cookie;
+sau lần cập nhật này cần đăng nhập lại một lần. Form có CSRF hết hạn sẽ quay về
+trang an toàn kèm thông báo để gửi lại.
 
 **Bắt đầu với [README_WEB.md](README_WEB.md).** Chạy `setup_web.bat`,
 `train_model.bat`, rồi `run_web.bat` để dùng web Flask + SQLite + SerpApi.
