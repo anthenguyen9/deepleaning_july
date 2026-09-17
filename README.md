@@ -4,6 +4,9 @@
 `train_model.bat`, rồi `run_web.bat` để dùng web Flask + SQLite + SerpApi.
 Xem `VERIFICATION_WEB.md` cho kết quả kiểm thử bản web.
 
+Pipeline thu thập tăng dần, ABSA pending, thống kê tháng và BM25 nằm trong
+[`README_PIPELINE.md`](README_PIPELINE.md). Chạy `run_data_pipeline.bat` để xem trạng thái.
+
 Phần dưới giữ lại tài liệu baseline v0.1 để giải thích dữ liệu và mô hình.
 Các giới hạn metadata bên dưới nói về ViTASA; bản web bổ sung metadata Google Maps.
 
