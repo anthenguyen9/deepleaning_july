@@ -82,6 +82,10 @@ CREATE TABLE IF NOT EXISTS evaluation_queries (
  id TEXT PRIMARY KEY, query TEXT NOT NULL, constraints_json TEXT NOT NULL,
  relevant_restaurants_json TEXT NOT NULL, relevant_reviews_json TEXT NOT NULL,
  split TEXT NOT NULL CHECK(split IN ('dev','test')), notes TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS retrieval_events (
+ id INTEGER PRIMARY KEY, search_id INTEGER REFERENCES searches(id), query TEXT NOT NULL,
+ method TEXT NOT NULL, candidate_restaurants INTEGER NOT NULL, result_count INTEGER NOT NULL,
+ result_keys_json TEXT NOT NULL, duration_ms REAL NOT NULL, created_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS review_documents (
  document_key TEXT PRIMARY KEY, restaurant_id TEXT NOT NULL, review_id TEXT NOT NULL,
  text TEXT NOT NULL, restaurant_name TEXT NOT NULL, category TEXT NOT NULL,
