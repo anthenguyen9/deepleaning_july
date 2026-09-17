@@ -2,8 +2,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from data_pipeline import (add_seed, analyze_pending, build_index, compute_trends,
-                           ingest_restaurants, ingest_reviews, search_index, snapshot, status)
+from data_pipeline import (add_seed, analyze_pending, build_index, compute_trends, data_report,
+                           ingest_restaurants, ingest_reviews, ingest_seeds, search_index, snapshot, status)
 from restaurant_service import SerpClient
 from storage import Store
 
@@ -71,6 +71,7 @@ class IncrementalPipelineTests(unittest.TestCase):
         trends = compute_trends(self.store, 'fake-v1')
         self.assertEqual(trends['dated_reviews'], 3)
         self.assertEqual(trends['claim'], 'retrospective-baseline-not-BERTrend')
+        self.assertGreater(trends['trend_signal_rows'], 0)
 
         index = build_index(self.store, 'fake-v1')
         self.assertEqual(index['indexed'], 3)
@@ -84,6 +85,18 @@ class IncrementalPipelineTests(unittest.TestCase):
         current = status(self.store)
         self.assertEqual(current['pending_absa'], 0)
         self.assertEqual(current['dataset_versions'], 1)
+        self.assertGreater(current['trend_signals'], 0)
+        report=data_report(self.store,Path(self.temp.name)/'report')
+        self.assertTrue(Path(report['json']).exists())
+        self.assertTrue(Path(report['markdown']).exists())
+        self.assertTrue(Path(report['csv']).exists())
+
+    def test_seed_scheduler(self):
+        add_seed(self.store,'Hải Châu','món Việt')
+        add_seed(self.store,'Sơn Trà','món chay')
+        result=ingest_seeds(self.store,self.client,max_seeds=2,per_seed_limit=20)
+        self.assertEqual(result['seeds_attempted'],2)
+        self.assertFalse(result['stopped_early'])
 
     def test_resume_from_saved_page_token(self):
         ingest_restaurants(self.store, self.client, 'Đà Nẵng', '', 1)
