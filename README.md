@@ -1,5 +1,61 @@
 # FoodLens — Windows Web v0.3
 
+## Location-aware Restaurant Assistant (2026-09)
+
+Ứng dụng Flask tại `webapp.py` dùng duy nhất `instance/food_reviews.sqlite3` qua
+`Store`. Schema được tạo bằng `CREATE TABLE IF NOT EXISTS` khi khởi động; dữ liệu cũ
+không bị xóa. `import_gold.py` dùng đường dẫn tuyệt đối từ `data_pipeline.DEFAULT_DB`,
+kiểm tra file và bảng trước khi ghi, chỉ nhận nhãn đã được người thật duyệt.
+Nhãn AI không được coi là gold độc lập.
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements_research.txt
+Copy-Item .env.example .env
+# Điền GEMINI_API_KEY, SERPAPI_API_KEY, ADMIN_PASSWORD, FLASK_SECRET_KEY trong .env
+.venv\Scripts\python.exe seed_locations.py --city "Da Nang"
+.venv\Scripts\python.exe webapp.py
+```
+
+Đăng nhập admin tại `/login` rồi mở `/admin/locations/` để chọn Việt Nam → Đà Nẵng
+→ phường/xã hoặc đường, xem trạng thái crawl và bấm Crawl / Refresh. Cấp quận
+không còn là cấp hành chính hiện hành tại Đà Nẵng; tên một số quận cũ được nhận
+như bí danh của phường cùng tên. API `/admin/locations/api/children?parent=<id>`
+chỉ dành cho admin. Người dùng thường đăng ký rồi mở `/assistant` để chat riêng.
+
+`seed_locations.py` chạy lặp lại không tạo trùng. Snapshot `location_data/danang_2025.json`
+có 94 đơn vị cấp xã theo [Nghị quyết 1659/NQ-UBTVQH15](https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-1659-nq-ubtvqh15-sap-xep-cac-dvhc-cap-xa-cua-thanh-pho-da-nang-nam-2025-119250616202714604.htm),
+áp dụng từ 01/07/2025. Snapshot `location_data/danang_osm_streets.json` chứa
+12.146 OSM highway ways có tên trong bounding box bao quanh Đà Nẵng mới, sau
+chuẩn hóa còn 4.905 tên đường duy nhất. Dữ liệu đường theo
+[ODbL / OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+Bounding box có thể chứa đường ngoài địa giới và chưa có phép nối đường–phường;
+chọn đồng thời đường và phường sẽ được yêu cầu làm rõ thay vì suy diễn quan hệ.
+Schema `locations` có cấp quốc gia/tỉnh/huyện/phường/đường và ngày hiệu lực
+để mở rộng cho tỉnh khác hoặc phiên bản địa giới sau này.
+
+Chatbot dùng Gemini để tách intent và địa điểm thành JSON, rồi tra DB địa điểm
+trước khi gọi SerpApi. Địa điểm không hợp lệ chặn crawl. `crawl_runs` lưu
+location + truy vấn (bao gồm loại món) + tháng + provider; crawl thành công
+trong tháng dùng lại snapshot. Lỗi provider được ghi trạng thái `failed` để
+có thể thử lại. Nhà hàng/review được upsert theo ID nguồn, hoặc tên + địa chỉ
+chuẩn hóa khi thiếu ID. Kết quả từ SQLite được chấm ABSA bằng model đã lưu,
+xếp hạng bằng cấu hình E, truy xuất review và cung cấp ứng viên/trích dẫn cho
+Gemini. Chat không huấn luyện lại. Khi SerpApi thiếu key hoặc lỗi, app vẫn dùng
+dữ liệu SQLite sẵn có nếu đủ bằng chứng. Khi Gemini thiếu key hoặc lỗi,
+chat hiển thị lỗi cấu hình/hạn mức rõ ràng; app không bị dừng.
+
+Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe pipeline.py train`
+(từ tập ViTASA đã `download` và `prepare`), lưu `outputs/baseline.joblib`.
+`research.py prepare-gold` chỉ dành cho nhãn người duyệt độc lập. Để nhập nhãn
+đã duyệt: `.venv\Scripts\python.exe import_gold.py data/gold_human.json`.
+`data_pipeline.py` tiếp tục tính aggregate theo **ngày, tháng, năm** từ
+`reviews.published_at`; ngày thiếu/không parse được không tự suy diễn.
+
+Biến môi trường nằm trong `.env` (Git bỏ qua): `SERPAPI_API_KEY`,
+`SERPAPI_DAILY_LIMIT`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `ADMIN_USERNAME`,
+`ADMIN_PASSWORD`, `FLASK_SECRET_KEY`. Không đưa key xuống HTML hay log.
+
 **Bắt đầu với [README_WEB.md](README_WEB.md).** Chạy `setup_web.bat`,
 `train_model.bat`, rồi `run_web.bat` để dùng web Flask + SQLite + SerpApi.
 Xem `VERIFICATION_WEB.md` cho kết quả kiểm thử bản web.

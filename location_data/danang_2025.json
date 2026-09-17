@@ -1,0 +1,476 @@
+{
+  "source": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-1659-nq-ubtvqh15-sap-xep-cac-dvhc-cap-xa-cua-thanh-pho-da-nang-nam-2025-119250616202714604.htm",
+  "effective_from": "2025-07-01",
+  "units": [
+    {
+      "code": 1,
+      "level": "phường",
+      "name": "Hải Châu"
+    },
+    {
+      "code": 2,
+      "level": "phường",
+      "name": "Hòa Cường"
+    },
+    {
+      "code": 3,
+      "level": "phường",
+      "name": "Thanh Khê"
+    },
+    {
+      "code": 4,
+      "level": "phường",
+      "name": "An Khê"
+    },
+    {
+      "code": 5,
+      "level": "phường",
+      "name": "An Hải"
+    },
+    {
+      "code": 6,
+      "level": "phường",
+      "name": "Sơn Trà"
+    },
+    {
+      "code": 7,
+      "level": "phường",
+      "name": "Ngũ Hành Sơn"
+    },
+    {
+      "code": 8,
+      "level": "phường",
+      "name": "Hòa Khánh"
+    },
+    {
+      "code": 9,
+      "level": "phường",
+      "name": "Hải Vân"
+    },
+    {
+      "code": 10,
+      "level": "phường",
+      "name": "Liên Chiểu"
+    },
+    {
+      "code": 11,
+      "level": "phường",
+      "name": "Cẩm Lệ"
+    },
+    {
+      "code": 12,
+      "level": "phường",
+      "name": "Hòa Xuân"
+    },
+    {
+      "code": 13,
+      "level": "phường",
+      "name": "Tam Kỳ"
+    },
+    {
+      "code": 14,
+      "level": "phường",
+      "name": "Quảng Phú"
+    },
+    {
+      "code": 15,
+      "level": "phường",
+      "name": "Hương Trà"
+    },
+    {
+      "code": 16,
+      "level": "phường",
+      "name": "Bàn Thạch"
+    },
+    {
+      "code": 17,
+      "level": "phường",
+      "name": "Điện Bàn"
+    },
+    {
+      "code": 18,
+      "level": "phường",
+      "name": "Điện Bàn Đông"
+    },
+    {
+      "code": 19,
+      "level": "phường",
+      "name": "An Thắng"
+    },
+    {
+      "code": 20,
+      "level": "phường",
+      "name": "Điện Bàn Bắc"
+    },
+    {
+      "code": 21,
+      "level": "phường",
+      "name": "Hội An"
+    },
+    {
+      "code": 22,
+      "level": "phường",
+      "name": "Hội An Đông"
+    },
+    {
+      "code": 23,
+      "level": "phường",
+      "name": "Hội An Tây"
+    },
+    {
+      "code": 24,
+      "level": "xã",
+      "name": "Hòa Vang"
+    },
+    {
+      "code": 25,
+      "level": "xã",
+      "name": "Hòa Tiến"
+    },
+    {
+      "code": 26,
+      "level": "xã",
+      "name": "Bà Nà"
+    },
+    {
+      "code": 27,
+      "level": "xã",
+      "name": "Núi Thành"
+    },
+    {
+      "code": 28,
+      "level": "xã",
+      "name": "Tam Mỹ"
+    },
+    {
+      "code": 29,
+      "level": "xã",
+      "name": "Tam Anh"
+    },
+    {
+      "code": 30,
+      "level": "xã",
+      "name": "Đức Phú"
+    },
+    {
+      "code": 31,
+      "level": "xã",
+      "name": "Tam Xuân"
+    },
+    {
+      "code": 32,
+      "level": "xã",
+      "name": "Tây Hồ"
+    },
+    {
+      "code": 33,
+      "level": "xã",
+      "name": "Chiên Đàn"
+    },
+    {
+      "code": 34,
+      "level": "xã",
+      "name": "Phú Ninh"
+    },
+    {
+      "code": 35,
+      "level": "xã",
+      "name": "Lãnh Ngọc"
+    },
+    {
+      "code": 36,
+      "level": "xã",
+      "name": "Tiên Phước"
+    },
+    {
+      "code": 37,
+      "level": "xã",
+      "name": "Thạnh Bình"
+    },
+    {
+      "code": 38,
+      "level": "xã",
+      "name": "Sơn Cẩm Hà"
+    },
+    {
+      "code": 39,
+      "level": "xã",
+      "name": "Trà Liên"
+    },
+    {
+      "code": 40,
+      "level": "xã",
+      "name": "Trà Giáp"
+    },
+    {
+      "code": 41,
+      "level": "xã",
+      "name": "Trà Tân"
+    },
+    {
+      "code": 42,
+      "level": "xã",
+      "name": "Trà Đốc"
+    },
+    {
+      "code": 43,
+      "level": "xã",
+      "name": "Trà My"
+    },
+    {
+      "code": 44,
+      "level": "xã",
+      "name": "Nam Trà My"
+    },
+    {
+      "code": 45,
+      "level": "xã",
+      "name": "Trà Tập"
+    },
+    {
+      "code": 46,
+      "level": "xã",
+      "name": "Trà Vân"
+    },
+    {
+      "code": 47,
+      "level": "xã",
+      "name": "Trà Linh"
+    },
+    {
+      "code": 48,
+      "level": "xã",
+      "name": "Trà Leng"
+    },
+    {
+      "code": 49,
+      "level": "xã",
+      "name": "Thăng Bình"
+    },
+    {
+      "code": 50,
+      "level": "xã",
+      "name": "Thăng An"
+    },
+    {
+      "code": 51,
+      "level": "xã",
+      "name": "Thăng Trường"
+    },
+    {
+      "code": 52,
+      "level": "xã",
+      "name": "Thăng Điền"
+    },
+    {
+      "code": 53,
+      "level": "xã",
+      "name": "Thăng Phú"
+    },
+    {
+      "code": 54,
+      "level": "xã",
+      "name": "Đồng Dương"
+    },
+    {
+      "code": 55,
+      "level": "xã",
+      "name": "Quế Sơn Trung"
+    },
+    {
+      "code": 56,
+      "level": "xã",
+      "name": "Quế Sơn"
+    },
+    {
+      "code": 57,
+      "level": "xã",
+      "name": "Xuân Phú"
+    },
+    {
+      "code": 58,
+      "level": "xã",
+      "name": "Nông Sơn"
+    },
+    {
+      "code": 59,
+      "level": "xã",
+      "name": "Quế Phước"
+    },
+    {
+      "code": 60,
+      "level": "xã",
+      "name": "Duy Nghĩa"
+    },
+    {
+      "code": 61,
+      "level": "xã",
+      "name": "Nam Phước"
+    },
+    {
+      "code": 62,
+      "level": "xã",
+      "name": "Duy Xuyên"
+    },
+    {
+      "code": 63,
+      "level": "xã",
+      "name": "Thu Bồn"
+    },
+    {
+      "code": 64,
+      "level": "xã",
+      "name": "Điện Bàn Tây"
+    },
+    {
+      "code": 65,
+      "level": "xã",
+      "name": "Gò Nổi"
+    },
+    {
+      "code": 66,
+      "level": "xã",
+      "name": "Đại Lộc"
+    },
+    {
+      "code": 67,
+      "level": "xã",
+      "name": "Hà Nha"
+    },
+    {
+      "code": 68,
+      "level": "xã",
+      "name": "Thượng Đức"
+    },
+    {
+      "code": 69,
+      "level": "xã",
+      "name": "Vu Gia"
+    },
+    {
+      "code": 70,
+      "level": "xã",
+      "name": "Phú Thuận"
+    },
+    {
+      "code": 71,
+      "level": "xã",
+      "name": "Thạnh Mỹ"
+    },
+    {
+      "code": 72,
+      "level": "xã",
+      "name": "Bến Giằng"
+    },
+    {
+      "code": 73,
+      "level": "xã",
+      "name": "Nam Giang"
+    },
+    {
+      "code": 74,
+      "level": "xã",
+      "name": "Đắc Pring"
+    },
+    {
+      "code": 75,
+      "level": "xã",
+      "name": "La Dêê"
+    },
+    {
+      "code": 76,
+      "level": "xã",
+      "name": "La Êê"
+    },
+    {
+      "code": 77,
+      "level": "xã",
+      "name": "Sông Vàng"
+    },
+    {
+      "code": 78,
+      "level": "xã",
+      "name": "Sông Kôn"
+    },
+    {
+      "code": 79,
+      "level": "xã",
+      "name": "Đông Giang"
+    },
+    {
+      "code": 80,
+      "level": "xã",
+      "name": "Bến Hiên"
+    },
+    {
+      "code": 81,
+      "level": "xã",
+      "name": "Avương"
+    },
+    {
+      "code": 82,
+      "level": "xã",
+      "name": "Tây Giang"
+    },
+    {
+      "code": 83,
+      "level": "xã",
+      "name": "Hùng Sơn"
+    },
+    {
+      "code": 84,
+      "level": "xã",
+      "name": "Hiệp Đức"
+    },
+    {
+      "code": 85,
+      "level": "xã",
+      "name": "Việt An"
+    },
+    {
+      "code": 86,
+      "level": "xã",
+      "name": "Phước Trà"
+    },
+    {
+      "code": 87,
+      "level": "xã",
+      "name": "Khâm Đức"
+    },
+    {
+      "code": 88,
+      "level": "xã",
+      "name": "Phước Năng"
+    },
+    {
+      "code": 89,
+      "level": "xã",
+      "name": "Phước Chánh"
+    },
+    {
+      "code": 90,
+      "level": "xã",
+      "name": "Phước Thành"
+    },
+    {
+      "code": 91,
+      "level": "xã",
+      "name": "Phước Hiệp"
+    },
+    {
+      "code": 92,
+      "level": "đặc khu",
+      "name": "Hoàng Sa"
+    },
+    {
+      "code": 93,
+      "level": "xã",
+      "name": "Tam Hải"
+    },
+    {
+      "code": 94,
+      "level": "xã",
+      "name": "Tân Hiệp"
+    }
+  ]
+}

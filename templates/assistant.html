@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h1>Restaurant Assistant</h1>
+  <p>Hỏi về món ăn và khu vực tại Đà Nẵng. Câu trả lời chỉ dựa trên nhà hàng và review đã lưu.</p>
+  <div class="chat-log" aria-live="polite">
+    {% for item in messages %}
+    <article class="chat-message {{ item.role }}"><strong>{{ 'Bạn' if item.role=='user' else 'Trợ lý' }}</strong><p>{{ item.content }}</p>
+      {% if item.role=='assistant' and item.context.citations %}<small>Nguồn review: {% for c in item.context.citations %}{{ c.restaurant_name }} · {{ c.review_id }}{% if not loop.last %}; {% endif %}{% endfor %}</small>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  <form method="post" action="{{ url_for('assistant_send') }}" id="assistant-form">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    <label for="assistant-message">Tin nhắn</label>
+    <input id="assistant-message" name="message" maxlength="1200" required placeholder="Quán hải sản ngon ở Sơn Trà?">
+    <button id="assistant-submit" type="submit">Gửi</button>
+  </form>
+</section>
+<script>document.getElementById('assistant-form').addEventListener('submit',function(){document.getElementById('assistant-submit').disabled=true;document.getElementById('assistant-submit').textContent='Đang xử lý…';});</script>
+{% endblock %}

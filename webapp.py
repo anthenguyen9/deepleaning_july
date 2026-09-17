@@ -1,17 +1,20 @@
 import os
+import json
 import secrets
 import threading
 from pathlib import Path
 from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
 from dotenv import load_dotenv
-from storage import Store
-from restaurant_service import Analyzer, ApiError, SerpClient, search_area
+from storage import Store, utcnow
+from restaurant_service import Analyzer, ApiError, SerpClient
 from gemini_service import GeminiClient, GeminiError
 from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
 from data_pipeline import build_index, compute_trends, status
 import auth
+from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, recommend, save_turn
+from locations import lineage, resolve, resolve_area_text
 
 ROOT=Path(__file__).resolve().parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
@@ -32,8 +35,11 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     lock=threading.Lock()
     app.extensions['store']=store
     auth.init_auth(app,store)
+    ensure_history_table(store)
     from admin_annotations import register_admin
     register_admin(app,store)
+    from location_routes import register_location_routes
+    register_location_routes(app,store,analyzer,client_factory)
 
     @app.before_request
     def csrf():
@@ -62,6 +68,83 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     @app.get('/')
     def home(): return render_template('home.html',history=auth.history(store))
 
+    @app.get('/assistant')
+    def assistant_page():
+        if g.user['role']!='user': abort(403)
+        return render_template('assistant.html',messages=assistant_history(store,g.user['id']))
+
+    @app.post('/assistant')
+    def assistant_send():
+        if g.user['role']!='user': abort(403)
+        message=request.form.get('message','').strip()
+        if not message or len(message)>1200:
+            flash('Tin nhắn phải có từ 1 đến 1.200 ký tự.','error')
+            return redirect(url_for('assistant_page'))
+        past=assistant_history(store,g.user['id'])
+        context={}
+        reply=''
+        try:
+            gemini=gemini_factory() if gemini_factory else GeminiClient()
+            parsed=gemini.extract_query(message,past,g.user['area'])
+            context['extraction']=parsed
+            if parsed['intent']!='restaurant_recommendation':
+                reply='Mình có thể gợi ý nhà hàng. Bạn muốn tìm món gì và ở khu vực nào?'
+            else:
+                selected=resolve(store,city=parsed['city'] or g.user['area'],
+                                 district=parsed['district'],ward=parsed['ward'],street=parsed['street'])
+                if not selected:
+                    reply='Không tìm thấy khu vực này trong dữ liệu địa điểm hiện có. Vui lòng cho biết tên thành phố, phường hoặc đường khác.'
+                    context['location_valid']=False
+                else:
+                    context['location_valid']=True
+                    context['location_id']=selected['id']
+                    context['location']=' › '.join(x['name'] for x in lineage(store,selected['id']))
+                    try:
+                        client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
+                        sid,reused=crawl_or_reuse(store,client,analyzer,selected,parsed['cuisine'])
+                        context['crawl']='cached' if reused else 'refreshed'
+                        context['search_id']=sid
+                        build_index(store,analyzer.version)
+                    except ApiError as exc:
+                        context['crawl']='unavailable'
+                        context['crawl_error']=str(exc)
+                    items=recommend(store,analyzer,auth.user_profile(),auth.user_memory(),
+                                    auth.feedback(store),selected,parsed['cuisine'])
+                    if not items:
+                        reply='Chưa có đủ nhà hàng và review phù hợp ở khu vực này để gợi ý có căn cứ.'
+                        if context.get('crawl_error'): reply+=' '+context['crawl_error']
+                    else:
+                        retrieval=retrieve(store,message,[x['id'] for x in items],limit=12,
+                                           method=app.config['RETRIEVAL_METHOD'],fallback=True)
+                        hits={}
+                        for hit in retrieval['results']:
+                            hits.setdefault(hit['restaurant_id'],[]).append({
+                                'id':hit['metadata']['review_id'],'text':hit['text'],
+                                'rating':hit['metadata'].get('rating'),
+                                'published_at':hit['metadata'].get('published_at'),
+                                'source_url':hit['metadata'].get('source_url',''),
+                                'labels':hit['metadata'].get('labels',[])})
+                        grounded=[{**x,'assessment':{**x['assessment'],
+                                    'evidence':hits.get(x['id'],x['assessment']['evidence'])}}
+                                  for x in items]
+                        result=gemini.advise({**auth.user_profile(),'area':context['location'],
+                                              'cuisine':parsed['cuisine'] or g.user['cuisine']},
+                                             auth.user_memory(),auth.feedback(store),past,
+                                             grounded,message)
+                        reply=result['reply']
+                        context.update(candidate_ids=result['candidate_ids'],
+                                       recommended_restaurant_ids=result['recommended_restaurant_ids'],
+                                       citations=result.get('citation_sources',[]),
+                                       retrieval_method=retrieval['method'])
+        except GeminiError as exc:
+            reply=str(exc)
+            context['error']='gemini'
+        except (ValueError,RuntimeError,OSError) as exc:
+            reply='Không thể hoàn thành yêu cầu lúc này. Vui lòng thử lại.'
+            context['error']=type(exc).__name__
+        save_turn(store,g.user['id'],message,reply,context)
+        return redirect(url_for('assistant_page'))
+
     @app.get('/research')
     def research_dashboard():
         granularity=request.args.get('granularity','month')
@@ -86,12 +169,22 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         except ValueError:
             flash('Nhập khu vực 2–160 ký tự, 1–5 nhà hàng và 1–3 trang review.','error')
             return redirect(url_for('home'))
+        selected=resolve_area_text(store,area)
+        if not selected:
+            flash('Khu vực chưa có trong dữ liệu địa điểm. Nhập Đà Nẵng hoặc tên phường/đường, Đà Nẵng.','error')
+            return redirect(url_for('home'))
         if not lock.acquire(blocking=False):
             flash('Một lượt tìm kiếm đang chạy. Vui lòng chờ hoàn tất.','error')
             return redirect(url_for('home'))
         try:
             client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
-            sid=search_area(store,client,analyzer,area,g.user['cuisine'],limit,pages)
+            sid,reused=crawl_or_reuse(store,client,analyzer,selected,g.user['cuisine'],limit,pages)
+            if reused:
+                cached=store.get_search(sid)
+                with store.connect() as db:
+                    sid=db.execute('INSERT INTO searches(area,query,created_at,status,result) VALUES(?,?,?,?,?)',
+                        (cached['area'],cached['query'],utcnow(),cached['status'],
+                         json.dumps(cached['result'],ensure_ascii=False))).lastrowid
             auth.own_search(store,sid)
             build_index(store,analyzer.version)
             if app.config['AUTO_BUILD_DENSE'] and not app.config['TESTING'] and app.config['RETRIEVAL_METHOD'] in {'dense','hybrid'}:

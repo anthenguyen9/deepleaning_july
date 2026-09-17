@@ -10,6 +10,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from pipeline import ASPECTS, normalize
+from locations import normalize_name
 
 def now():
     return datetime.now(timezone.utc).isoformat()
@@ -110,7 +111,15 @@ def iso_date(value):
 
 def save_restaurant(store, row, stamp):
     rid = row.get('data_id') or row.get('place_id')
-    if not rid or not row.get('title'): return None
+    if not row.get('title'): return None
+    identity=normalize_name(row['title'])+'|'+normalize_name(row.get('address',''))
+    if not rid:
+        if not normalize_name(row.get('address','')): return None
+        rid='fallback:'+hashlib.sha256(identity.encode()).hexdigest()[:24]
+    with store.connect() as db:
+        for old in db.execute('SELECT id,name,address FROM restaurants'):
+            if normalize_name(old['name'])+'|'+normalize_name(old['address'])==identity:
+                rid=old['id'];break
     # Never build an outgoing server request using a provider-supplied URL.
     link = 'https://www.google.com/maps/search/?api=1&query='+urllib.parse.quote(row['title'])
     if row.get('place_id'): link += '&query_place_id='+urllib.parse.quote(row['place_id'])
@@ -205,13 +214,20 @@ def search_area(store, client, analyzer, area, cuisine='', limit=3, pages=1):
     results=[]; warnings=[]; seen=set()
     for raw in payload['local_results']:
         if len(results)>=limit: break
-        rid=raw.get('data_id') or raw.get('place_id')
-        if not rid or rid in seen: continue
         item=save_restaurant(store,raw,stamp)
         if not item: continue
+        rid=item['id']
+        if rid in seen: continue
         seen.add(rid)
+        provider_id=raw.get('data_id') or raw.get('place_id')
+        if not provider_id:
+            warnings.append(item['name']+': không có ID nguồn để lấy review.')
+            item.pop('payload')
+            item.update(assessment=analyzer.assess(store,rid),review_error='Không có ID nguồn',pages_fetched=0)
+            results.append(item)
+            continue
         params={'engine':'google_maps_reviews','hl':'vi','sort_by':'newestFirst'}
-        params['data_id' if raw.get('data_id') else 'place_id']=rid
+        params['data_id' if raw.get('data_id') else 'place_id']=provider_id
         tokens=set(); error=None; pages_fetched=0
         for _ in range(pages):
             try:

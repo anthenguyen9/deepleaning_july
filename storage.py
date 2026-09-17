@@ -101,6 +101,36 @@ CREATE TABLE IF NOT EXISTS review_documents (
  FOREIGN KEY(restaurant_id,review_id) REFERENCES reviews(restaurant_id,id));
 CREATE VIRTUAL TABLE IF NOT EXISTS review_fts USING fts5(
  document_key UNINDEXED, text, restaurant_name, category, tokenize='unicode61');
+CREATE TABLE IF NOT EXISTS locations (
+ id INTEGER PRIMARY KEY, code TEXT NOT NULL UNIQUE, name TEXT NOT NULL,
+ normalized_name TEXT NOT NULL, parent_id INTEGER REFERENCES locations(id),
+ level TEXT NOT NULL CHECK(level IN ('country','province','district','ward','street')),
+ is_active INTEGER NOT NULL DEFAULT 1, effective_from TEXT, effective_to TEXT,
+ source TEXT NOT NULL, source_id TEXT, imported_at TEXT NOT NULL,
+ UNIQUE(parent_id,level,normalized_name));
+CREATE INDEX IF NOT EXISTS idx_locations_parent ON locations(parent_id,level,is_active);
+CREATE INDEX IF NOT EXISTS idx_locations_name ON locations(level,normalized_name,is_active);
+CREATE TABLE IF NOT EXISTS location_aliases (
+ location_id INTEGER NOT NULL REFERENCES locations(id), alias TEXT NOT NULL,
+ normalized_alias TEXT NOT NULL, PRIMARY KEY(location_id,normalized_alias));
+CREATE INDEX IF NOT EXISTS idx_location_aliases_name ON location_aliases(normalized_alias);
+CREATE TABLE IF NOT EXISTS crawl_runs (
+ id INTEGER PRIMARY KEY, location_id INTEGER NOT NULL REFERENCES locations(id),
+ query TEXT NOT NULL, query_hash TEXT NOT NULL, year_month TEXT NOT NULL,
+ provider TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('running','success','failed')),
+ started_at TEXT NOT NULL, completed_at TEXT, result_count INTEGER NOT NULL DEFAULT 0,
+ error_message TEXT NOT NULL DEFAULT '', search_id INTEGER REFERENCES searches(id),
+ UNIQUE(location_id,query_hash,year_month,provider));
+CREATE TABLE IF NOT EXISTS restaurant_locations (
+ restaurant_id TEXT NOT NULL REFERENCES restaurants(id),
+ location_id INTEGER NOT NULL REFERENCES locations(id),
+ PRIMARY KEY(restaurant_id,location_id));
+CREATE INDEX IF NOT EXISTS idx_restaurant_locations_location ON restaurant_locations(location_id);
+CREATE TABLE IF NOT EXISTS gold_annotations (
+ restaurant_id TEXT NOT NULL, review_id TEXT NOT NULL, text_hash TEXT NOT NULL,
+ labels_json TEXT NOT NULL, annotator TEXT NOT NULL, reviewed_at TEXT NOT NULL,
+ PRIMARY KEY(restaurant_id,review_id),
+ FOREIGN KEY(restaurant_id,review_id) REFERENCES reviews(restaurant_id,id));
 '''
 
 def utcnow():
