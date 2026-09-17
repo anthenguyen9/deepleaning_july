@@ -145,8 +145,8 @@ Tài liệu API đã đối chiếu:
 .venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-24 test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
+26 test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
 cache/dedup, quota, lỗi API, ngày nguồn, phân trang, Gemini structured output,
 lọc ID bịa, chat memory, feedback, checkpoint incremental, ABSA pending, trend baseline,
-BM25 index, seed scheduler, data card, citation/abstention và render trang kết quả. Xem
+BM25 retrieval tích hợp, IR metrics, seed scheduler, data card, citation/abstention và render trang kết quả. Xem
 VERIFICATION_WEB.md và VERIFICATION_GEMINI.md để biết phần nào đã chạy thực tế.
