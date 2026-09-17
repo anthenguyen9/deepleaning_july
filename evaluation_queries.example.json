@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dev-001",
+    "query": "Quán món Việt ở Hải Châu có phục vụ tốt",
+    "constraints": {"area": "Hải Châu", "cuisine": "món Việt", "aspect": "service"},
+    "relevant_restaurant_ids": [],
+    "relevant_review_ids": [],
+    "split": "dev",
+    "notes": "Người đánh giá điền ID sau khi judgment. Không dùng output model làm ground truth."
+  },
+  {
+    "id": "test-001",
+    "query": "Quán nào có món ăn được khen nhưng giá vừa phải",
+    "constraints": {"aspect": "food", "price": "moderate"},
+    "relevant_restaurant_ids": [],
+    "relevant_review_ids": [],
+    "split": "test",
+    "notes": "Giữ test split cố định sau khi gán relevance."
+  }
+]
