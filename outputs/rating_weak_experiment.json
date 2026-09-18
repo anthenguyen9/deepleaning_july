@@ -1,0 +1,59 @@
+{
+  "evaluation": "ViTASA human span-derived labels; fixed train/dev/test split",
+  "pseudo_source": "Star rating weak polarity + AI-derived aspect presence from data/gold/train.json",
+  "label_policy": "rating",
+  "pseudo_original": 2615,
+  "pseudo_labels_matching_ai_export": 2615,
+  "pseudo_accepted": 2613,
+  "pseudo_excluded_overlap_or_duplicate": 2,
+  "config": "char TF-IDF 3-5, min_df=2, max_features=60000, LinearSVC C=1, balanced",
+  "changed_label_sets_by_star_rule": {
+    "train": 454,
+    "dev": 44,
+    "test": 73
+  },
+  "star_rule": "1-2 NEGATIVE; 3 NEUTRAL; 4-5 POSITIVE; aspect presence unchanged",
+  "baseline": {
+    "dev": {
+      "pair_micro_f1": 0.7380281690140845,
+      "pair_macro_f1_15_labels": 0.30174947968351773,
+      "acd_macro_f1": 0.6080005235477499,
+      "exact_match": 0.41
+    },
+    "test": {
+      "pair_micro_f1": 0.7459986082115518,
+      "pair_macro_f1_15_labels": 0.3134916747558284,
+      "acd_macro_f1": 0.6491476258180915,
+      "exact_match": 0.4475
+    }
+  },
+  "candidates_dev": {
+    "0.25": {
+      "pair_micro_f1": 0.7275280898876404,
+      "pair_macro_f1_15_labels": 0.311767823371597,
+      "acd_macro_f1": 0.6288558568711136,
+      "exact_match": 0.39
+    },
+    "0.5": {
+      "pair_micro_f1": 0.725,
+      "pair_macro_f1_15_labels": 0.3104343697559134,
+      "acd_macro_f1": 0.6358568477413978,
+      "exact_match": 0.39
+    },
+    "1.0": {
+      "pair_micro_f1": 0.7287899860917941,
+      "pair_macro_f1_15_labels": 0.31395563104720947,
+      "acd_macro_f1": 0.6388234927520741,
+      "exact_match": 0.385
+    }
+  },
+  "selected_pseudo_weight": 1.0,
+  "dev_model_choice": "baseline",
+  "selection_rule": "Choose by ViTASA dev pair micro-F1; keep baseline on a tie",
+  "augmented_test": {
+    "pair_micro_f1": 0.7253044654939107,
+    "pair_macro_f1_15_labels": 0.31371264921214104,
+    "acd_macro_f1": 0.6563153588245297,
+    "exact_match": 0.41
+  }
+}

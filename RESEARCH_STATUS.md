@@ -47,6 +47,19 @@ quả thăm dò trên ViTASA, không chứng minh F1 tăng trên Google Maps; mo
 production chưa được thay thế. Báo cáo máy đọc nằm ở
 `outputs/gold_aug_experiment.json`.
 
+Với quy tắc 1–2 sao = NEGATIVE, 3 sao = NEUTRAL, 4–5 sao = POSITIVE,
+`compare_pseudo_labels.py --label-policy rating` tạo bản sao nhãn yếu trong
+`data/rating_weak/`, giữ nguyên aspect do AI xác định và không sửa `data/gold/`.
+571/3.441 review đổi bộ nhãn (train 454, dev 44, test 73). Chỉ 2.613 review
+train sau loại trùng được dùng để tăng cường ViTASA. Trên ViTASA test, pair
+micro-F1 là 0,7460 → 0,7253, pair macro-F1 là 0,3135 → 0,3137, ACD macro-F1
+là 0,6491 → 0,6563. Cả ba trọng số thử đều kém baseline trên ViTASA dev
+theo pair micro-F1, nên **giữ model production hiện tại**. Đây là nhãn yếu theo
+sao của toàn review, không phải nhãn cảm xúc được kiểm chứng riêng cho từng
+aspect. Tập ViTASA test cũng đã được xem trong thử nghiệm trước, do đó kết quả
+này chỉ mang tính thăm dò. Báo cáo nằm ở `outputs/rating_weak_experiment.json`;
+dữ liệu review trong `data/` chỉ lưu cục bộ theo `.gitignore`.
+
 ## Lệnh chạy trên Windows
 
 ```powershell
