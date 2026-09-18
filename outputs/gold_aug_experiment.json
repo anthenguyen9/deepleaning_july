@@ -1,0 +1,50 @@
+{
+  "evaluation": "ViTASA human span-derived labels; fixed train/dev/test split",
+  "pseudo_source": "AI-assisted labels from data/gold/train.json; not independently validated gold",
+  "pseudo_original": 2615,
+  "pseudo_labels_matching_ai_export": 2615,
+  "pseudo_accepted": 2613,
+  "pseudo_excluded_overlap_or_duplicate": 2,
+  "config": "char TF-IDF 3-5, min_df=2, max_features=60000, LinearSVC C=1, balanced",
+  "baseline": {
+    "dev": {
+      "pair_micro_f1": 0.7380281690140845,
+      "pair_macro_f1_15_labels": 0.30174947968351773,
+      "acd_macro_f1": 0.6080005235477499,
+      "exact_match": 0.41
+    },
+    "test": {
+      "pair_micro_f1": 0.7459986082115518,
+      "pair_macro_f1_15_labels": 0.3134916747558284,
+      "acd_macro_f1": 0.6491476258180915,
+      "exact_match": 0.4475
+    }
+  },
+  "candidates_dev": {
+    "0.25": {
+      "pair_micro_f1": 0.7280334728033473,
+      "pair_macro_f1_15_labels": 0.34299909001657536,
+      "acd_macro_f1": 0.6401946069822134,
+      "exact_match": 0.38
+    },
+    "0.5": {
+      "pair_micro_f1": 0.7340720221606648,
+      "pair_macro_f1_15_labels": 0.34849598798794407,
+      "acd_macro_f1": 0.6445217391304349,
+      "exact_match": 0.39
+    },
+    "1.0": {
+      "pair_micro_f1": 0.7420689655172413,
+      "pair_macro_f1_15_labels": 0.3527701140843874,
+      "acd_macro_f1": 0.6524312578067519,
+      "exact_match": 0.405
+    }
+  },
+  "selected_pseudo_weight": 1.0,
+  "augmented_test": {
+    "pair_micro_f1": 0.7336956521739131,
+    "pair_macro_f1_15_labels": 0.33821640787679225,
+    "acd_macro_f1": 0.6892381959278389,
+    "exact_match": 0.4325
+  }
+}

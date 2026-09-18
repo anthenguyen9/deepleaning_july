@@ -32,6 +32,21 @@ gia kiểm tra về độ mạch lạc; đây không phải BERTrend online lear
 - Chưa có kết quả huấn luyện PhoBERT multi-task, BERTrend online learning hoặc so sánh hybrid trên tập gold. Kết quả BERTopic mới là phân tích khám phá, chưa có nhãn đánh giá topic.
 - Các ngưỡng F1, faithfulness, hallucination và satisfaction trong đề cương là **mục tiêu**, không phải kết quả.
 
+## Thử nghiệm tăng dữ liệu ABSA bằng nhãn AI
+
+`data/gold/train.json` hiện có 2.615 review nhưng toàn bộ nhãn trùng với
+`data/annotation_ai_20260917.json`; đây là **pseudo-label do AI hỗ trợ**, không
+phải gold kiểm chứng độc lập. Không dùng `data/gold/dev.json` hoặc
+`data/gold/test.json` để công bố F1 trên Google Maps.
+
+`compare_pseudo_labels.py` so sánh SVM ViTASA gốc với cùng mô hình thêm 2.613
+review pseudo-label sau khi loại trùng văn bản. Chọn trọng số trên ViTASA dev,
+đánh giá một lần trên ViTASA test: pair macro-F1 0,3135 → 0,3382 và ACD
+macro-F1 0,6491 → 0,6892, nhưng pair micro-F1 0,7460 → 0,7337. Đây là kết
+quả thăm dò trên ViTASA, không chứng minh F1 tăng trên Google Maps; model
+production chưa được thay thế. Báo cáo máy đọc nằm ở
+`outputs/gold_aug_experiment.json`.
+
 ## Lệnh chạy trên Windows
 
 ```powershell
