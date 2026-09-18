@@ -162,7 +162,10 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         context={}
         reply=''
         try:
-            gemini=gemini_factory() if gemini_factory else GeminiClient()
+            # The assistant uses a low-latency model; the default model remains
+            # available to other research/chat flows via GEMINI_MODEL.
+            gemini=gemini_factory() if gemini_factory else GeminiClient(
+                model=os.getenv('GEMINI_ASSISTANT_MODEL','gemini-3.5-flash-lite'))
             parsed=gemini.extract_query(message,past,g.user['area'])
             context['extraction']=parsed
             if parsed['intent']!='restaurant_recommendation':

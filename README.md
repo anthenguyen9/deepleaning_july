@@ -56,7 +56,7 @@ Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe pipeline.py 
 `reviews.published_at`; ngày thiếu/không parse được không tự suy diễn.
 
 Biến môi trường nằm trong `.env` (Git bỏ qua): `SERPAPI_API_KEY`,
-`SERPAPI_DAILY_LIMIT`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `ADMIN_USERNAME`,
+`SERPAPI_DAILY_LIMIT`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_ASSISTANT_MODEL`, `ADMIN_USERNAME`,
 `ADMIN_PASSWORD`, `FLASK_SECRET_KEY`. Không đưa key xuống HTML hay log.
 Nếu `FLASK_SECRET_KEY` để trống, ứng dụng tạo khóa phiên một lần trong
 `instance/.flask_secret_key` (thư mục này không được đưa lên Git). Các tiến trình

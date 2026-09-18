@@ -103,7 +103,7 @@ class GeminiClient:
         request=urllib.request.Request(ENDPOINT,data=json.dumps(body,ensure_ascii=False).encode(),
             headers={'Content-Type':'application/json','x-goog-api-key':self.key},method='POST')
         try:
-            with urllib.request.urlopen(request,timeout=45) as response: return json.load(response)
+            with urllib.request.urlopen(request,timeout=20) as response: return json.load(response)
         except urllib.error.HTTPError as e:
             raise GeminiError({400:'Cấu hình Gemini/model không hợp lệ.',401:'Gemini API key không hợp lệ.',
                 403:'Gemini API bị từ chối.',429:'Gemini đã đạt giới hạn sử dụng.'}.get(e.code,f'Gemini trả HTTP {e.code}.')) from None
@@ -188,6 +188,8 @@ class GeminiClient:
         instruction=SYSTEM+'\n'+language_instruction
         body={'model':self.model,'store':False,'system_instruction':instruction,'input':json.dumps(context,ensure_ascii=False),
               'response_format':{'type':'text','mime_type':'application/json','schema':SCHEMA}}
+        if self.model.startswith('gemini-3'):
+            body['generation_config']={'thinking_level':'minimal' if 'flash-lite' in self.model else 'low'}
         started=time.perf_counter()
         payload=self.transport(body)
         if not isinstance(payload,dict) or payload.get('error'): raise GeminiError('Gemini báo lỗi xử lý yêu cầu.')
