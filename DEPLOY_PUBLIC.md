@@ -40,6 +40,7 @@ File `instance/public_seed.sqlite3` được Git bỏ qua. Kiểm tra dòng tổ
 | `GEMINI_API_KEY` | key riêng cho bản public, nếu bật chat |
 | `SERPAPI_API_KEY` | key riêng cho bản public, nếu bật crawl mới |
 | `DEMO_ACCESS_PASSWORD` | tùy chọn; đặt mật khẩu HTTP Basic cho link demo tạm (user `foodlens`) |
+| `DEMO_AUTO_LOGIN_USERNAME` | tùy chọn; tài khoản user có sẵn được mở tự động sau khi qua mật khẩu demo |
 
 `PUBLIC_HOSTS` không cần nếu dùng domain Railway. Nếu dùng domain riêng, đặt
 `PUBLIC_HOSTS=ten-mien-cua-ban` (hoặc danh sách phân tách bằng dấu phẩy).

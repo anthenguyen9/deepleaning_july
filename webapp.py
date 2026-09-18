@@ -42,6 +42,10 @@ def session_secret():
 def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
     public=os.getenv('DEPLOYMENT_MODE','').lower()=='public'
+    demo_access_password=os.getenv('DEMO_ACCESS_PASSWORD','') if public else ''
+    demo_auto_username=os.getenv('DEMO_AUTO_LOGIN_USERNAME','').strip()
+    if demo_auto_username and not demo_access_password:
+        raise RuntimeError('Demo auto-login requires public mode and DEMO_ACCESS_PASSWORD.')
     public_hosts=[h.strip() for h in os.getenv('PUBLIC_HOSTS',os.getenv('RAILWAY_PUBLIC_DOMAIN','')).split(',') if h.strip()]
     if public:
         if len(os.getenv('FLASK_SECRET_KEY','').strip())<32:
@@ -71,6 +75,14 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     lock=threading.Lock()
     app.extensions['store']=store
     auth.init_auth(app,store)
+    demo_user_id=None
+    if demo_auto_username:
+        with store.connect() as db:
+            demo_account=db.execute('SELECT id,role FROM accounts WHERE username=?',
+                                    (demo_auto_username,)).fetchone()
+        if not demo_account or demo_account['role']!='user':
+            raise RuntimeError('DEMO_AUTO_LOGIN_USERNAME must name an existing user account.')
+        demo_user_id=demo_account['id']
     ensure_history_table(store)
     from admin_annotations import register_admin
     register_admin(app,store)
@@ -79,13 +91,16 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.before_request
     def csrf():
-        access_password=os.getenv('DEMO_ACCESS_PASSWORD','') if public else ''
-        if access_password:
+        if demo_access_password:
             credentials=request.authorization
             if not (credentials and secrets.compare_digest(credentials.username or '','foodlens')
-                    and secrets.compare_digest(credentials.password or '',access_password)):
+                    and secrets.compare_digest(credentials.password or '',demo_access_password)):
                 return Response('Authentication required',401,
                                 {'WWW-Authenticate':'Basic realm="FoodLens Demo"'})
+        if demo_user_id is not None:
+            session['user_id']=demo_user_id
+            if request.endpoint in {'auth.login','auth.register'}:
+                return redirect(url_for('assistant_page'))
         auth.load_user(store)
         if 'csrf' not in session: session['csrf']=secrets.token_hex(32)
         if request.method=='POST' and not secrets.compare_digest(session['csrf'], request.form.get('csrf','')):
