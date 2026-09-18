@@ -61,7 +61,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             raise RuntimeError('Public deployment requires PUBLIC_HOSTS or RAILWAY_PUBLIC_DOMAIN.')
     app=Flask(__name__, template_folder=str(ROOT/'templates'), static_folder=str(ROOT/'static'))
     app.config.update(SECRET_KEY=session_secret(),
-        SESSION_COOKIE_NAME='foodlens_'+hashlib.sha256(str(ROOT).encode()).hexdigest()[:12],
+        SESSION_COOKIE_NAME=os.getenv('SESSION_COOKIE_NAME') or 'foodlens_'+hashlib.sha256(str(ROOT).encode()).hexdigest()[:12],
         ADMIN_USERNAME=os.getenv('ADMIN_USERNAME','admin'),ADMIN_PASSWORD=os.getenv('ADMIN_PASSWORD','admin'),
         RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),
         DATABASE=os.getenv('DATABASE_PATH',str(ROOT/'instance'/'food_reviews.sqlite3')),

@@ -1,6 +1,10 @@
 import unittest
+import importlib.util
 from types import SimpleNamespace
 from unittest.mock import patch
+
+if importlib.util.find_spec('torch') is None:
+    raise unittest.SkipTest('PhoBERT requires the optional requirements_phobert.txt environment')
 
 import torch
 from torch import nn

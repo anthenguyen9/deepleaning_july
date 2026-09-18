@@ -1,6 +1,7 @@
 @echo off
 cd /d "%~dp0\..\.."
 set "PYTHONPATH=%CD%\src"
+set "PYTHONPATH=%CD%\src"
 if exist .venv\Scripts\python.exe goto install
 if exist "%LocalAppData%\Programs\Python\Python311\python.exe" goto local311
 python -c "import sys; raise SystemExit(0 if sys.version_info[:2] == (3,11) else 1)" >nul 2>nul

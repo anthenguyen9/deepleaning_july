@@ -1,0 +1,31 @@
+{
+  "queries": 20,
+  "top_k": 5,
+  "fallback": false,
+  "relevance_status": "unjudged; no Recall, MRR or nDCG claimed",
+  "timing_protocol": "One sequential pass; first dense query includes model startup; no concurrent training",
+  "methods": {
+    "bm25": {
+      "returned": 100,
+      "empty_queries": 0,
+      "first_query_ms": 24.84720000938978,
+      "remaining_median_ms": 9.061299992026761,
+      "remaining_p95_ms": 15.432269997836553
+    },
+    "dense": {
+      "returned": 100,
+      "empty_queries": 0,
+      "first_query_ms": 4612.695200004964,
+      "remaining_median_ms": 97.2153999900911,
+      "remaining_p95_ms": 190.65315999760057
+    },
+    "hybrid": {
+      "returned": 100,
+      "empty_queries": 0,
+      "first_query_ms": 110.21830000390764,
+      "remaining_median_ms": 107.4872999888612,
+      "remaining_p95_ms": 212.920249995659
+    }
+  },
+  "pooled_documents": 227
+}

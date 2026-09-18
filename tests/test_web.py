@@ -7,6 +7,7 @@ from restaurant_service import Analyzer, ApiError, SerpClient, iso_date, now, sa
 from webapp import create_app
 from gemini_service import GeminiClient, GeminiError
 from data_pipeline import build_index
+from locations import seed_danang
 
 def fake_api(params):
     if params['engine']=='google_maps':
@@ -21,6 +22,7 @@ class WebTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory()
         self.path=Path(self.temp.name)
         self.store=Store(self.path/'test.sqlite3')
+        seed_danang(self.store)
         self.analyzer=Analyzer(self.path/'missing.joblib')
 
     def tearDown(self): self.temp.cleanup()
@@ -95,7 +97,11 @@ class WebTests(unittest.TestCase):
         self.assertEqual(client.get('/').status_code,302)
         token=self.login_admin(client)
         self.assertEqual(client.get('/').status_code,200)
-        self.assertEqual(client.post('/search',data={'area':'Đà Nẵng'}).status_code,400)
+        rejected=client.post('/search',data={'area':'Đà Nẵng'})
+        self.assertEqual(rejected.status_code,303)
+        with self.store.connect() as db:
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM searches').fetchone()[0],0)
+        with client.session_transaction() as state: token=state['csrf']
         result=client.post('/profile',data={'csrf':token,'name':"An'; DROP TABLE profile;--",'area':'Hải Châu',
             'cuisine':'món Việt','aspect':'price','min_rating':'3.5','explicit_notes':'Thích món Việt'},follow_redirects=True)
         self.assertEqual(result.status_code,200)

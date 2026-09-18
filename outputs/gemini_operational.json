@@ -1,0 +1,24 @@
+{
+  "database_copy": "E:\\FoodLensArtifacts\\validation\\live_gemini_20260919.sqlite3",
+  "external_api_mode": "live Gemini, crawl and OpenAI disabled",
+  "pages": {
+    "/": 200,
+    "/assistant": 200,
+    "/research": 200,
+    "/profile": 200,
+    "/admin/": 200,
+    "/admin/locations/": 200
+  },
+  "assistant_cases": [
+    {
+      "query": "Quán hải sản ở Hòa Xuân Đà Nẵng",
+      "http": 200,
+      "location": "Việt Nam › Đà Nẵng › phường Hòa Xuân",
+      "candidates": 5,
+      "citation_status": "fallback",
+      "source_count": 3,
+      "query_fallback": null
+    }
+  ],
+  "interpretation": "Operational integration; not a relevance, faithfulness or user study score."
+}

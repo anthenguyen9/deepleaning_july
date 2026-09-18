@@ -1,5 +1,35 @@
 # Trạng thái thực nghiệm FoodLens
 
+## Cập nhật kiểm chứng ngày 19/09/2026
+
+- App local: 138 nhà hàng, 7.331 review; 5.170 văn bản có phân tích và chỉ mục E5.
+  Snapshot luận văn bên dưới vẫn được giữ riêng, không thay số liệu cũ bằng crawl mới.
+- Bootstrap 2.000 lần trên 400 review ViTASA test: micro-F1 SVM 74,60%, CI95%
+  72,04–77,09%; macro-F1 15 nhãn 31,35%, CI95% 27,74–34,83%.
+- Audit char_wb TF-IDF 3–5, cosine >= 0,90: không thấy cặp gần trùng giữa split.
+  Điều này không chứng minh không còn mọi dạng trùng ngữ nghĩa.
+- 20 câu hỏi: BM25/E5/hybrid đều trả top-5 không fallback; trung vị sau query đầu
+  lần lượt 9,1 / 97,2 / 107,5 ms. Chưa có relevance judgments nên không báo Recall/MRR/nDCG.
+- Đã chuẩn bị 290 review từ 30 nhà hàng cho hai người gán nhãn độc lập, cùng pool
+  227 cặp query–document. Các phiếu chưa được điền nhãn và không được gọi là gold.
+- Đã sửa kiểm tra citation phải bao phủ đúng nhà hàng được đề xuất, fixture địa điểm
+  và test khôi phục CSRF. Môi trường web chạy 35 test đạt + 1 test PhoBERT skip khi
+  thiếu PyTorch; môi trường nghiên cứu đã chạy đủ 36/36 test đạt sau training.
+- Xem [quy trình đánh giá](research/EVALUATION_PROTOCOL.md) và
+  [chuyển ổ E](maintenance/DRIVE_E_MIGRATION.md). Kết quả PhoBERT chỉ cập nhật sau
+  khi lượt chạy hoàn tất, không suy ra từ dev hay từ kỳ vọng 80–85%.
+- PhoBERT-base đã hoàn tất 3 epoch CPU (1.433 giây): micro-F1 **72,61%**,
+  macro-F1 15 nhãn **23,22%**, ACD macro-F1 **69,79%**, exact match **44,00%**.
+  CI95% micro: 70,08–75,03%; macro: 21,43–25,35%. Cùng split ViTASA, seed42;
+  chọn checkpoint bằng dev, không đổi tham số theo test.
+- Latency 50 review, batch1, có tiền xử lý và bỏ thời gian khởi động:
+  SVM median/p95 1,19/1,76 ms; PhoBERT 70,62/110,77 ms. **Giữ SVM production**.
+  Đây là một cấu hình thăm dò, không chứng minh giới hạn tối đa của PhoBERT.
+  Báo cáo: `outputs/phobert_cpu_metrics.json`, `outputs/phobert_uncertainty.json`,
+  `outputs/serving_latency.json`; model lớn ở `E:\FoodLensArtifacts\experiments\phobert_base_cpu_v2`.
+
+## Nhật ký snapshot và thực nghiệm trước ngày 19/09
+
 Đề cương gốc do học viên cung cấp: Thạc sĩ Kỹ thuật Phần mềm, Nguyễn Thế An, GVHD Nguyễn Gia Trí. Tài liệu MBA trên Drive là một bản khác và không dùng làm chuẩn cho mã nguồn.
 
 Các kết quả nghiên cứu chỉ được ghi sau khi có dữ liệu nguồn và kiểm chứng độc lập.

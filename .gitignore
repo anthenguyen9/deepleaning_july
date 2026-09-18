@@ -20,3 +20,4 @@ outputs/*summary*.json
 outputs/live*.json
 outputs/*topic*.json
 outputs/*rag*.json
+outputs/phobert_multitask/

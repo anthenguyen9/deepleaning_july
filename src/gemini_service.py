@@ -222,7 +222,9 @@ class GeminiClient:
             if valid:
                 label='Source reviews' if fallback_language=='en' else 'Review tham khảo'
                 reply+='\n\n'+label+': '+' '.join(f'[{cid}]' for cid in valid)
-        if reply and valid and not invalid:
+        cited_restaurants={citation_map[cid]['restaurant_id'] for cid in valid}
+        coverage_ok=set(recommended).issubset(cited_restaurants)
+        if reply and valid and not invalid and coverage_ok:
             return {'reply':reply,'learned_preferences':learned,'recommended_restaurant_ids':recommended,
                 'citations':valid,'citation_sources':[citation_map[x] for x in valid],
                 'citation_status':'valid' if inline else 'sources_attached','abstained':False,'abstention_reason':'',
