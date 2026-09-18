@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from storage import Store, utcnow
 from restaurant_service import Analyzer, ApiError, SerpClient
 from gemini_service import GeminiClient, GeminiError, evidence_fallback, restaurant_context, reply_language_for
+from openai_service import OpenAIClient
 from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
@@ -162,11 +163,19 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         context={}
         reply=''
         try:
+            openai_fallback=(os.getenv('ASSISTANT_OPENAI_FALLBACK','0')=='1'
+                             and bool(os.getenv('OPENAI_API_KEY','').strip()) and gemini_factory is None)
             # The assistant uses a low-latency model; the default model remains
             # available to other research/chat flows via GEMINI_MODEL.
             gemini=gemini_factory() if gemini_factory else GeminiClient(
                 model=os.getenv('GEMINI_ASSISTANT_MODEL','gemini-3.5-flash-lite'))
-            parsed=gemini.extract_query(message,past,g.user['area'])
+            try:
+                parsed=gemini.extract_query(message,past,g.user['area'])
+            except GeminiError as exc:
+                if not openai_fallback: raise
+                app.logger.warning('Gemini query extraction unavailable: %s',exc)
+                gemini=OpenAIClient()
+                parsed=gemini.extract_query(message,past,g.user['area'])
             context['extraction']=parsed
             if parsed['intent']!='restaurant_recommendation':
                 reply=('I can recommend restaurants. What cuisine and area are you interested in?' if english else
@@ -182,15 +191,18 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                     context['location_valid']=True
                     context['location_id']=selected['id']
                     context['location']=' › '.join(x['name'] for x in lineage(store,selected['id']))
-                    try:
-                        client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
-                        sid,reused=crawl_or_reuse(store,client,analyzer,selected,parsed['cuisine'])
-                        context['crawl']='cached' if reused else 'refreshed'
-                        context['search_id']=sid
-                        build_index(store,analyzer.version)
-                    except ApiError as exc:
-                        context['crawl']='unavailable'
-                        context['crawl_error']=str(exc)
+                    if os.getenv('ASSISTANT_REFRESH_ON_QUERY','0')=='1':
+                        try:
+                            client=client_factory(store) if client_factory else SerpClient(store,daily_limit=app.config['DAILY_LIMIT'])
+                            sid,reused=crawl_or_reuse(store,client,analyzer,selected,parsed['cuisine'])
+                            context['crawl']='cached' if reused else 'refreshed'
+                            context['search_id']=sid
+                            build_index(store,analyzer.version)
+                        except ApiError as exc:
+                            context['crawl']='unavailable'
+                            context['crawl_error']=str(exc)
+                    else:
+                        context['crawl']='stored_only'
                     items=recommend(store,analyzer,auth.user_profile(),auth.user_memory(),
                                     auth.feedback(store),selected,parsed['cuisine'])
                     if not items:
@@ -216,19 +228,30 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                                                  auth.user_memory(),auth.feedback(store),past,
                                                  grounded,message,reply_language='auto')
                         except GeminiError as exc:
-                            app.logger.warning('Gemini advice unavailable: %s',exc)
-                            fallback,sources=evidence_fallback(restaurant_context(grounded),
-                                                               'en' if english else 'vi')
-                            if not sources: raise
-                            note=('Gemini is unavailable right now. Here are reviews from the saved data instead.\n\n'
-                                  if english else 'Gemini hiện không phản hồi. Dưới đây là review từ dữ liệu đã lưu để bạn tham khảo.\n\n')
-                            reply=note+fallback
-                            context.update(candidate_ids=[x['id'] for x in grounded[:5]],
-                                           recommended_restaurant_ids=[],citations=sources,
-                                           citation_status='local_evidence',
-                                           abstention_reason='gemini_unavailable',
-                                           retrieval_method=retrieval['method'])
-                        else:
+                            app.logger.warning('Assistant model unavailable: %s',exc)
+                            result=None
+                            if openai_fallback and not isinstance(gemini,OpenAIClient):
+                                try:
+                                    gemini=OpenAIClient()
+                                    result=gemini.advise({**auth.user_profile(),'area':context['location'],
+                                                         'cuisine':parsed['cuisine'] or g.user['cuisine']},
+                                                        auth.user_memory(),auth.feedback(store),past,
+                                                        grounded,message,reply_language='auto')
+                                except GeminiError as secondary:
+                                    app.logger.warning('OpenAI assistant fallback unavailable: %s',secondary)
+                            if result is None:
+                                fallback,sources=evidence_fallback(restaurant_context(grounded),
+                                                                   'en' if english else 'vi')
+                                if not sources: raise
+                                note=('The AI services are unavailable right now. Here are saved source reviews instead.\n\n'
+                                      if english else 'Các dịch vụ AI hiện không phản hồi. Dưới đây là review nguồn đã lưu để bạn tham khảo.\n\n')
+                                reply=note+fallback
+                                context.update(candidate_ids=[x['id'] for x in grounded[:5]],
+                                               recommended_restaurant_ids=[],citations=sources,
+                                               citation_status='local_evidence',
+                                               abstention_reason='model_unavailable',
+                                               retrieval_method=retrieval['method'])
+                        if result is not None:
                             reply=result['reply']
                             context.update(candidate_ids=result['candidate_ids'],
                                            recommended_restaurant_ids=result['recommended_restaurant_ids'],
@@ -236,6 +259,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                                            citation_status=result.get('citation_status'),
                                            abstention_reason=result.get('abstention_reason'),
                                            citation_attempts=result.get('citation_attempts',1),
+                                           provider='openai' if isinstance(gemini,OpenAIClient) else 'gemini',
                                            retrieval_method=retrieval['method'])
         except GeminiError as exc:
             reason=str(exc)
