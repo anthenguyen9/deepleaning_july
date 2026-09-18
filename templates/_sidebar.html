@@ -3,10 +3,8 @@
   <nav class="fl-nav">
     <a class="{{ 'active' if request.endpoint == 'home' }}" {% if request.endpoint == 'home' %}aria-current="page"{% endif %} href="{{ url_for('home') }}"><span aria-hidden="true">⌂</span> Trang chủ</a>
     <a class="{{ 'active' if request.endpoint in ['results','search'] }}" {% if request.endpoint in ['results','search'] %}aria-current="page"{% endif %} href="{{ url_for('home') }}#search"><span aria-hidden="true">⌕</span> Tìm kiếm</a>
-    {% if current_user.role == 'user' %}
     <a class="{{ 'active' if request.endpoint in ['assistant_page','assistant_send'] }}" {% if request.endpoint in ['assistant_page','assistant_send'] %}aria-current="page"{% endif %} href="{{ url_for('assistant_page') }}"><span aria-hidden="true">▣</span> Trợ lý nhà hàng</a>
     {% if assistant_shell|default(false) %}<button type="button" id="favorites-nav"><span aria-hidden="true">♥</span> Yêu thích</button>{% endif %}
-    {% endif %}
     <a class="{{ 'active' if request.endpoint == 'research_dashboard' }}" {% if request.endpoint == 'research_dashboard' %}aria-current="page"{% endif %} href="{{ url_for('research_dashboard') }}"><span aria-hidden="true">▥</span> Xu hướng</a>
     {% if current_user.role == 'admin' %}
     <a class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.') }}" {% if request.endpoint and request.endpoint.startswith('admin.') %}aria-current="page"{% endif %} href="{{ url_for('admin.index') }}"><span aria-hidden="true">✓</span> Gán nhãn</a>

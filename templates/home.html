@@ -2,7 +2,7 @@
 {% block content %}
 <header class="hero fl-hero">
   <div><p class="eyebrow">KHÁM PHÁ · ĐỐI CHIẾU · LỰA CHỌN</p><h1>Hôm nay, ăn ở đâu?</h1><p>Tìm nhà hàng theo khu vực, đọc đánh giá thực tế và chọn nơi phù hợp với bạn.</p></div>
-  {% if current_user.role == 'user' %}<a class="fl-hero-link" href="{{ url_for('assistant_page') }}">Hỏi trợ lý nhà hàng <span aria-hidden="true">↗</span></a>{% endif %}
+  <a class="fl-hero-link" href="{{ url_for('assistant_page') }}">Hỏi trợ lý nhà hàng <span aria-hidden="true">↗</span></a>
 </header>
 <div class="fl-page-grid">
   <section class="panel fl-primary-panel" id="search">

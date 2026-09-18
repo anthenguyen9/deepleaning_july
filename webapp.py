@@ -9,7 +9,7 @@ from flask import Flask, Response, abort, flash, g, redirect, render_template, r
 from dotenv import load_dotenv
 from storage import Store, utcnow
 from restaurant_service import Analyzer, ApiError, SerpClient
-from gemini_service import GeminiClient, GeminiError
+from gemini_service import GeminiClient, GeminiError, reply_language_for
 from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
@@ -111,7 +111,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
         if request.method=='POST' and not secrets.compare_digest(session['csrf'], request.form.get('csrf','')):
             session['csrf']=secrets.token_hex(32)
             flash('Phiên biểu mẫu đã hết hạn. Vui lòng gửi lại sau khi trang tải lại.','error')
-            target='auth.login' if g.user is None else ('assistant_page' if request.path=='/assistant' and g.user['role']=='user' else 'home')
+            target='auth.login' if g.user is None else ('assistant_page' if request.path=='/assistant' else 'home')
             return redirect(url_for(target),code=303)
         if request.endpoint is None: return None
         if request.endpoint not in {'auth.login','auth.register','static','health'} and g.user is None:
@@ -145,7 +145,6 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.get('/assistant')
     def assistant_page():
-        if g.user['role']!='user': abort(403)
         messages=assistant_history(store,g.user['id'])
         view=build_assistant_view(store,analyzer,messages,auth.user_profile(),
                                   auth.user_memory(),auth.feedback(store))
@@ -153,10 +152,11 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.post('/assistant')
     def assistant_send():
-        if g.user['role']!='user': abort(403)
         message=request.form.get('message','').strip()
+        english=reply_language_for(message)=='en'
         if not message or len(message)>1200:
-            flash('Tin nhắn phải có từ 1 đến 1.200 ký tự.','error')
+            flash('Please enter a message between 1 and 1,200 characters.' if english else
+                  'Tin nhắn phải có từ 1 đến 1.200 ký tự.','error')
             return redirect(url_for('assistant_page'))
         past=assistant_history(store,g.user['id'])
         context={}
@@ -166,12 +166,14 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             parsed=gemini.extract_query(message,past,g.user['area'])
             context['extraction']=parsed
             if parsed['intent']!='restaurant_recommendation':
-                reply='Mình có thể gợi ý nhà hàng. Bạn muốn tìm món gì và ở khu vực nào?'
+                reply=('I can recommend restaurants. What cuisine and area are you interested in?' if english else
+                       'Mình có thể gợi ý nhà hàng. Bạn muốn tìm món gì và ở khu vực nào?')
             else:
                 selected=resolve(store,city=parsed['city'] or g.user['area'],
                                  district=parsed['district'],ward=parsed['ward'],street=parsed['street'])
                 if not selected:
-                    reply='Không tìm thấy khu vực này trong dữ liệu địa điểm hiện có. Vui lòng cho biết tên thành phố, phường hoặc đường khác.'
+                    reply=('I could not find that area in the available location data. Please try another city, ward, or street.'
+                           if english else 'Không tìm thấy khu vực này trong dữ liệu địa điểm hiện có. Vui lòng cho biết tên thành phố, phường hoặc đường khác.')
                     context['location_valid']=False
                 else:
                     context['location_valid']=True
@@ -189,8 +191,8 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                     items=recommend(store,analyzer,auth.user_profile(),auth.user_memory(),
                                     auth.feedback(store),selected,parsed['cuisine'])
                     if not items:
-                        reply='Chưa có đủ nhà hàng và review phù hợp ở khu vực này để gợi ý có căn cứ.'
-                        if context.get('crawl_error'): reply+=' '+context['crawl_error']
+                        reply=('I do not have enough restaurant and review evidence in this area to make a grounded recommendation.'
+                               if english else 'Chưa có đủ nhà hàng và review phù hợp ở khu vực này để gợi ý có căn cứ.')
                     else:
                         retrieval=retrieve(store,message,[x['id'] for x in items],limit=12,
                                            method=app.config['RETRIEVAL_METHOD'],fallback=True)
@@ -208,7 +210,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                         result=gemini.advise({**auth.user_profile(),'area':context['location'],
                                               'cuisine':parsed['cuisine'] or g.user['cuisine']},
                                              auth.user_memory(),auth.feedback(store),past,
-                                             grounded,message)
+                                             grounded,message,reply_language='auto')
                         reply=result['reply']
                         context.update(candidate_ids=result['candidate_ids'],
                                        recommended_restaurant_ids=result['recommended_restaurant_ids'],
@@ -218,10 +220,20 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                                        citation_attempts=result.get('citation_attempts',1),
                                        retrieval_method=retrieval['method'])
         except GeminiError as exc:
-            reply=str(exc)
+            reason=str(exc)
+            if 'giới hạn' in reason:
+                reply=('Gemini has reached its usage limit. Please try again later.' if english else
+                       'Gemini đã đạt giới hạn sử dụng. Vui lòng thử lại sau.')
+            elif 'GEMINI_API_KEY' in reason or 'API key' in reason:
+                reply=('Gemini is not configured or its API key is invalid. Please check the server configuration.'
+                       if english else 'Gemini chưa được cấu hình hoặc API key không hợp lệ. Vui lòng kiểm tra cấu hình máy chủ.')
+            else:
+                reply=('The assistant is temporarily unavailable. Please try again.' if english else
+                       'Trợ lý tạm thời không khả dụng. Vui lòng thử lại.')
             context['error']='gemini'
         except (ValueError,RuntimeError,OSError) as exc:
-            reply='Không thể hoàn thành yêu cầu lúc này. Vui lòng thử lại.'
+            reply=('I could not complete this request right now. Please try again.' if english else
+                   'Không thể hoàn thành yêu cầu lúc này. Vui lòng thử lại.')
             context['error']=type(exc).__name__
         save_turn(store,g.user['id'],message,reply,context)
         return redirect(url_for('assistant_page'))

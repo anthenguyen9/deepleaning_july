@@ -4,10 +4,8 @@
   <div class="fl-drawer-head"><strong>✦ FoodLens</strong><button id="menu-close" type="button" aria-label="Đóng điều hướng">✕</button></div>
   <a {% if request.endpoint == 'home' %}aria-current="page"{% endif %} href="{{ url_for('home') }}">⌂ &nbsp;Trang chủ</a>
   <a {% if request.endpoint in ['results','search'] %}aria-current="page"{% endif %} href="{{ url_for('home') }}#search">⌕ &nbsp;Tìm kiếm</a>
-  {% if current_user.role == 'user' %}
   <a {% if request.endpoint in ['assistant_page','assistant_send'] %}aria-current="page"{% endif %} href="{{ url_for('assistant_page') }}">▣ &nbsp;Trợ lý nhà hàng</a>
   {% if assistant_shell|default(false) %}<button type="button" id="mobile-favorites-nav">♥ &nbsp;Yêu thích</button>{% endif %}
-  {% endif %}
   <a {% if request.endpoint == 'research_dashboard' %}aria-current="page"{% endif %} href="{{ url_for('research_dashboard') }}">▥ &nbsp;Xu hướng</a>
   {% if current_user.role == 'admin' %}
   <a {% if request.endpoint and request.endpoint.startswith('admin.') %}aria-current="page"{% endif %} href="{{ url_for('admin.index') }}">✓ &nbsp;Gán nhãn</a>
