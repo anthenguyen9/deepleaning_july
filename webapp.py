@@ -43,11 +43,13 @@ def session_secret():
 def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
     public=os.getenv('DEPLOYMENT_MODE','').lower()=='public'
+    # Demo access applies only to the published instance. Local login keeps
+    # the existing account/session flow even if demo variables are present.
     demo_access_password=os.getenv('DEMO_ACCESS_PASSWORD','') if public else ''
-    demo_auto_username=os.getenv('DEMO_AUTO_LOGIN_USERNAME','').strip()
+    demo_auto_username=os.getenv('DEMO_AUTO_LOGIN_USERNAME','').strip() if public else ''
     if demo_auto_username and not demo_access_password:
-        raise RuntimeError('Demo auto-login requires public mode and DEMO_ACCESS_PASSWORD.')
-    public_hosts=[h.strip() for h in os.getenv('PUBLIC_HOSTS',os.getenv('RAILWAY_PUBLIC_DOMAIN','')).split(',') if h.strip()]
+        raise RuntimeError('Demo auto-login requires DEMO_ACCESS_PASSWORD.')
+    public_hosts=[h.strip() for h in os.getenv('PUBLIC_HOSTS',os.getenv('RAILWAY_PUBLIC_DOMAIN','')).split(',') if h.strip()] if public else []
     if public:
         if len(os.getenv('FLASK_SECRET_KEY','').strip())<32:
             raise RuntimeError('Public deployment requires FLASK_SECRET_KEY (at least 32 characters).')

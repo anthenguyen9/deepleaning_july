@@ -42,6 +42,12 @@ File `instance/public_seed.sqlite3` được Git bỏ qua. Kiểm tra dòng tổ
 | `DEMO_ACCESS_PASSWORD` | tùy chọn; đặt mật khẩu HTTP Basic cho link demo tạm (user `foodlens`) |
 | `DEMO_AUTO_LOGIN_USERNAME` | tùy chọn; tài khoản user có sẵn được mở tự động sau khi qua mật khẩu demo |
 
+Hai biến `DEMO_*` chỉ có hiệu lực khi `DEPLOYMENT_MODE=public`. Để đăng nhập
+quản trị trên URL public, đặt `DEMO_ACCESS_PASSWORD` và **để trống**
+`DEMO_AUTO_LOGIN_USERNAME`; người dùng đi qua lớp mật khẩu demo rồi đăng nhập
+trên form FoodLens như bình thường. Bản chạy local không dùng lớp mật khẩu demo
+hoặc tự đăng nhập, kể cả khi máy còn lưu các biến `DEMO_*`.
+
 `PUBLIC_HOSTS` không cần nếu dùng domain Railway. Nếu dùng domain riêng, đặt
 `PUBLIC_HOSTS=ten-mien-cua-ban` (hoặc danh sách phân tách bằng dấu phẩy).
 Không dán các key này vào code, Git, biến build hoặc URL. Cân nhắc giới hạn
