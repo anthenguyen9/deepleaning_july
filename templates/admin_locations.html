@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<header class="fl-simple-head"><p class="eyebrow">QUẢN LÝ DỮ LIỆU</p><h1>Tìm nhà hàng theo khu vực</h1><p>Chọn địa điểm để xem dữ liệu đã thu thập hoặc cập nhật review.</p></header>
 <section class="panel">
-  <h1>Tìm nhà hàng theo khu vực</h1>
-  <p>Dữ liệu hành chính Đà Nẵng áp dụng từ 01/07/2025. Cấp quận cũ được tra cứu như bí danh; đường OSM được gắn ở cấp thành phố khi chưa có ranh giới phường.</p>
+  <h2>Chọn khu vực</h2>
+  <p class="fl-section-help">Dữ liệu hành chính Đà Nẵng áp dụng từ 01/07/2025. Cấp quận cũ được tra cứu như bí danh; đường OSM được gắn ở cấp thành phố khi chưa có ranh giới phường.</p>
   <form method="get" action="{{ url_for('locations.index') }}" id="location-form" data-api="{{ url_for('locations.api_children') }}">
     <label>Quốc gia <select id="country" aria-label="Quốc gia"><option value="">Chọn quốc gia</option>{% for x in countries %}<option value="{{ x.id }}">{{ x.name }}</option>{% endfor %}</select></label>
     <label>Tỉnh / thành phố <select id="province" aria-label="Tỉnh thành"><option value="">Chọn tỉnh / thành phố</option></select></label>
@@ -12,9 +13,10 @@
     <button type="submit">Xem khu vực</button>
   </form>
   {% if selected %}
-  <h2>{{ lineage | map(attribute='name') | join(' › ') }}</h2>
-  <p>{{ stats.restaurants }} nhà hàng · {{ stats.reviews }} review</p>
-  <p>{% if run %}Lần crawl gần nhất: {{ run.started_at }} · SerpApi · {{ run.status }} · {{ run.year_month }}{% else %}Chưa crawl khu vực này.{% endif %}</p>
+  </section><section class="panel fl-location-detail">
+  <p class="eyebrow">KHU VỰC ĐÃ CHỌN</p><h2>{{ lineage | map(attribute='name') | join(' › ') }}</h2>
+  <div class="stats"><div><strong>{{ stats.restaurants }}</strong><span>Nhà hàng</span></div><div><strong>{{ stats.reviews }}</strong><span>Review</span></div></div>
+  <p class="muted">{% if run %}Lần crawl gần nhất: {{ run.started_at }} · SerpApi · {{ run.status }} · {{ run.year_month }}{% else %}Chưa crawl khu vực này.{% endif %}</p>
   <form method="post" action="{{ url_for('locations.crawl') }}">
     <input type="hidden" name="csrf" value="{{ session.csrf }}"><input type="hidden" name="location_id" value="{{ selected.id }}">
     <label>Loại món <input name="cuisine" maxlength="80" placeholder="Ví dụ: hải sản"></label>

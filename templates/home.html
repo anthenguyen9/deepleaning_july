@@ -1,13 +1,27 @@
-{% extends 'base.html' %}{% block content %}
-<section class="hero"><p class="eyebrow">KHÁM PHÁ • ĐỐI CHIẾU • LỰA CHỌN</p><h1>Hôm nay, ăn ở đâu?</h1><p>Nhập khu vực bạn muốn đến. Xem nhà hàng, nhận xét gần đây và phân tích theo điều bạn quan tâm.</p></section>
-<section class="panel" id="search"><h2>Tìm nhà hàng theo khu vực</h2>
-<form action="{{ url_for('search') }}" method="post" class="search-form"><input type="hidden" name="csrf" value="{{ session.csrf }}">
-<label>Khu vực<input name="area" required minlength="2" maxlength="160" value="{{ profile.area }}" placeholder="Ví dụ: Hải Châu, Đà Nẵng"></label>
-<div class="row"><label>Số nhà hàng<select name="limit">{% for n in range(1,6) %}<option value="{{ n }}" {% if n==3 %}selected{% endif %}>{{ n }} nhà hàng</option>{% endfor %}</select></label>
-<label>Trang review mỗi nhà hàng<select name="pages"><option value="1">1 trang — nhanh</option><option value="2">2 trang</option><option value="3">3 trang</option></select></label></div>
-<p class="muted">Mặc định tối đa 4 lượt gọi API khi chưa có cache. Cache dùng lại trong 24 giờ.</p>
-<button type="submit">Tìm & phân tích nhà hàng →</button><p class="loading" hidden>Đang lấy dữ liệu và phân tích… Có thể mất vài phút, vui lòng giữ trang mở.</p></form>
-{% if not model_ready %}<div class="notice">Chưa có mô hình ABSA. Web vẫn tổng hợp điểm sao và review.</div>{% endif %}
-{% if not gemini_ready %}<div class="notice">Chưa cấu hình Gemini. Tìm kiếm và xếp hạng quy tắc vẫn hoạt động.</div>{% endif %}
-<h2>Tìm kiếm đã lưu</h2>{% for h in history %}<a class="history" href="{{ url_for('results',sid=h.id) }}"><strong>{{ h.area }}</strong><span>{{ h.created_at[:16].replace('T',' ') }} UTC · {{ 'Chưa đầy đủ' if h.status=='partial' else 'Đã lưu' }}</span></a>{% else %}<p class="muted">Lịch sử sẽ xuất hiện sau lượt tìm đầu tiên.</p>{% endfor %}
-</section>{% endblock %}
+{% extends 'base.html' %}
+{% block content %}
+<header class="hero fl-hero">
+  <div><p class="eyebrow">KHÁM PHÁ · ĐỐI CHIẾU · LỰA CHỌN</p><h1>Hôm nay, ăn ở đâu?</h1><p>Tìm nhà hàng theo khu vực, đọc đánh giá thực tế và chọn nơi phù hợp với bạn.</p></div>
+  {% if current_user.role == 'user' %}<a class="fl-hero-link" href="{{ url_for('assistant_page') }}">Hỏi trợ lý nhà hàng <span aria-hidden="true">↗</span></a>{% endif %}
+</header>
+<div class="fl-page-grid">
+  <section class="panel fl-primary-panel" id="search">
+    <p class="eyebrow">BẮT ĐẦU TÌM KIẾM</p><h2>Tìm nhà hàng theo khu vực</h2>
+    <p class="fl-section-help">Chọn khu vực và phạm vi review. Kết quả đã lưu được dùng lại khi có thể.</p>
+    <form action="{{ url_for('search') }}" method="post" class="search-form">
+      <input type="hidden" name="csrf" value="{{ session.csrf }}">
+      <label>Khu vực<input name="area" required minlength="2" maxlength="160" value="{{ profile.area }}" placeholder="Ví dụ: Hải Châu, Đà Nẵng"></label>
+      <div class="row"><label>Số nhà hàng<select name="limit">{% for n in range(1,6) %}<option value="{{ n }}" {% if n==3 %}selected{% endif %}>{{ n }} nhà hàng</option>{% endfor %}</select></label>
+      <label>Trang review mỗi nhà hàng<select name="pages"><option value="1">1 trang — nhanh</option><option value="2">2 trang</option><option value="3">3 trang</option></select></label></div>
+      <p class="muted fl-form-help">Mặc định tối đa 4 lượt gọi API khi chưa có cache. Cache dùng lại trong 24 giờ.</p>
+      <button type="submit">Tìm & phân tích nhà hàng <span aria-hidden="true">→</span></button><p class="loading" hidden role="status">Đang lấy dữ liệu và phân tích… Có thể mất vài phút, vui lòng giữ trang mở.</p>
+    </form>
+    {% if not model_ready %}<div class="notice">Chưa có mô hình ABSA. Web vẫn tổng hợp điểm sao và review.</div>{% endif %}
+    {% if not gemini_ready %}<div class="notice">Chưa cấu hình Gemini. Tìm kiếm và xếp hạng quy tắc vẫn hoạt động.</div>{% endif %}
+  </section>
+  <section class="panel fl-secondary-panel" aria-labelledby="history-title">
+    <div class="fl-section-heading"><div><p class="eyebrow">TIẾP TỤC KHÁM PHÁ</p><h2 id="history-title">Tìm kiếm đã lưu</h2></div></div>
+    {% for h in history %}<a class="history" href="{{ url_for('results',sid=h.id) }}"><span><strong>{{ h.area }}</strong><small>{{ h.created_at[:16].replace('T',' ') }} UTC · {{ 'Chưa đầy đủ' if h.status=='partial' else 'Đã lưu' }}</small></span><span class="fl-history-arrow" aria-hidden="true">↗</span></a>{% else %}<div class="fl-empty-inline">Lịch sử sẽ xuất hiện sau lượt tìm đầu tiên.</div>{% endfor %}
+  </section>
+</div>
+{% endblock %}

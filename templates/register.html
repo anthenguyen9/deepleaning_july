@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="panel"><h1>Đăng ký và tạo hồ sơ</h1><p>Nhập đầy đủ thông tin để bắt đầu dùng gợi ý cá nhân hóa.</p>
+<section class="panel"><p class="eyebrow">BẮT ĐẦU VỚI FOODLENS</p><h1>Đăng ký và tạo hồ sơ</h1><p class="fl-auth-intro">Nhập đầy đủ thông tin để bắt đầu dùng gợi ý cá nhân hóa.</p>
 <form method="post" action="{{ url_for('auth.register') }}">
 <input type="hidden" name="csrf" value="{{ session.csrf }}">
 <div class="row"><label>Tên đăng nhập<input name="username" minlength="3" maxlength="40" required autocomplete="username" value="{{ request.form.get('username','') }}"></label>

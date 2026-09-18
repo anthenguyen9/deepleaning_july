@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static',filename='admin.css') }}">
-<div class="heading"><div><h1>Gán nhãn review</h1><p>{{ reviewed }} nhãn đã lưu / {{ total }} review có nội dung. Dự đoán mô hình không được dùng làm nhãn gold.</p></div>
+<div class="heading fl-admin-head"><div><p class="eyebrow">DỮ LIỆU HUẤN LUYỆN</p><h1>Gán nhãn review</h1><p>{{ reviewed }} nhãn đã lưu / {{ total }} review có nội dung. Dự đoán mô hình không được dùng làm nhãn gold.</p></div>
 <div><a href="{{ url_for('admin.export') }}">Xuất JSON nhãn đã lưu</a></div></div>
 {% for row in rows %}
-<section class="panel">
+<section class="panel fl-annotation-card">
   <h2>{{ row.restaurant_name }}</h2>
   <p class="muted">Review {{ row.id }} · {{ row.published_at or 'Không có ngày ISO' }} · {{ row.rating if row.rating is not none else 'Không có điểm' }} sao</p>
   <p class="review">{{ row.text }}</p>

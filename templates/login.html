@@ -2,7 +2,9 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static',filename='admin.css') }}">
 <section class="panel admin-login">
+  <p class="eyebrow">CHÀO MỪNG TRỞ LẠI</p>
   <h1>Đăng nhập</h1>
+  <p class="fl-auth-intro">Tiếp tục khám phá nhà hàng và các gợi ý theo khẩu vị của bạn.</p>
   <form method="post" action="{{ url_for('auth.login') }}">
     <input type="hidden" name="csrf" value="{{ session.csrf }}">
     <label>Tài khoản<input name="username" required autocomplete="username"></label>

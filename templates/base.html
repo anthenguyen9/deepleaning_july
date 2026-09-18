@@ -7,8 +7,10 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
   {% if current_user %}<link rel="stylesheet" href="{{ url_for('static',filename='assistant.css') }}">{% endif %}
   <link rel="stylesheet" href="{{ url_for('static',filename='pages.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='ui_refresh.css') }}">
 </head>
 <body class="{{ 'foodlens-assistant' if current_user else 'foodlens-auth' }}">
+<a class="fl-skip-link" href="#main-content">Chuyển đến nội dung</a>
 {% if current_user %}
 <div class="fl-app">
   {% include '_sidebar.html' %}
