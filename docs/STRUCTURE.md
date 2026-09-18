@@ -20,3 +20,7 @@ thêm `src/` vào đường dẫn Python. Khi chạy lệnh Python thủ công t
 Ứng dụng Docker dùng `compose.demo.yml`, nạp cấu hình riêng từ
 `instance/docker_demo.env`, và gắn cùng thư mục `instance/` để dữ liệu tồn tại
 sau khi tạo lại container. Bắt đầu tại [README.md](README.md).
+
+Xem [rà soát file và kế hoạch dọn](maintenance/FILE_USAGE_AUDIT.md) trước khi
+xóa công cụ, dữ liệu hoặc môi trường Python. Danh mục từng file Git nằm trong
+[file_usage.csv](maintenance/file_usage.csv).

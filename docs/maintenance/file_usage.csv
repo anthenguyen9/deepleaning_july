@@ -1,0 +1,117 @@
+﻿file,usage_class,proposed_action,evidence,filename_references_non_exhaustive
+.dockerignore,configuration,KEEP,"Startup, packaging, environment template or ignore rules",
+.env.example,configuration,KEEP,"Startup, packaging, environment template or ignore rules",docs/README.md; docs/README_WEB.md
+.gitignore,configuration,KEEP,"Startup, packaging, environment template or ignore rules",docs/README_PIPELINE.md; docs/RESEARCH_STATUS.md
+Dockerfile,configuration,KEEP,"Startup, packaging, environment template or ignore rules",docs/DEPLOY_PUBLIC.md
+compose.demo.yml,configuration,KEEP,"Startup, packaging, environment template or ignore rules",docs/DEPLOY_PUBLIC.md; docs/STRUCTURE.md
+data/LICENSE,data_provenance_or_catalog,KEEP,Source/license provenance or location seed input,docs/README.md; src/pipeline.py
+data/source_manifest.json,data_provenance_or_catalog,KEEP,Source/license provenance or location seed input,docs/README.md; src/pipeline.py
+docs/ANNOTATION_GUIDE.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/CODEX_WORKSPACE.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/DEPLOY_PUBLIC.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/README.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README_WEB.md; docs/STRUCTURE.md; src/pipeline.py
+docs/README_EVALUATION.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README_PIPELINE.md
+docs/README_GEMINI.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/README_PIPELINE.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README.md
+docs/README_RECOMMENDATION.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README_WEB.md
+docs/README_WEB.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README.md; scripts/windows/setup_web.bat
+docs/RESEARCH_STATUS.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README.md; docs/README_PIPELINE.md
+docs/STRUCTURE.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/research/TRAINING_IMPROVEMENT_PLAN.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README_PIPELINE.md
+docs/verification/VERIFICATION.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README_WEB.md; docs/verification/VERIFICATION_WEB.md
+docs/verification/VERIFICATION_GEMINI.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/verification/VERIFICATION_PIPELINE.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,
+docs/verification/VERIFICATION_WEB.md,documentation,KEEP_RECONCILE,Usage or historical research/verification record; update legacy references before archive,docs/README.md; docs/README_WEB.md
+evaluation_queries.example.json,evaluation_fixture,KEEP,Schema/example input for offline evaluation,docs/ANNOTATION_GUIDE.md; docs/README_EVALUATION.md; docs/README_PIPELINE.md
+location_data/danang_2025.json,data_provenance_or_catalog,KEEP,Source/license provenance or location seed input,docs/README.md; src/locations.py
+location_data/danang_osm_streets.json,data_provenance_or_catalog,KEEP,Source/license provenance or location seed input,docs/README.md; src/locations.py
+outputs/audit.json,research_result,KEEP,Baseline/audit/augmentation evidence; not required by request-time imports,docs/README.md; src/pipeline.py
+outputs/gold_aug_experiment.json,research_result,KEEP,Baseline/audit/augmentation evidence; not required by request-time imports,docs/RESEARCH_STATUS.md; src/compare_pseudo_labels.py
+outputs/metrics.json,research_result,KEEP,Baseline/audit/augmentation evidence; not required by request-time imports,docs/README.md; docs/README_PIPELINE.md; docs/README_RECOMMENDATION.md; docs/research/TRAINING_IMPROVEMENT_PLAN.md; docs/verification/VERIFICATION.md; src/data_pipeline.py; src/evaluate_recommendation.py; src/pipeline.py
+outputs/rating_weak_experiment.json,research_result,KEEP,Baseline/audit/augmentation evidence; not required by request-time imports,docs/RESEARCH_STATUS.md; src/compare_pseudo_labels.py
+pytest.ini,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+recommendation_cases.example.json,evaluation_fixture,KEEP,Schema/example input for offline evaluation,docs/README_RECOMMENDATION.md
+requirements/requirements.txt,dependency_profile,KEEP_REFACTOR_INHERITANCE,Recursive pip requirements chain; setup/Docker/research dependencies,docs/README.md; requirements/requirements_phobert.txt; scripts/windows/setup_windows.bat
+requirements/requirements_phobert.txt,dependency_profile,KEEP_REFACTOR_INHERITANCE,Recursive pip requirements chain; setup/Docker/research dependencies,docs/README.md; requirements/requirements_research.txt
+requirements/requirements_research.txt,dependency_profile,KEEP_REFACTOR_INHERITANCE,Recursive pip requirements chain; setup/Docker/research dependencies,docs/README.md; docs/README_PIPELINE.md; docs/RESEARCH_STATUS.md; requirements/requirements_topics.txt
+requirements/requirements_topics.txt,dependency_profile,KEEP_REFACTOR_INHERITANCE,Recursive pip requirements chain; setup/Docker/research dependencies,docs/RESEARCH_STATUS.md
+requirements/requirements_web.txt,dependency_profile,KEEP_REFACTOR_INHERITANCE,Recursive pip requirements chain; setup/Docker/research dependencies,docs/README_WEB.md; requirements/requirements.txt; scripts/windows/setup_web.bat
+scripts/__init__.py,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,
+scripts/enrich_coverage.py,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,
+scripts/label_local_reviews.py,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,
+scripts/sync_public_snapshot.py,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,
+scripts/windows/run_data_pipeline.bat,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,docs/README.md
+scripts/windows/run_demo.bat,operation_or_launcher,ARCHIVE_AFTER_REFERENCE_UPDATE,Operational CLI / Windows launcher / src import bootstrap,docs/README.md; scripts/windows/setup_windows.bat
+scripts/windows/run_web.bat,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,docs/README.md; docs/README_WEB.md; docs/STRUCTURE.md; scripts/windows/setup_web.bat
+scripts/windows/setup_web.bat,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,docs/README.md; docs/README_GEMINI.md; docs/README_PIPELINE.md; docs/README_WEB.md; docs/STRUCTURE.md; scripts/windows/run_data_pipeline.bat; scripts/windows/run_web.bat
+scripts/windows/setup_windows.bat,operation_or_launcher,ARCHIVE_AFTER_REFERENCE_UPDATE,Operational CLI / Windows launcher / src import bootstrap,docs/README.md; src/app.py
+scripts/windows/train_model.bat,operation_or_launcher,KEEP,Operational CLI / Windows launcher / src import bootstrap,docs/README.md; docs/README_PIPELINE.md; docs/README_WEB.md; docs/verification/VERIFICATION_WEB.md; scripts/windows/setup_web.bat; src/data_pipeline.py
+src/admin_annotations.py,web_dependency,KEEP,"Flask dependency closure; imported by src/import_gold.py, src/webapp.py",
+src/ai_annotation.py,offline_tool,ARCHIVE_AFTER_REFERENCE_UPDATE,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/ANNOTATION_GUIDE.md
+src/app.py,offline_tool,ARCHIVE_AFTER_REFERENCE_UPDATE,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README.md; docs/README_WEB.md; docs/RESEARCH_STATUS.md; docs/STRUCTURE.md; docs/verification/VERIFICATION_WEB.md; scripts/windows/run_demo.bat; scripts/windows/run_web.bat
+src/assistant_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/location_routes.py, src/webapp.py",
+src/assistant_view.py,web_dependency,KEEP,"Flask dependency closure; imported by src/trend_dashboard.py, src/webapp.py",docs/README_WEB.md
+src/auth.py,web_dependency,KEEP,"Flask dependency closure; imported by src/admin_annotations.py, src/location_routes.py, src/webapp.py",
+src/chat_ui.py,web_dependency,KEEP,"Flask dependency closure; imported by src/assistant_view.py, src/gemini_service.py, src/trend_dashboard.py, src/webapp.py",
+src/compare_pseudo_labels.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/RESEARCH_STATUS.md
+src/configure_key.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README_GEMINI.md; docs/README_WEB.md; docs/verification/VERIFICATION_WEB.md; scripts/windows/setup_web.bat; src/restaurant_service.py; templates/results.html
+src/data_pipeline.py,web_dependency,KEEP,"Flask dependency closure; imported by src/import_gold.py, src/research.py, src/seed_locations.py, src/topic_trends.py, src/webapp.py",docs/README.md; docs/README_EVALUATION.md; docs/README_PIPELINE.md; docs/RESEARCH_STATUS.md; scripts/windows/run_data_pipeline.bat
+src/dense_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/research.py, src/retrieval_service.py, src/topic_trends.py, src/webapp.py",
+src/evaluate_recommendation.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README_RECOMMENDATION.md
+src/gemini_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/ai_annotation.py, src/openai_service.py, src/webapp.py",
+src/import_gold.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README.md
+src/location_routes.py,web_dependency,KEEP,Flask dependency closure; imported by src/webapp.py,
+src/locations.py,web_dependency,KEEP,"Flask dependency closure; imported by src/assistant_service.py, src/location_routes.py, src/restaurant_service.py, src/seed_locations.py, src/webapp.py",docs/README.md
+src/openai_service.py,web_dependency,KEEP,Flask dependency closure; imported by src/webapp.py,
+src/pipeline.py,web_dependency,KEEP,"Flask dependency closure; imported by src/admin_annotations.py, src/ai_annotation.py, src/app.py, src/auth.py, src/compare_pseudo_labels.py, src/import_gold.py, src/research.py, src/restaurant_service.py, src/topic_trends.py, src/train_phobert.py, src/train_phobert_multitask.py, src/webapp.py",docs/README.md; docs/README_EVALUATION.md; docs/README_PIPELINE.md; docs/README_WEB.md; docs/RESEARCH_STATUS.md; scripts/windows/run_data_pipeline.bat; scripts/windows/setup_windows.bat; scripts/windows/train_model.bat
+src/prepare_public_db.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/DEPLOY_PUBLIC.md
+src/recommendation_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/assistant_service.py, src/assistant_view.py, src/evaluate_recommendation.py, src/webapp.py",
+src/research.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/ANNOTATION_GUIDE.md; docs/README.md; docs/README_EVALUATION.md; docs/README_PIPELINE.md; docs/RESEARCH_STATUS.md; src/dense_service.py
+src/restaurant_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/assistant_service.py, src/data_pipeline.py, src/location_routes.py, src/webapp.py",docs/verification/VERIFICATION_WEB.md
+src/retrieval_service.py,web_dependency,KEEP,"Flask dependency closure; imported by src/data_pipeline.py, src/research.py, src/webapp.py",
+src/seed_locations.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README.md
+src/storage.py,web_dependency,KEEP,"Flask dependency closure; imported by src/assistant_service.py, src/auth.py, src/data_pipeline.py, src/import_gold.py, src/locations.py, src/research.py, src/retrieval_service.py, src/seed_locations.py, src/topic_trends.py, src/webapp.py",docs/verification/VERIFICATION_WEB.md
+src/topic_trends.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/RESEARCH_STATUS.md
+src/train_phobert.py,offline_tool,KEEP_PENDING_ABLATION_DECISION,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/README.md; docs/research/TRAINING_IMPROVEMENT_PLAN.md
+src/train_phobert_multitask.py,offline_tool,KEEP,"Standalone command, not in Flask dependency closure; entry point / documented CLI",docs/RESEARCH_STATUS.md
+src/trend_dashboard.py,web_dependency,KEEP,Flask dependency closure; imported by src/webapp.py,
+src/webapp.py,web_dependency,KEEP,Flask dependency closure; entry point / documented CLI,docs/README.md; docs/README_WEB.md; docs/RESEARCH_STATUS.md; docs/STRUCTURE.md; docs/verification/VERIFICATION_WEB.md; scripts/windows/run_web.bat
+static/admin.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/admin_annotations.html; templates/login.html
+static/app.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/assistant.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/assistant.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/assistant.html
+static/foodlens-mark.svg,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/_mobile_nav.html; templates/_sidebar.html; templates/assistant.html; templates/base.html
+static/locations.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/admin_locations.html
+static/pages.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/shell.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/style.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/trends.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,src/topic_trends.py; templates/research.html
+static/ui_refresh.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/base.html
+static/vendor/leaflet/LICENSE,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,docs/README.md; src/pipeline.py
+static/vendor/leaflet/leaflet.css,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/assistant.html; templates/research.html
+static/vendor/leaflet/leaflet.js,frontend_asset,KEEP,UI reference or vendored Leaflet dependency/license,templates/assistant.html; templates/research.html
+static/vendor/leaflet/marker-icon.png,frontend_asset,KEEP_VENDOR_REVIEW,App uses divIcon; retain library fallback pending asset-path/package audit,
+static/vendor/leaflet/marker-shadow.png,frontend_asset,KEEP_VENDOR_REVIEW,App uses divIcon; retain library fallback pending asset-path/package audit,
+study_responses.example.csv,evaluation_fixture,KEEP,Schema/example input for offline evaluation,docs/ANNOTATION_GUIDE.md
+templates/_mobile_nav.html,template,KEEP,"Route, extends or include reference; template compilation passed",templates/base.html
+templates/_sidebar.html,template,KEEP,"Route, extends or include reference; template compilation passed",templates/base.html
+templates/admin_annotations.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/admin_annotations.py
+templates/admin_locations.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/location_routes.py
+templates/assistant.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/webapp.py
+templates/base.html,template,KEEP,"Route, extends or include reference; template compilation passed",templates/admin_annotations.html; templates/admin_locations.html; templates/assistant.html; templates/error.html; templates/home.html; templates/login.html; templates/profile.html; templates/register.html
+templates/error.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/webapp.py
+templates/home.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/webapp.py
+templates/login.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/auth.py
+templates/profile.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/auth.py
+templates/register.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/auth.py
+templates/research.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/webapp.py
+templates/results.html,template,KEEP,"Route, extends or include reference; template compilation passed",src/webapp.py
+tests/test_admin.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_auth.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_data_pipeline.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_hybrid_research.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_phobert_architecture.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_pipeline.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_recommendation.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_retrieval.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
+tests/test_web.py,validation,KEEP,Test discovery / src import path; failures do not prove test file is unused,
