@@ -5,7 +5,7 @@ import secrets
 import threading
 import time
 from pathlib import Path
-from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
+from flask import Flask, Response, abort, flash, g, redirect, render_template, request, session, url_for
 from dotenv import load_dotenv
 from storage import Store, utcnow
 from restaurant_service import Analyzer, ApiError, SerpClient
@@ -79,6 +79,13 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.before_request
     def csrf():
+        access_password=os.getenv('DEMO_ACCESS_PASSWORD','') if public else ''
+        if access_password:
+            credentials=request.authorization
+            if not (credentials and secrets.compare_digest(credentials.username or '','foodlens')
+                    and secrets.compare_digest(credentials.password or '',access_password)):
+                return Response('Authentication required',401,
+                                {'WWW-Authenticate':'Basic realm="FoodLens Demo"'})
         auth.load_user(store)
         if 'csrf' not in session: session['csrf']=secrets.token_hex(32)
         if request.method=='POST' and not secrets.compare_digest(session['csrf'], request.form.get('csrf','')):
@@ -357,5 +364,5 @@ if __name__=='__main__':
     from waitress import serve
     host='0.0.0.0' if os.getenv('DEPLOYMENT_MODE','').lower()=='public' else '127.0.0.1'
     port=int(os.getenv('PORT','5000'))
-    print(f'Food Review Web: http://{host}:{port} (Ctrl+C để dừng)')
+    print(f'Food Review Web: http://{host}:{port} (Ctrl+C to stop)')
     serve(create_app(),host=host,port=port,threads=4)
