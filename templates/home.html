@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% block content %}
 <section class="hero"><p class="eyebrow">KHÁM PHÁ • ĐỐI CHIẾU • LỰA CHỌN</p><h1>Hôm nay, ăn ở đâu?</h1><p>Nhập khu vực bạn muốn đến. Xem nhà hàng, nhận xét gần đây và phân tích theo điều bạn quan tâm.</p></section>
-<section class="panel"><h2>Tìm nhà hàng theo khu vực</h2>
+<section class="panel" id="search"><h2>Tìm nhà hàng theo khu vực</h2>
 <form action="{{ url_for('search') }}" method="post" class="search-form"><input type="hidden" name="csrf" value="{{ session.csrf }}">
 <label>Khu vực<input name="area" required minlength="2" maxlength="160" value="{{ profile.area }}" placeholder="Ví dụ: Hải Châu, Đà Nẵng"></label>
 <div class="row"><label>Số nhà hàng<select name="limit">{% for n in range(1,6) %}<option value="{{ n }}" {% if n==3 %}selected{% endif %}>{{ n }} nhà hàng</option>{% endfor %}</select></label>

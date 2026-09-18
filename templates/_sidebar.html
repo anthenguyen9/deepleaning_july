@@ -1,0 +1,20 @@
+<aside class="fl-sidebar" aria-label="Điều hướng chính">
+  <a class="fl-brand" href="{{ url_for('home') }}"><span class="fl-brand-icon" aria-hidden="true">✦</span><span><strong>FoodLens</strong><small>Good Food, Better Decisions</small></span></a>
+  <nav class="fl-nav">
+    <a class="{{ 'active' if request.endpoint == 'home' }}" {% if request.endpoint == 'home' %}aria-current="page"{% endif %} href="{{ url_for('home') }}"><span aria-hidden="true">⌂</span> Trang chủ</a>
+    <a class="{{ 'active' if request.endpoint in ['results','search'] }}" {% if request.endpoint in ['results','search'] %}aria-current="page"{% endif %} href="{{ url_for('home') }}#search"><span aria-hidden="true">⌕</span> Tìm kiếm</a>
+    {% if current_user.role == 'user' %}
+    <a class="{{ 'active' if request.endpoint in ['assistant_page','assistant_send'] }}" {% if request.endpoint in ['assistant_page','assistant_send'] %}aria-current="page"{% endif %} href="{{ url_for('assistant_page') }}"><span aria-hidden="true">▣</span> Trợ lý nhà hàng</a>
+    {% if assistant_shell|default(false) %}<button type="button" id="favorites-nav"><span aria-hidden="true">♥</span> Yêu thích</button>{% endif %}
+    {% endif %}
+    <a class="{{ 'active' if request.endpoint == 'research_dashboard' }}" {% if request.endpoint == 'research_dashboard' %}aria-current="page"{% endif %} href="{{ url_for('research_dashboard') }}"><span aria-hidden="true">▥</span> Xu hướng</a>
+    {% if current_user.role == 'admin' %}
+    <a class="{{ 'active' if request.endpoint and request.endpoint.startswith('admin.') }}" {% if request.endpoint and request.endpoint.startswith('admin.') %}aria-current="page"{% endif %} href="{{ url_for('admin.index') }}"><span aria-hidden="true">✓</span> Gán nhãn</a>
+    <a class="{{ 'active' if request.endpoint and request.endpoint.startswith('locations.') }}" {% if request.endpoint and request.endpoint.startswith('locations.') %}aria-current="page"{% endif %} href="{{ url_for('locations.index') }}"><span aria-hidden="true">⌖</span> Khu vực</a>
+    {% endif %}
+    <a class="{{ 'active' if request.endpoint == 'auth.profile' }}" {% if request.endpoint == 'auth.profile' %}aria-current="page"{% endif %} href="{{ url_for('auth.profile') }}"><span aria-hidden="true">◯</span> Hồ sơ</a>
+    <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button type="submit"><span aria-hidden="true">↪</span> Đăng xuất</button></form>
+  </nav>
+  <div class="fl-sidebar-bottom"><p>⌖ &nbsp;{{ profile.area or 'Đà Nẵng' }}</p><div class="fl-skyline" aria-hidden="true">▁▃▂▄▂▆▃▂▅▂▃▁</div></div>
+  <div class="fl-sidebar-foot">Dữ liệu nhà hàng và review công khai từ Google Maps qua SerpApi</div>
+</aside>

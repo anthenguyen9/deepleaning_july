@@ -1,38 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static',filename='vendor/leaflet/leaflet.css') }}">
-<link rel="stylesheet" href="{{ url_for('static',filename='assistant.css') }}">
-
-<div class="fl-app">
-  <aside class="fl-sidebar" aria-label="Điều hướng chính">
-    <a class="fl-brand" href="{{ url_for('home') }}"><span class="fl-brand-icon" aria-hidden="true">✦</span><span><strong>FoodLens</strong><small>Good Food, Better Decisions</small></span></a>
-    <nav class="fl-nav">
-      <a href="{{ url_for('home') }}"><span aria-hidden="true">⌂</span> Trang chủ</a>
-      <a href="{{ url_for('home') }}"><span aria-hidden="true">⌕</span> Tìm kiếm</a>
-      <a href="#results"><span aria-hidden="true">★</span> Gợi ý</a>
-      <a href="{{ url_for('research_dashboard') }}"><span aria-hidden="true">▥</span> Xu hướng</a>
-      <a class="active" aria-current="page" href="{{ url_for('assistant_page') }}"><span aria-hidden="true">▣</span> Trợ lý nhà hàng</a>
-      <button type="button" id="favorites-nav"><span aria-hidden="true">♥</span> Yêu thích</button>
-      <a href="{{ url_for('auth.profile') }}"><span aria-hidden="true">◯</span> Hồ sơ</a>
-      <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button type="submit"><span aria-hidden="true">↪</span> Đăng xuất</button></form>
-    </nav>
-    <div class="fl-sidebar-bottom"><p>⌖ &nbsp;{{ profile.area or 'Đà Nẵng' }}</p><div class="fl-skyline" aria-hidden="true">▁▃▂▄▂▆▃▂▅▂▃▁</div></div>
-    <div class="fl-sidebar-foot">Dữ liệu nhà hàng và review công khai từ Google Maps qua SerpApi</div>
-  </aside>
-
-  <div class="fl-workspace">
-    <div class="fl-mobile-header"><button id="menu-open" type="button" aria-label="Mở điều hướng" aria-expanded="false">☰</button><a href="{{ url_for('home') }}">✦ FoodLens</a><span aria-label="Khu vực">⌖</span></div>
-    <div id="drawer-backdrop" class="fl-drawer-backdrop" hidden></div>
-    <nav id="mobile-drawer" class="fl-drawer" aria-label="Điều hướng di động" hidden>
-      <div class="fl-drawer-head"><strong>✦ FoodLens</strong><button id="menu-close" type="button" aria-label="Đóng điều hướng">✕</button></div>
-      <a href="{{ url_for('home') }}">⌂ &nbsp;Trang chủ</a><a href="{{ url_for('home') }}">⌕ &nbsp;Tìm kiếm</a>
-      <a href="#results">★ &nbsp;Gợi ý</a><a href="{{ url_for('research_dashboard') }}">▥ &nbsp;Xu hướng</a>
-      <a aria-current="page" href="{{ url_for('assistant_page') }}">▣ &nbsp;Trợ lý nhà hàng</a>
-      <button type="button" id="mobile-favorites-nav">♥ &nbsp;Yêu thích</button>
-      <a href="{{ url_for('auth.profile') }}">◯ &nbsp;Hồ sơ</a>
-      <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button type="submit">↪ &nbsp;Đăng xuất</button></form>
-    </nav>
-
     <div class="fl-page-head"><div><p class="fl-eyebrow">FOODLENS · RESTAURANT DISCOVERY</p><h1>Restaurant Assistant</h1><p>Hỏi, khám phá và chọn quán dựa trên review thật đã lưu.</p></div><span class="fl-location">⌖ &nbsp;{{ profile.area or 'Đà Nẵng' }}</span></div>
 
     <div class="fl-columns">
@@ -81,8 +49,6 @@
       <aside class="fl-evidence" aria-label="Bằng chứng và bản đồ"><div class="fl-tabs" role="tablist" aria-label="Thông tin nhà hàng"><button class="active" type="button" role="tab" data-panel="reviews" aria-selected="true">Bình luận</button><button type="button" role="tab" data-panel="map" aria-selected="false">Bản đồ</button><button type="button" role="tab" data-panel="trends" aria-selected="false">Xu hướng</button></div><div class="fl-evidence-body"><div id="evidence-reviews" class="fl-tab-panel" role="tabpanel"><div class="fl-panel-title"><h2>Bình luận từ review thật</h2><span id="evidence-name"></span></div><div id="review-evidence"></div><h2 class="fl-section-title">Khía cạnh trong review</h2><p class="fl-metric-note">Tỷ lệ nhãn tích cực trong mẫu đã phân tích; chỉ hiện khi có ít nhất 3 nhãn.</p><div id="aspect-summary"></div><h2 class="fl-section-title">Vị trí các quán</h2><div id="map-preview" class="fl-map" aria-label="Bản đồ nhà hàng"></div><p id="map-preview-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></div><div id="evidence-map" class="fl-tab-panel" role="tabpanel" hidden><h2>Bản đồ nhà hàng</h2><p class="fl-dim">Chọn ghim để xem quán tương ứng.</p><div id="map-large" class="fl-map fl-map-large" aria-label="Bản đồ các nhà hàng"></div><p id="map-large-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></div><div id="evidence-trends" class="fl-tab-panel" role="tabpanel" hidden><h2>Xu hướng đánh giá</h2><p class="fl-metric-note">Dựa trên ngày review gốc đã lưu; chỉ mô tả mẫu hiện có.</p><div id="trend-summary"></div></div></div></aside>
     </div>
     <div class="fl-footnote">FoodLens đối chiếu kết quả với review đã lưu. Điểm xếp hạng là điểm mô hình, không phải xác suất hài lòng. Bản đồ © OpenStreetMap contributors.</div>
-  </div>
-</div>
 
 <dialog id="mobile-details" class="fl-detail-dialog" aria-labelledby="detail-title"><div class="fl-detail-head"><div><p class="fl-eyebrow">CHI TIẾT NHÀ HÀNG</p><h2 id="detail-title"></h2></div><button id="detail-close" type="button" aria-label="Đóng chi tiết">✕</button></div><div class="fl-detail-tabs" role="tablist" aria-label="Chi tiết nhà hàng"><button type="button" class="active" data-detail-tab="overview" aria-selected="true">Tổng quan</button><button type="button" data-detail-tab="reviews" aria-selected="false">Review</button><button type="button" data-detail-tab="map" aria-selected="false">Bản đồ</button></div><div class="fl-detail-content"><section data-detail-panel="overview"><div id="detail-overview"></div></section><section data-detail-panel="reviews" hidden><div id="detail-reviews"></div></section><section data-detail-panel="map" hidden><div id="map-mobile" class="fl-map fl-map-mobile" aria-label="Bản đồ nhà hàng"></div><p id="map-mobile-empty" class="fl-dim" hidden>Chưa có tọa độ để hiển thị bản đồ.</p></section></div></dialog>
 

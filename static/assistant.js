@@ -234,16 +234,6 @@
   detail.addEventListener('click', event => { if (event.target === detail) detail.close(); });
   window.addEventListener('resize', () => requestAnimationFrame(refreshMaps));
 
-  const drawer = document.getElementById('mobile-drawer');
-  const backdrop = document.getElementById('drawer-backdrop');
-  const menuOpen = document.getElementById('menu-open');
-  function closeMenu() { drawer.hidden = backdrop.hidden = true; menuOpen.setAttribute('aria-expanded', 'false'); }
-  menuOpen.addEventListener('click', () => { drawer.hidden = backdrop.hidden = false; menuOpen.setAttribute('aria-expanded', 'true'); document.getElementById('menu-close').focus(); });
-  document.getElementById('menu-close').addEventListener('click', closeMenu);
-  backdrop.addEventListener('click', closeMenu);
-  drawer.addEventListener('keydown', event => { if (event.key === 'Escape') { closeMenu(); menuOpen.focus(); } });
-  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-
   const input = document.getElementById('assistant-message');
   document.querySelectorAll('[data-suggestion]').forEach(button => button.addEventListener('click', () => {
     input.value = button.dataset.suggestion;
