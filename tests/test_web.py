@@ -159,7 +159,7 @@ class WebTests(unittest.TestCase):
         self.assertEqual(result['citation_attempts'],1)
         self.assertEqual(len(calls),1)
 
-    def test_gemini_retries_stale_citation_then_uses_local_evidence(self):
+    def test_gemini_uses_local_evidence_for_stale_citation_without_retry(self):
         calls=[]
         payload={'reply':'Quán này ngon [R9].','learned_preferences':'',
                  'recommended_restaurant_ids':['r1'],'citations':['R9']}
@@ -171,7 +171,7 @@ class WebTests(unittest.TestCase):
             {'id':'v1','text':'Món ăn ngon.','source_url':'https://example.test/review'}]}}
         result=client.advise({}, {}, [], [{'role':'assistant','content':'Quán cũ [R9].'}],
                              [restaurant],'Gợi ý')
-        self.assertEqual(len(calls),2)
+        self.assertEqual(len(calls),1)
         self.assertNotIn('[R9]',calls[0]['input'])
         self.assertEqual(result['citation_status'],'fallback')
         self.assertEqual(result['citations'],['R1'])

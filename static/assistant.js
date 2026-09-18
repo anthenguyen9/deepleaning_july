@@ -241,6 +241,8 @@
   }));
   document.getElementById('assistant-form').addEventListener('submit', () => {
     document.getElementById('assistant-submit').disabled = true;
+    document.getElementById('chat-pending').hidden = false;
+    document.getElementById('assistant-form').setAttribute('aria-busy', 'true');
     document.getElementById('restaurant-list').hidden = true;
     document.getElementById('loading-cards').hidden = false;
   });

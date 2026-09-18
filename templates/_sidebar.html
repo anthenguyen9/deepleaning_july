@@ -1,5 +1,5 @@
 <aside class="fl-sidebar" aria-label="Điều hướng chính">
-  <a class="fl-brand" href="{{ url_for('home') }}"><span class="fl-brand-icon" aria-hidden="true">✦</span><span><strong>FoodLens</strong><small>Good Food, Better Decisions</small></span></a>
+  <a class="fl-brand" href="{{ url_for('home') }}"><img class="fl-brand-icon" src="{{ url_for('static',filename='foodlens-mark.svg') }}" alt=""><span><strong>FoodLens</strong><small>Good Food, Better Decisions</small></span></a>
   <nav class="fl-nav">
     <a class="{{ 'active' if request.endpoint == 'home' }}" {% if request.endpoint == 'home' %}aria-current="page"{% endif %} href="{{ url_for('home') }}"><span aria-hidden="true">⌂</span> Trang chủ</a>
     <a class="{{ 'active' if request.endpoint in ['results','search'] }}" {% if request.endpoint in ['results','search'] %}aria-current="page"{% endif %} href="{{ url_for('home') }}#search"><span aria-hidden="true">⌕</span> Tìm kiếm</a>

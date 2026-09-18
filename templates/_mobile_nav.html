@@ -1,7 +1,7 @@
-<div class="fl-mobile-header"><button id="menu-open" type="button" aria-label="Mở điều hướng" aria-controls="mobile-drawer" aria-expanded="false">☰</button><a href="{{ url_for('home') }}">✦ FoodLens</a><span aria-label="Khu vực">⌖</span></div>
+<div class="fl-mobile-header"><button id="menu-open" type="button" aria-label="Mở điều hướng" aria-controls="mobile-drawer" aria-expanded="false">☰</button><a href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='foodlens-mark.svg') }}" alt="">FoodLens</a><span aria-label="Khu vực">⌖</span></div>
 <div id="drawer-backdrop" class="fl-drawer-backdrop" hidden></div>
 <nav id="mobile-drawer" class="fl-drawer" aria-label="Điều hướng di động" hidden>
-  <div class="fl-drawer-head"><strong>✦ FoodLens</strong><button id="menu-close" type="button" aria-label="Đóng điều hướng">✕</button></div>
+  <div class="fl-drawer-head"><strong><img src="{{ url_for('static',filename='foodlens-mark.svg') }}" alt="">FoodLens</strong><button id="menu-close" type="button" aria-label="Đóng điều hướng">✕</button></div>
   <a {% if request.endpoint == 'home' %}aria-current="page"{% endif %} href="{{ url_for('home') }}">⌂ &nbsp;Trang chủ</a>
   <a {% if request.endpoint in ['results','search'] %}aria-current="page"{% endif %} href="{{ url_for('home') }}#search">⌕ &nbsp;Tìm kiếm</a>
   <a {% if request.endpoint in ['assistant_page','assistant_send'] %}aria-current="page"{% endif %} href="{{ url_for('assistant_page') }}">▣ &nbsp;Trợ lý nhà hàng</a>

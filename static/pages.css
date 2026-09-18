@@ -65,6 +65,7 @@ body.foodlens-assistant{background:#f5f8f6}
 .standard-content #location-form button{justify-self:start}
 .auth-header{background:#fff;border-bottom:1px solid var(--fl-border);padding:18px clamp(20px,4vw,60px);gap:13px}
 .auth-header .brand{color:#165742}
+.auth-header .fl-auth-logo{display:inline-block;width:31px;height:31px;margin-right:7px;vertical-align:middle}
 .auth-header small{color:var(--fl-muted)}
 .auth-content{width:min(760px,calc(100% - 32px));margin:48px auto 72px;padding:0}
 .auth-content .panel{border:1px solid var(--fl-border);border-radius:18px;padding:clamp(24px,4vw,38px);box-shadow:0 12px 30px #123a2510}

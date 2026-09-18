@@ -9,7 +9,7 @@ from flask import Flask, Response, abort, flash, g, redirect, render_template, r
 from dotenv import load_dotenv
 from storage import Store, utcnow
 from restaurant_service import Analyzer, ApiError, SerpClient
-from gemini_service import GeminiClient, GeminiError, reply_language_for
+from gemini_service import GeminiClient, GeminiError, evidence_fallback, restaurant_context, reply_language_for
 from pipeline import ASPECTS
 from retrieval_service import retrieve
 from recommendation_service import rank_restaurants
@@ -207,23 +207,42 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                         grounded=[{**x,'assessment':{**x['assessment'],
                                     'evidence':hits.get(x['id'],x['assessment']['evidence'])}}
                                   for x in items]
-                        result=gemini.advise({**auth.user_profile(),'area':context['location'],
-                                              'cuisine':parsed['cuisine'] or g.user['cuisine']},
-                                             auth.user_memory(),auth.feedback(store),past,
-                                             grounded,message,reply_language='auto')
-                        reply=result['reply']
-                        context.update(candidate_ids=result['candidate_ids'],
-                                       recommended_restaurant_ids=result['recommended_restaurant_ids'],
-                                       citations=result.get('citation_sources',[]),
-                                       citation_status=result.get('citation_status'),
-                                       abstention_reason=result.get('abstention_reason'),
-                                       citation_attempts=result.get('citation_attempts',1),
-                                       retrieval_method=retrieval['method'])
+                        try:
+                            result=gemini.advise({**auth.user_profile(),'area':context['location'],
+                                                  'cuisine':parsed['cuisine'] or g.user['cuisine']},
+                                                 auth.user_memory(),auth.feedback(store),past,
+                                                 grounded,message,reply_language='auto')
+                        except GeminiError as exc:
+                            app.logger.warning('Gemini advice unavailable: %s',exc)
+                            fallback,sources=evidence_fallback(restaurant_context(grounded),
+                                                               'en' if english else 'vi')
+                            if not sources: raise
+                            note=('Gemini is unavailable right now. Here are reviews from the saved data instead.\n\n'
+                                  if english else 'Gemini hiện không phản hồi. Dưới đây là review từ dữ liệu đã lưu để bạn tham khảo.\n\n')
+                            reply=note+fallback
+                            context.update(candidate_ids=[x['id'] for x in grounded[:5]],
+                                           recommended_restaurant_ids=[],citations=sources,
+                                           citation_status='local_evidence',
+                                           abstention_reason='gemini_unavailable',
+                                           retrieval_method=retrieval['method'])
+                        else:
+                            reply=result['reply']
+                            context.update(candidate_ids=result['candidate_ids'],
+                                           recommended_restaurant_ids=result['recommended_restaurant_ids'],
+                                           citations=result.get('citation_sources',[]),
+                                           citation_status=result.get('citation_status'),
+                                           abstention_reason=result.get('abstention_reason'),
+                                           citation_attempts=result.get('citation_attempts',1),
+                                           retrieval_method=retrieval['method'])
         except GeminiError as exc:
             reason=str(exc)
+            app.logger.warning('Gemini assistant unavailable: %s',reason)
             if 'giới hạn' in reason:
                 reply=('Gemini has reached its usage limit. Please try again later.' if english else
                        'Gemini đã đạt giới hạn sử dụng. Vui lòng thử lại sau.')
+            elif 'HTTP 503' in reason:
+                reply=('Gemini is temporarily busy (HTTP 503). Please retry shortly.' if english else
+                       'Gemini đang tạm thời quá tải (HTTP 503). Vui lòng thử lại sau ít phút.')
             elif 'GEMINI_API_KEY' in reason or 'API key' in reason:
                 reply=('Gemini is not configured or its API key is invalid. Please check the server configuration.'
                        if english else 'Gemini chưa được cấu hình hoặc API key không hợp lệ. Vui lòng kiểm tra cấu hình máy chủ.')

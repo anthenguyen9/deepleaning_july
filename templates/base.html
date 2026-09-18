@@ -17,7 +17,7 @@
   <div class="fl-workspace">
     {% include '_mobile_nav.html' %}
 {% else %}
-<header class="auth-header"><a class="brand" href="{{ url_for('home') }}">Food<span>Lens</span></a><small>Good Food, Better Decisions</small></header>
+<header class="auth-header"><a class="brand" href="{{ url_for('home') }}"><img class="fl-auth-logo" src="{{ url_for('static',filename='foodlens-mark.svg') }}" alt="">Food<span>Lens</span></a><small>Good Food, Better Decisions</small></header>
 {% endif %}
 <main class="{{ ('app-content assistant-content' if assistant_shell|default(false) else 'app-content standard-content') if current_user else 'auth-content' }}" id="main-content">
   {% for category,message in get_flashed_messages(with_categories=true) %}<div class="notice {{ category }}" role="status">{{ message }}</div>{% endfor %}
