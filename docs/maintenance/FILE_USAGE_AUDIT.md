@@ -1,5 +1,9 @@
 # Rà soát file và kế hoạch dọn FoodLens
 
+**Trạng thái:** kế hoạch bên dưới là bản trước khi dọn. Xem
+[kết quả thực thi](CLEANUP_RESULT.md) cho đường dẫn và trạng thái hiện tại;
+`file_usage.csv` đã được cập nhật theo các file đã chuyển.
+
 Ngày kiểm tra: 2026-09-18. Mốc mã nguồn: `4b3b53e`.
 Phạm vi: file Git, import Python (kể cả import trong hàm), entry point Windows/Docker,
 template/static, cấu hình đường dẫn và tên/kích thước dữ liệu cục bộ. Không đọc giá trị

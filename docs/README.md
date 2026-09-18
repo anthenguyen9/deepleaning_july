@@ -123,22 +123,24 @@ Có script PhoBERT tham chiếu tùy chọn; chưa chạy huấn luyện PhoBERT
 BERTopic/BERTrend, hybrid/vector retrieval, LLM generation, RAGAS hoặc user study.
 Không thay đổi file đề cương gốc.
 
-## Chạy trên Windows
+## Demo Streamlit cũ (đã lưu trữ)
 
 1. Cài Python 3.11 x64 từ https://www.python.org/downloads/windows/ (kèm Python Launcher).
-2. Giải nén thư mục; chạy `scripts/windows/setup_windows.bat` trong CMD. Cần Internet lần đầu.
-3. Chạy `scripts/windows/run_demo.bat`; mở địa chỉ localhost hiện trong cửa sổ.
+2. Giải nén thư mục; chạy `archive/streamlit/setup_windows.bat` trong CMD. Cần Internet lần đầu.
+3. Chạy `archive/streamlit/run_demo.bat`; mở địa chỉ localhost hiện trong cửa sổ.
 
-Hoặc thực hiện từng lệnh trong CMD:
+Đây là demo nghiên cứu cũ; ứng dụng chính dùng `scripts/windows/run_web.bat`.
+Xem [công cụ lưu trữ](maintenance/LEGACY_TOOLS.md). Hoặc chạy demo cũ trong CMD:
 
 ```bat
 py -3.11 -m venv .venv
-.venv\Scripts\python -m pip install -r requirements/requirements.txt
+.venv\Scripts\python -m pip install -r requirements/requirements_streamlit.txt
+set "PYTHONPATH=%CD%\src"
 .venv\Scripts\python -m unittest discover -s tests
 .venv\Scripts\python src/pipeline.py download
 .venv\Scripts\python src/pipeline.py prepare
 .venv\Scripts\python src/pipeline.py train
-.venv\Scripts\python -m streamlit run src/app.py --server.address 127.0.0.1
+.venv\Scripts\python -m streamlit run archive/streamlit/app.py --server.address 127.0.0.1
 ```
 
 CPU dùng được cho SVM; không cần API trả phí hay Conda. Nếu download lỗi mạng,

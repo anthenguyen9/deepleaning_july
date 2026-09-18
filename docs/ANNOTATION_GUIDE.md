@@ -1,6 +1,12 @@
 # Quy trình gán nhãn và đánh giá FoodLens
 
-`src/ai_annotation.py` có thể gán nhãn toàn bộ template bằng Gemini, lưu checkpoint
+Luồng hiện tại dùng `python -m scripts.label_local_reviews` để tạo nhãn tạm bằng
+SVM cục bộ cho khía cạnh và quy tắc sao cho polarity. Nhãn này có nguồn tự động,
+không phải gold độc lập; cần chạy phân tích review trước khi gán. Không dùng Gemini
+trong luồng gán nhãn hiện tại.
+
+Công cụ lịch sử `archive/annotation/ai_annotation.py` đã được lưu trữ. Nó từng
+gán nhãn template bằng Gemini, lưu checkpoint
 vào `data/annotation_ai_20260917.json` và đánh dấu `annotation_origin=ai`.
 Đây là nhãn AI hỗ trợ để khám phá dữ liệu, thử nghiệm và ưu tiên kiểm tra thủ
 công; không phải gold label hay bằng chứng đồng thuận giữa người gán nhãn.
@@ -25,8 +31,8 @@ Hai người gán nhãn độc lập trên ít nhất một tập giao nhau. Dù
 `src/research.py agreement first.json second.json` để tính exact agreement và
 Cohen kappa theo nhãn. Các bất đồng được đối chiếu và chốt thủ công trong bản
 adjudicated; chỉ bản đó đi vào `prepare-gold`. Lệnh này khóa train/dev/test theo
-nhà hàng và từ chối ghi đè split đã có. Với 13 nhà hàng hiện tại, cỡ mẫu và
-độ cân bằng nhãn còn hạn chế; cần báo cáo độ phủ từng split.
+nhà hàng và từ chối ghi đè split đã có. Cỡ mẫu và độ cân bằng nhãn phải được
+đo trên snapshot cụ thể; cần báo cáo độ phủ từng split.
 
 ## Retrieval và câu trả lời
 

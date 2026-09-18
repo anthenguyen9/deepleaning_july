@@ -1,2 +1,1 @@
 -r requirements_web.txt
-streamlit>=1.40,<2

@@ -3,7 +3,7 @@ cd /d "%~dp0\..\.."
 set "PYTHONPATH=%CD%\src"
 py -3.11 -m venv .venv
 if errorlevel 1 exit /b 1
-.venv\Scripts\python.exe -m pip install -r requirements\requirements.txt
+.venv\Scripts\python.exe -m pip install -r requirements\requirements_streamlit.txt
 if errorlevel 1 exit /b 1
 .venv\Scripts\python.exe -m unittest discover -s tests
 if errorlevel 1 exit /b 1
