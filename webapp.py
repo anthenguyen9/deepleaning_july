@@ -41,15 +41,28 @@ def session_secret():
 
 def create_app(config=None, client_factory=None, gemini_factory=None):
     load_dotenv(ROOT/'.env')
+    public=os.getenv('DEPLOYMENT_MODE','').lower()=='public'
+    public_hosts=[h.strip() for h in os.getenv('PUBLIC_HOSTS',os.getenv('RAILWAY_PUBLIC_DOMAIN','')).split(',') if h.strip()]
+    if public:
+        if len(os.getenv('FLASK_SECRET_KEY','').strip())<32:
+            raise RuntimeError('Public deployment requires FLASK_SECRET_KEY (at least 32 characters).')
+        password=os.getenv('ADMIN_PASSWORD','')
+        if len(password)<16 or password in {'admin','change-this-before-first-run'}:
+            raise RuntimeError('Public deployment requires a unique ADMIN_PASSWORD (at least 16 characters).')
+        if not public_hosts:
+            raise RuntimeError('Public deployment requires PUBLIC_HOSTS or RAILWAY_PUBLIC_DOMAIN.')
     app=Flask(__name__)
     app.config.update(SECRET_KEY=session_secret(),
         SESSION_COOKIE_NAME='foodlens_'+hashlib.sha256(str(ROOT).encode()).hexdigest()[:12],
         ADMIN_USERNAME=os.getenv('ADMIN_USERNAME','admin'),ADMIN_PASSWORD=os.getenv('ADMIN_PASSWORD','admin'),
-        RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),DATABASE=str(ROOT/'instance'/'food_reviews.sqlite3'),
+        RETRIEVAL_METHOD=os.getenv('RETRIEVAL_METHOD','hybrid'),
+        DATABASE=os.getenv('DATABASE_PATH',str(ROOT/'instance'/'food_reviews.sqlite3')),
         AUTO_BUILD_DENSE=os.getenv('AUTO_BUILD_DENSE','0')=='1',
-        MODEL_PATH=str(ROOT/'outputs'/'baseline.joblib'),MAX_CONTENT_LENGTH=16384,
+        MODEL_PATH=os.getenv('MODEL_PATH',str(ROOT/'outputs'/'baseline.joblib')),MAX_CONTENT_LENGTH=16384,
         SESSION_COOKIE_HTTPONLY=True,SESSION_COOKIE_SAMESITE='Strict',
-        TRUSTED_HOSTS=['localhost','127.0.0.1'],DAILY_LIMIT=int(os.getenv('SERPAPI_DAILY_LIMIT','30')))
+        SESSION_COOKIE_SECURE=public,
+        TRUSTED_HOSTS=['localhost','127.0.0.1']+public_hosts,
+        DAILY_LIMIT=int(os.getenv('SERPAPI_DAILY_LIMIT','30')))
     if config: app.config.update(config)
     app.jinja_env.filters['assistant_reply']=assistant_reply
     app.jinja_env.filters['review_url']=review_url
@@ -74,8 +87,14 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             target='auth.login' if g.user is None else ('assistant_page' if request.path=='/assistant' and g.user['role']=='user' else 'home')
             return redirect(url_for(target),code=303)
         if request.endpoint is None: return None
-        if request.endpoint not in {'auth.login','auth.register','static'} and g.user is None:
+        if request.endpoint not in {'auth.login','auth.register','static','health'} and g.user is None:
             return redirect(url_for('auth.login'))
+
+    @app.get('/health')
+    def health():
+        with store.connect() as db:
+            db.execute('SELECT 1').fetchone()
+        return {'status':'ok'}
 
     @app.after_request
     def headers(response):
@@ -336,5 +355,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
 if __name__=='__main__':
     from waitress import serve
-    print('Food Review Web: http://127.0.0.1:5000 (Ctrl+C để dừng)')
-    serve(create_app(),host='127.0.0.1',port=5000,threads=4)
+    host='0.0.0.0' if os.getenv('DEPLOYMENT_MODE','').lower()=='public' else '127.0.0.1'
+    port=int(os.getenv('PORT','5000'))
+    print(f'Food Review Web: http://{host}:{port} (Ctrl+C để dừng)')
+    serve(create_app(),host=host,port=port,threads=4)
