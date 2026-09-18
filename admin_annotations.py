@@ -41,8 +41,9 @@ def register_admin(app, store):
             reviewed = db.execute('''SELECT COUNT(*) FROM reviews v JOIN gold_annotations a
                 ON a.restaurant_id=v.restaurant_id AND a.review_id=v.id
                 WHERE trim(v.text)<>'' AND a.text_hash IS NOT NULL''').fetchone()[0]
+            automatic = db.execute("SELECT COUNT(*) FROM gold_annotations WHERE annotator LIKE 'ai:%'").fetchone()[0]
             rows = [dict(row) for row in db.execute('''SELECT v.restaurant_id,v.id,v.text,v.rating,
-                v.published_at,r.name AS restaurant_name,a.text_hash,a.labels_json
+                v.published_at,r.name AS restaurant_name,a.text_hash,a.labels_json,a.annotator
                 FROM reviews v JOIN restaurants r ON r.id=v.restaurant_id
                 LEFT JOIN gold_annotations a ON a.restaurant_id=v.restaurant_id AND a.review_id=v.id
                 WHERE trim(v.text)<>'' ORDER BY v.restaurant_id,v.id LIMIT 20 OFFSET ?''', ((page-1)*20,))]
@@ -51,6 +52,7 @@ def register_admin(app, store):
             row['current'] = row['text_hash'] == row['current_hash']
             row['labels'] = json.loads(row['labels_json']) if row['current'] and row['labels_json'] else []
         return render_template('admin_annotations.html', rows=rows, total=total, reviewed=reviewed,
+                               automatic=automatic,
                                page=page, pages=max(1, (total+19)//20), aspects=ASPECTS,
                                polarities=POLARITIES)
 
@@ -94,9 +96,11 @@ def register_admin(app, store):
                 ORDER BY v.restaurant_id,v.id''')]
         records = [{'restaurant_id':r['restaurant_id'],'review_id':r['review_id'],
                     'text':r['text'],'published_at':r['published_at'],'rating':r['rating'],
-                    'labels':json.loads(r['labels_json']),'annotator':r['annotator'],'reviewed':True}
+                    'labels':json.loads(r['labels_json']),'annotator':r['annotator'],
+                    'reviewed':not r['annotator'].startswith('ai:'),
+                    'annotation_origin':'ai' if r['annotator'].startswith('ai:') else 'human'}
                    for r in rows if r['text_hash'] == text_hash(r['text'])]
-        content = json.dumps({'source':'admin_gold_annotations','records':records}, ensure_ascii=False, indent=2)
+        content = json.dumps({'source':'admin_annotations_mixed_provenance','records':records}, ensure_ascii=False, indent=2)
         return send_file(io.BytesIO(content.encode('utf-8')), mimetype='application/json',
                          as_attachment=True, download_name='gold_annotations.json')
 

@@ -35,7 +35,7 @@ API key không được ghi vào báo cáo, database thử nghiệm hay ZIP. Dat
 - Chưa kiểm thử trực quan bằng trình duyệt tự động vì tải Chromium trong môi trường
   kiểm tra bị timeout. Template đã được render qua Flask và kiểm tra HTTP/XSS.
 - Chưa đánh giá F1 của SVM trên Google Maps có gán nhãn. Điểm baseline ViTASA trong
-  `VERIFICATION.md` không được coi là chất lượng trên dữ liệu Google Maps.
+  [`VERIFICATION.md`](VERIFICATION.md) không được coi là chất lượng trên dữ liệu Google Maps.
 - Chưa có login nhiều người dùng, public deployment, LLM/RAG, RAGAS hoặc BERTrend.
 
 ## Nội dung ZIP

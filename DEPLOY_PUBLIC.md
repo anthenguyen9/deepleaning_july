@@ -1,5 +1,22 @@
 # Triển khai FoodLens lên URL công khai
 
+## Demo đang chạy trên máy qua Cloudflare Quick Tunnel
+
+URL `*.trycloudflare.com` chỉ giữ nguyên khi **tiến trình tunnel hiện tại vẫn
+chạy**; khởi động lại Flask/Waitress ở cùng cổng không đổi URL. Quick Tunnel
+cấp tên ngẫu nhiên cho phiên tunnel mới, vì vậy URL này không thể được cam kết
+cố định qua lần khởi động tunnel hoặc khởi động lại máy. Muốn domain ổn định,
+cấu hình Cloudflare named tunnel với zone/domain do bạn quản lý (hoặc dùng
+domain riêng trên dịch vụ host phù hợp). Xem tài liệu Cloudflare:
+https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/
+
+Để cập nhật database demo đang chạy trên máy: dừng riêng worker public, chạy
+`python -m scripts.sync_public_snapshot`, sau đó khởi động lại worker. Script
+giữ tài khoản, hội thoại và phản hồi đã có trên demo; chỉ sao chép dữ liệu nhà
+hàng/review, địa điểm và phân tích từ database local. Script tạo file backup
+`instance/demo_tunnel_before_enrichment.sqlite3` trước khi thay database. Không
+khởi động lại tiến trình `cloudflared` nếu muốn giữ URL trong phiên hiện tại.
+
 Mục tiêu: một Railway Web Service chạy Flask, có HTTPS và một volume SQLite.
 Không đưa `.env`, database gốc hay model huấn luyện lên GitHub. Bản snapshot công khai
 giữ nhà hàng/review và bỏ tài khoản, lịch sử chat, cache API, phản hồi cá nhân.

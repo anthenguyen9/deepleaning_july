@@ -90,6 +90,7 @@ def build_assistant_view(store,analyzer,messages,profile,memory,feedback):
             'sourceUrl':review_url(row['source_url']),
             'score':row['recommendation_score'],
             'scoreReason':row['recommendation_reason'],
+            'feedbackSignal':row['feedback_signal'],
             'aspects':_aspects(assessment),'evidence':evidence,
             'reviewSnippet':evidence[0]['text'][:170] if evidence else '',
             'location':_coordinates(payload),

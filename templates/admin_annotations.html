@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static',filename='admin.css') }}">
-<div class="heading fl-admin-head"><div><p class="eyebrow">DỮ LIỆU HUẤN LUYỆN</p><h1>Gán nhãn review</h1><p>{{ reviewed }} nhãn đã lưu / {{ total }} review có nội dung. Dự đoán mô hình không được dùng làm nhãn gold.</p></div>
+<div class="heading fl-admin-head"><div><p class="eyebrow">DỮ LIỆU HUẤN LUYỆN</p><h1>Gán nhãn review</h1><p>{{ reviewed }} / {{ total }} review có nội dung đã được gán nhãn: {{ reviewed - automatic }} nhãn được lưu bởi admin, {{ automatic }} nhãn tự động cần kiểm tra. Nhãn tự động không được dùng làm gold độc lập.</p></div>
 <div><a href="{{ url_for('admin.export') }}">Xuất JSON nhãn đã lưu</a></div></div>
 {% for row in rows %}
 <section class="panel fl-annotation-card">
   <h2>{{ row.restaurant_name }}</h2>
+  {% if row.annotator and row.annotator.startswith('ai:') %}<p class="notice">Nhãn gợi ý từ mô hình cục bộ và quy tắc sao · chưa được xác nhận. Kiểm tra nội dung rồi bấm Lưu nhãn để xác nhận hoặc sửa.</p>{% endif %}
   <p class="muted">Review {{ row.id }} · {{ row.published_at or 'Không có ngày ISO' }} · {{ row.rating if row.rating is not none else 'Không có điểm' }} sao</p>
   <p class="review">{{ row.text }}</p>
   {% if row.labels_json and not row.current %}<p class="notice error">Nội dung review đã thay đổi; cần gán lại nhãn.</p>{% endif %}

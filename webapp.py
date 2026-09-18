@@ -17,7 +17,7 @@ from recommendation_service import rank_restaurants
 from data_pipeline import build_index, compute_trends, status
 import auth
 from chat_ui import assistant_reply, review_url
-from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, recommend, save_turn
+from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, local_query, recommend, save_turn
 from assistant_view import build_assistant_view
 from trend_dashboard import build_dashboard
 from locations import lineage, resolve, resolve_area_text
@@ -172,17 +172,29 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             try:
                 parsed=gemini.extract_query(message,past,g.user['area'])
             except GeminiError as exc:
-                if not openai_fallback: raise
                 app.logger.warning('Gemini query extraction unavailable: %s',exc)
-                gemini=OpenAIClient()
-                parsed=gemini.extract_query(message,past,g.user['area'])
+                if openai_fallback:
+                    try:
+                        gemini=OpenAIClient()
+                        parsed=gemini.extract_query(message,past,g.user['area'])
+                    except GeminiError:
+                        parsed=local_query(store,message,g.user['area'])
+                        context['query_fallback']='local'
+                else:
+                    parsed=local_query(store,message,g.user['area'])
+                    context['query_fallback']='local'
             context['extraction']=parsed
             if parsed['intent']!='restaurant_recommendation':
                 reply=('I can recommend restaurants. What cuisine and area are you interested in?' if english else
                        'Mình có thể gợi ý nhà hàng. Bạn muốn tìm món gì và ở khu vực nào?')
             else:
+                # The active location catalog has two administrative levels.
+                # A model may infer an old district (e.g. Cẩm Lệ) alongside a
+                # valid current ward (Hòa Xuân); validate the ward against the
+                # city instead of treating that historical district as a clash.
                 selected=resolve(store,city=parsed['city'] or g.user['area'],
-                                 district=parsed['district'],ward=parsed['ward'],street=parsed['street'])
+                                 district='' if parsed['ward'] else parsed['district'],
+                                 ward=parsed['ward'],street=parsed['street'])
                 if not selected:
                     reply=('I could not find that area in the available location data. Please try another city, ward, or street.'
                            if english else 'Không tìm thấy khu vực này trong dữ liệu địa điểm hiện có. Vui lòng cho biết tên thành phố, phường hoặc đường khác.')
@@ -206,8 +218,8 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                     items=recommend(store,analyzer,auth.user_profile(),auth.user_memory(),
                                     auth.feedback(store),selected,parsed['cuisine'])
                     if not items:
-                        reply=('I do not have enough restaurant and review evidence in this area to make a grounded recommendation.'
-                               if english else 'Chưa có đủ nhà hàng và review phù hợp ở khu vực này để gợi ý có căn cứ.')
+                        reply=(f'I found {selected["name"]}, but there are no matching restaurants and reviews saved for this area yet. Try a broader area.'
+                               if english else f'Mình đã xác định được {selected["name"]}, nhưng dữ liệu đã lưu chưa có nhà hàng và review phù hợp tại đây. Bạn có thể thử khu vực rộng hơn.')
                     else:
                         retrieval=retrieve(store,message,[x['id'] for x in items],limit=12,
                                            method=app.config['RETRIEVAL_METHOD'],fallback=True)
@@ -245,6 +257,9 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                                 if not sources: raise
                                 note=('The AI services are unavailable right now. Here are saved source reviews instead.\n\n'
                                       if english else 'Các dịch vụ AI hiện không phản hồi. Dưới đây là review nguồn đã lưu để bạn tham khảo.\n\n')
+                                if context.get('query_fallback')=='local':
+                                    note=('The AI service is offline. I matched the area from your question, but could not verify every food preference; inspect these saved reviews.\n\n'
+                                          if english else 'Dịch vụ AI đang gián đoạn. Mình đã xác định khu vực từ câu hỏi, nhưng chưa xác nhận đầy đủ món bạn muốn; hãy đối chiếu các review nguồn sau.\n\n')
                                 reply=note+fallback
                                 context.update(candidate_ids=[x['id'] for x in grounded[:5]],
                                                recommended_restaurant_ids=[],citations=sources,
@@ -283,6 +298,19 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             context['error']=type(exc).__name__
         save_turn(store,g.user['id'],message,reply,context)
         return redirect(url_for('assistant_page'))
+
+    @app.post('/assistant/feedback/<path:restaurant_id>')
+    def assistant_feedback(restaurant_id):
+        signal=request.form.get('signal','')
+        if signal not in {'like','dislike','clear'}: abort(400)
+        messages=assistant_history(store,g.user['id'])
+        latest=next((m for m in reversed(messages) if m['role']=='assistant'
+                     and m['context'].get('candidate_ids')),None)
+        if not latest or restaurant_id not in latest['context']['candidate_ids']:
+            abort(404)
+        auth.save_feedback(store,restaurant_id,signal,'')
+        flash('Đã lưu phản hồi cho hồ sơ của bạn.','success')
+        return redirect(url_for('assistant_page',_anchor='results'))
 
     @app.get('/research')
     def research_dashboard():

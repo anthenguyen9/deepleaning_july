@@ -207,13 +207,22 @@ class Analyzer:
                 'has_trend_sample':sum(m['count']>=3 for m in months)>=2,
                 'last_fetched':max((r['fetched_at'] for r in rows),default=None)}
 
-def search_area(store, client, analyzer, area, cuisine='', limit=3, pages=1):
-    if not 1<=limit<=5 or not 1<=pages<=3: raise ValueError('Giới hạn truy vấn không hợp lệ.')
+def search_area(store, client, analyzer, area, cuisine='', limit=3, pages=1, place=None):
+    if not 1<=limit<=20 or not 1<=pages<=10: raise ValueError('Giới hạn truy vấn không hợp lệ.')
     query='nhà hàng '+cuisine.strip()+' tại '+' '.join(area.split())
     payload,stamp=client.fetch({'engine':'google_maps','type':'search','q':query,'hl':'vi','gl':'vn'})
     results=[]; warnings=[]; seen=set()
     for raw in payload['local_results']:
         if len(results)>=limit: break
+        if place and place['level']=='ward':
+            # Maps searches include nearby businesses. Never attach those to
+            # the requested ward merely because they appeared in its results.
+            ward=normalize_name(place['name'].split(' ',1)[-1])
+            address=normalize_name(raw.get('address',''))
+            parts=[normalize_name(part) for part in raw.get('address','').split(',')]
+            if not ward or not any(part in {ward, 'phuong '+ward, 'xa '+ward}
+                                   for part in parts) or 'da nang' not in address:
+                continue
         item=save_restaurant(store,raw,stamp)
         if not item: continue
         rid=item['id']

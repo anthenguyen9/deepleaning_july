@@ -1,7 +1,8 @@
-"""Location-validated, monthly-cached recommendation orchestration."""
+"""Location-validated recommendation orchestration with reusable saved data."""
 import hashlib
 import json
-from datetime import datetime, timezone
+import re
+from datetime import datetime, timezone, timedelta
 
 from locations import lineage, normalize_name, resolve
 from restaurant_service import ApiError, SerpClient, search_area
@@ -9,8 +10,27 @@ from recommendation_service import rank_restaurants
 from storage import utcnow
 
 
+def local_query(store, message, default_city='Đà Nẵng'):
+    """Use a catalog-matched ward when the external query parser is unavailable."""
+    normalized=' '+normalize_name(message)+' '
+    with store.connect() as db:
+        names=db.execute('''SELECT l.name,a.normalized_alias AS phrase FROM locations l
+            JOIN location_aliases a ON a.location_id=l.id
+            WHERE l.level='ward' AND l.is_active=1
+            UNION SELECT name,normalized_name FROM locations
+            WHERE level='ward' AND is_active=1''').fetchall()
+    matches=[]
+    for row in names:
+        phrase=row['phrase']
+        if len(phrase)>=4 and re.search(r'(?<!\w)'+re.escape(phrase)+r'(?!\w)',normalized):
+            matches.append((len(phrase),row['name']))
+    ward=max(matches,default=(0,''))[1]
+    return {'intent':'restaurant_recommendation','city':default_city or 'Đà Nẵng',
+            'district':'','ward':ward,'street':'','cuisine':''}
+
+
 def crawl_or_reuse(store,client,analyzer,place,cuisine='',limit=5,pages=1):
-    """Reserve one location/query/month; failed runs can be retried."""
+    """Reuse a successful crawl across calendar months while it remains fresh."""
     location_id=place['id']
     names=[x['name'] for x in lineage(store,location_id) if x['level']!='country']
     area=', '.join(reversed(names))
@@ -18,6 +38,13 @@ def crawl_or_reuse(store,client,analyzer,place,cuisine='',limit=5,pages=1):
     month=datetime.now(timezone.utc).strftime('%Y-%m')
     digest=hashlib.sha256(f'{normalize_name(query)}|{limit}|{pages}'.encode()).hexdigest()
     with store.connect() as db:
+        recent=db.execute('''SELECT * FROM crawl_runs WHERE location_id=? AND query=?
+            AND provider='serpapi' AND status='success' AND search_id IS NOT NULL
+            ORDER BY completed_at DESC LIMIT 1''',(location_id,query)).fetchone()
+        if recent and recent['completed_at']:
+            completed=datetime.fromisoformat(recent['completed_at'])
+            if completed >= datetime.now(timezone.utc)-timedelta(days=60):
+                return recent['search_id'],True
         row=db.execute('''SELECT * FROM crawl_runs WHERE location_id=? AND query_hash=?
             AND year_month=? AND provider='serpapi' ''',(location_id,digest,month)).fetchone()
         if row and row['status']=='success': return row['search_id'],True
@@ -27,9 +54,12 @@ def crawl_or_reuse(store,client,analyzer,place,cuisine='',limit=5,pages=1):
             DO UPDATE SET status='running',started_at=excluded.started_at,error_message='',search_id=NULL''',
             (location_id,query,digest,month,'serpapi',utcnow()))
     try:
-        sid=search_area(store,client,analyzer,area,cuisine,limit,pages)
+        sid=search_area(store,client,analyzer,area,cuisine,limit,pages,place=place)
         record=store.get_search(sid)
-        complete=record['status']=='success'
+        # A failed review page must not force a complete re-crawl of an area
+        # that already has enough saved evidence for recommendations.
+        usable=sum(item['assessment']['n'] >= 8 for item in record['result']['restaurants'])
+        complete=record['status']=='success' or usable>=3
         with store.connect() as db:
             for item in record['result']['restaurants']:
                 db.execute('INSERT OR IGNORE INTO restaurant_locations VALUES(?,?)',(item['id'],location_id))

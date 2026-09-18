@@ -10,6 +10,7 @@ outputs/temporal_aggregates.csv
 outputs/retrieval_metrics.json
 outputs/recommendation_metrics.json
 __pycache__/
+.pytest_cache/
 .env.*
 !.env.example
 .cache/

@@ -3,7 +3,8 @@ from collections import defaultdict
 import json
 from urllib.parse import urlsplit
 
-from assistant_view import _coordinates
+from assistant_view import _coordinates, _image_url
+from chat_ui import review_url
 
 
 def _period(date, granularity):
@@ -24,7 +25,7 @@ def _maps_url(value):
 def build_dashboard(store, granularity='month', year='all', area_id=None, aspect='food'):
     with store.connect() as db:
         restaurants = [dict(row) for row in db.execute(
-            'SELECT id,name,address,source_url,payload FROM restaurants ORDER BY name')]
+            'SELECT id,name,address,category,rating,total_reviews,source_url,payload FROM restaurants ORDER BY name')]
         placements = defaultdict(list)
         for row in db.execute('''SELECT rl.restaurant_id,l.id,l.name FROM restaurant_locations rl
             JOIN locations l ON l.id=rl.location_id WHERE l.level='ward' AND l.is_active=1'''):
@@ -33,10 +34,10 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
             FROM reviews WHERE published_at IS NOT NULL AND length(published_at)>=10''')]
         model = db.execute('''SELECT model_version,COUNT(*) n FROM analyses
             GROUP BY model_version ORDER BY n DESC LIMIT 1''').fetchone()
-        aggregates = [dict(row) for row in db.execute('''SELECT restaurant_id,period,
+        aggregates = [dict(row) for row in db.execute('''SELECT restaurant_id,period,aspect,
             positive_count,neutral_count,negative_count FROM period_aggregates
-            WHERE granularity=? AND aspect=? AND model_version=?''',
-            (granularity, aspect, model['model_version'] if model else 'rating-only'))]
+            WHERE granularity=? AND model_version=?''',
+            (granularity, model['model_version'] if model else 'rating-only'))]
 
     areas = {}
     restaurant_by_id = {}
@@ -45,7 +46,12 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
         # Ambiguous assignments stay unclassified instead of counting one quán twice.
         aid, name = mapped[0] if len(mapped) == 1 else (None, 'Chưa xác định')
         row['area_id'], row['area_name'] = aid, name
-        row['location'] = _coordinates(json.loads(row['payload']))
+        try:
+            payload = json.loads(row['payload'])
+        except (ValueError, TypeError):
+            payload = {}
+        row['location'] = _coordinates(payload)
+        row['image'] = _image_url(payload)
         row['maps_url'] = _maps_url(row['source_url'])
         restaurant_by_id[row['id']] = row
         if aid is not None:
@@ -93,6 +99,7 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
             period_item['rating_n'] += 1
 
     sentiment = {'positive': 0, 'neutral': 0, 'negative': 0}
+    area_aspects = defaultdict(lambda: defaultdict(lambda: {'positive': 0, 'neutral': 0, 'negative': 0}))
     for row in aggregates:
         if year != 'all' and row['period'][:4] != year:
             continue
@@ -100,6 +107,11 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
         if not restaurant:
             continue
         aid = restaurant['area_id']
+        if aid in areas:
+            for key in sentiment:
+                area_aspects[aid][row['aspect']][key] += row[f'{key}_count']
+        if row['aspect'] != aspect:
+            continue
         for key in sentiment:
             count = row[f'{key}_count']
             if aid in areas:
@@ -133,13 +145,37 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
                     'sort_score': score})
     top.sort(key=lambda row: (-row['sort_score'], -row['review_count'], row['name']))
     top = top[:5]
+    if top:
+        # Give selected-ward cards a real review excerpt from the same year filter.
+        # This is display evidence, never an invented recommendation score.
+        with store.connect() as db:
+            for restaurant in top:
+                review = db.execute('''SELECT text,published_at,source_url,rating FROM reviews
+                    WHERE restaurant_id=? AND length(trim(text))>0
+                    AND (?='all' OR substr(published_at,1,4)=?)
+                    ORDER BY CASE WHEN length(text) BETWEEN 45 AND 220 THEN 0 ELSE 1 END,
+                             published_at DESC LIMIT 1''',
+                    (restaurant['id'], year, year)).fetchone()
+                restaurant['evidence'] = {
+                    'text': review['text'][:220], 'date': review['published_at'],
+                    'url': review_url(review['source_url']), 'rating': review['rating']
+                } if review else None
 
     area_rows = sorted(areas.values(), key=lambda row: (-row['reviews'], row['name']))
     max_area_reviews = max((row['reviews'] for row in area_rows), default=0)
     for row in area_rows:
         mentions = sum(row[key] for key in sentiment)
+        row['mentions'] = mentions
         row['positive_pct'] = round(100 * row['positive'] / mentions) if mentions >= 5 else None
+        row['negative_pct'] = round(100 * row['negative'] / mentions) if mentions >= 5 else None
         row['average_rating'] = round(row['rating_sum'] / row['rating_n'], 2) if row['rating_n'] else None
+        candidates = []
+        for code, counts in area_aspects[row['id']].items():
+            total = sum(counts.values())
+            if total >= 5:
+                candidates.append((code, counts['positive'] / total, counts['negative'] / total, total))
+        row['strength'] = max(candidates, key=lambda x: (x[1], x[3])) if candidates else None
+        row['weakness'] = max(candidates, key=lambda x: (x[2], x[3])) if candidates else None
 
     reviewed = sum(row['reviews'] for row in by_restaurant.values())
     rated = sum(row['rating_n'] for row in by_restaurant.values())
@@ -147,6 +183,10 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
     mentions = sum(sentiment.values())
     return {
         'areas': area_rows, 'max_area_reviews': max_area_reviews,
+        'strong_areas': sorted((r for r in area_rows if r['mentions'] >= 10),
+                               key=lambda r: (-r['positive_pct'], -r['mentions']))[:3],
+        'attention_areas': sorted((r for r in area_rows if r['mentions'] >= 10),
+                                  key=lambda r: (-r['negative_pct'], -r['mentions']))[:3],
         'selected_area': area_id, 'restaurants': len(selected),
         'years': sorted({r['published_at'][:4] for r in reviews}, reverse=True),
         'reviews': reviewed, 'city_reviews': city_reviews,
@@ -154,7 +194,8 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
         'positive_pct': round(100 * sentiment['positive'] / mentions) if mentions >= 5 else None,
         'mentions': mentions, 'series': series, 'series_clipped': clipped,
         'top': top, 'map_points': [{'id': r['id'], 'name': r['name'],
-                                  'location': r['location'], 'maps_url': r['maps_url']} for r in selected
-                                  if r['location'] and by_restaurant[r['id']]['reviews']],
+                                  'location': r['location'], 'maps_url': r['maps_url']} for r in
+                                  sorted((r for r in selected if r['location'] and by_restaurant[r['id']]['reviews']),
+                                         key=lambda r: -by_restaurant[r['id']]['reviews'])[:5]],
         'model_version': model['model_version'] if model else None,
     }

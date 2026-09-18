@@ -20,8 +20,10 @@
     {% if not gemini_ready %}<div class="notice">Chưa cấu hình Gemini. Tìm kiếm và xếp hạng quy tắc vẫn hoạt động.</div>{% endif %}
   </section>
   <section class="panel fl-secondary-panel" aria-labelledby="history-title">
-    <div class="fl-section-heading"><div><p class="eyebrow">TIẾP TỤC KHÁM PHÁ</p><h2 id="history-title">Tìm kiếm đã lưu</h2></div></div>
-    {% for h in history %}<a class="history" href="{{ url_for('results',sid=h.id) }}"><span><strong>{{ h.area }}</strong><small>{{ h.created_at[:16].replace('T',' ') }} UTC · {{ 'Chưa đầy đủ' if h.status=='partial' else 'Đã lưu' }}</small></span><span class="fl-history-arrow" aria-hidden="true">↗</span></a>{% else %}<div class="fl-empty-inline">Lịch sử sẽ xuất hiện sau lượt tìm đầu tiên.</div>{% endfor %}
+    <div class="fl-section-heading"><div><p class="eyebrow">TIẾP TỤC KHÁM PHÁ</p><h2 id="history-title">Tìm kiếm đã lưu <small>({{ history|length }})</small></h2></div></div>
+    {% if history %}<label class="fl-history-search">Lọc theo khu vực<input id="history-query" type="search" placeholder="Ví dụ: Hải Châu, Hòa Xuân…" autocomplete="off"></label>{% endif %}
+    <div class="fl-history-list" id="history-list">{% for h in history %}<a class="history" data-history-area="{{ h.area }}" href="{{ url_for('results',sid=h.id) }}"><span><strong>{{ h.area }}</strong><small>{{ h.created_at[:16].replace('T',' ') }} UTC · {{ 'Chưa đầy đủ' if h.status=='partial' else 'Đã lưu' }}</small></span><span class="fl-history-arrow" aria-hidden="true">↗</span></a>{% else %}<div class="fl-empty-inline">Lịch sử sẽ xuất hiện sau lượt tìm đầu tiên.</div>{% endfor %}</div>
+    <p id="history-no-match" class="muted" hidden>Không có lượt tìm nào khớp khu vực này.</p>
   </section>
 </div>
 {% endblock %}

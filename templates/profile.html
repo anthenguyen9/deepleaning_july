@@ -11,8 +11,9 @@
       <button type="submit">Lưu hồ sơ</button>
     </form>
   </section>
-  <aside class="panel fl-secondary-panel"><p class="eyebrow">DÀNH RIÊNG CHO BẠN</p><h2>Bộ nhớ đã học</h2><p class="fl-memory-summary">{{ current_user.learned_summary or 'Chưa có phản hồi để học khẩu vị.' }}</p><p class="muted">{{ feedback_count }} quán đã có phản hồi thích/không thích.</p>
-    <form action="{{ url_for('memory_clear') }}" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="danger" type="submit">Xóa bộ nhớ học tự động</button></form>
+  <aside class="panel fl-secondary-panel"><p class="eyebrow">DÀNH RIÊNG CHO BẠN</p><h2>Khẩu vị đã ghi nhớ</h2><p class="fl-memory-summary">{{ current_user.learned_summary or 'Chưa có sở thích rút ra từ hội thoại cũ.' }}</p><p class="muted">{{ feedback_count }} quán bạn đã đánh dấu thích/không hợp. Phản hồi này được dùng khi xếp hạng gợi ý tiếp theo.</p>
+    {% if feedback_items %}<ul class="fl-profile-feedback">{% for item in feedback_items[:8] %}<li><span>{{ '👍 Thích' if item.signal == 'like' else '👎 Không hợp' }}</span><strong>{{ item.name }}</strong></li>{% endfor %}</ul>{% else %}<p class="muted">Chọn “Thích” hoặc “Không hợp” ở thẻ quán trong Assistant để bắt đầu cá nhân hóa.</p>{% endif %}
+    <form action="{{ url_for('memory_clear') }}" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="danger" type="submit">Xóa bộ nhớ và phản hồi</button></form>
   </aside>
 </div>
 {% endblock %}

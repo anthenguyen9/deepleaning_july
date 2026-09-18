@@ -104,7 +104,7 @@ def init_auth(app, store):
                 flash('Đã lưu hồ sơ.','success')
                 return redirect(url_for('auth.profile'))
             except ValueError as error: flash(str(error),'error')
-        return render_template('profile.html')
+        return render_template('profile.html',feedback_items=feedback(store))
 
     app.register_blueprint(auth)
 

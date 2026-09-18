@@ -52,3 +52,8 @@
 @media(max-width:1199px){.fl-chat-panel{position:sticky;top:8px;z-index:20}.fl-results-region{overflow:visible}}
 @media(max-width:767px){.fl-workspace{padding-bottom:25px}.fl-chat-panel{top:0;margin:0 -13px;padding:10px 13px 12px;border-radius:0 0 16px 16px;border-top:0;box-shadow:0 7px 18px #103b2a18}.fl-chat-panel .fl-conversation{max-height:min(20dvh,165px);min-height:74px}.fl-chat-panel .fl-compose-wrap{position:static;bottom:auto;z-index:auto;margin:9px 0 0;padding:0;background:transparent;box-shadow:none;backdrop-filter:none}.fl-suggestions{padding-bottom:2px}.fl-results-region{gap:12px}}
 @media(prefers-reduced-motion:reduce){.fl-spinner,.fl-loading div{animation:none}}
+.fl-card-feedback{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:7px;padding-top:8px;border-top:1px solid #e7eee9;cursor:default}
+.fl-card-feedback span{font-size:12px;font-weight:700;color:#527464;margin-right:4px}
+.fl-card-feedback button{min-height:35px;padding:5px 11px;border:1px solid #cddfd4;border-radius:9px;background:#f6fbf8;color:#176c50;font-size:12px;font-weight:700}
+.fl-card-feedback button.active{background:#0c7558;color:white;border-color:#0c7558}
+@media(max-width:767px){.fl-card-feedback{padding:10px 15px 13px}.fl-card-feedback span{width:100%}.fl-card-feedback button{min-height:40px}}

@@ -120,7 +120,7 @@ nhỏ không đủ để kết luận chất lượng chung, mức độ an toà
 
 Chatbot Gemini, truy xuất hybrid/BM25 và dashboard nghiên cứu đã có trong các
 module tương ứng. Script PhoBERT tùy chọn chưa tích hợp suy luận vào web.
-Chi tiết train/nhãn ViTASA: README.md và VERIFICATION.md.
+Chi tiết train/nhãn ViTASA: README.md và [VERIFICATION.md](docs/verification/VERIFICATION.md).
 
 ## Restaurant Assistant mới
 
@@ -148,4 +148,4 @@ Tài liệu API đã đối chiếu:
 
 Test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
 cache/dedup, quota, lỗi API, ngày nguồn, phân trang và render trang kết quả.
-Xem VERIFICATION_WEB.md để biết phần nào đã chạy thực tế.
+Xem [VERIFICATION_WEB.md](docs/verification/VERIFICATION_WEB.md) để biết phần nào đã chạy thực tế.

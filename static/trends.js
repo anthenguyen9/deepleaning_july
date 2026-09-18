@@ -1,6 +1,17 @@
 (() => {
   const chartScroll = document.querySelector('.trend-chart-scroll');
   if (chartScroll) chartScroll.scrollLeft = chartScroll.scrollWidth;
+  const query = document.getElementById('trend-area-query');
+  query?.addEventListener('input', () => {
+    const term = query.value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+    let shown = 0;
+    document.querySelectorAll('.trend-area-row').forEach(row => {
+      const name = row.dataset.areaName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+      row.hidden = !name.includes(term);
+      if (!row.hidden) shown++;
+    });
+    document.getElementById('trend-area-no-match').hidden = Boolean(shown);
+  });
   const host = document.getElementById('trend-map');
   const data = document.getElementById('trend-map-data');
   if (!host || !data || !window.L) return;

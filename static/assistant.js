@@ -240,11 +240,29 @@
     input.focus();
   }));
   document.getElementById('assistant-form').addEventListener('submit', () => {
+    if (!input.value.trim()) return;
+    const submitted = input.value.trim();
+    const conversation = document.querySelector('.fl-chat-panel .fl-conversation');
+    const pending = document.createElement('article');
+    pending.className = 'fl-message user fl-pending-message';
+    const avatar = document.createElement('span');
+    avatar.className = 'fl-avatar'; avatar.setAttribute('aria-hidden', 'true'); avatar.textContent = '♙';
+    const body = document.createElement('div'); body.className = 'fl-message-body';
+    const label = document.createElement('strong'); label.textContent = 'Bạn';
+    const text = document.createElement('p'); text.textContent = submitted;
+    body.append(label, text); pending.append(avatar, body);
+    conversation.append(pending);
+    conversation.scrollTop = conversation.scrollHeight;
+    const payload = document.createElement('input');
+    payload.type = 'hidden'; payload.name = 'message'; payload.value = submitted;
+    document.getElementById('assistant-form').append(payload);
+    input.removeAttribute('name');
+    input.value = '';
     document.getElementById('assistant-submit').disabled = true;
     document.getElementById('chat-pending').hidden = false;
     document.getElementById('assistant-form').setAttribute('aria-busy', 'true');
-    document.getElementById('restaurant-list').hidden = true;
-    document.getElementById('loading-cards').hidden = false;
+    // Keep prior evidence visible while the next answer is being prepared.
+    if (!restaurants.length) document.getElementById('loading-cards').hidden = false;
   });
   document.querySelectorAll('.fl-card-media img').forEach(image => image.addEventListener('error', () => { image.hidden = true; }));
   updateEvidence();

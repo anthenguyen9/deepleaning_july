@@ -69,7 +69,7 @@ trang an toàn kèm thông báo để gửi lại.
 
 **Bắt đầu với [README_WEB.md](README_WEB.md).** Chạy `setup_web.bat`,
 `train_model.bat`, rồi `run_web.bat` để dùng web Flask + SQLite + SerpApi.
-Xem `VERIFICATION_WEB.md` cho kết quả kiểm thử bản web.
+Xem [`docs/verification/VERIFICATION_WEB.md`](docs/verification/VERIFICATION_WEB.md) cho kết quả kiểm thử bản web.
 
 Pipeline thu thập tăng dần, ABSA pending, thống kê tháng và BM25 nằm trong
 [`README_PIPELINE.md`](README_PIPELINE.md). Chạy `run_data_pipeline.bat` để xem trạng thái.

@@ -28,6 +28,20 @@ Kiểm tra trạng thái:
 lại, không in khóa. Giữ một phần lượt còn lại cho demo trực tiếp; cache và
 database cục bộ cho phép demo dữ liệu đã thu mà không gọi API mới.
 
+Để làm giàu các phường còn ít dữ liệu mà không lặp lại phường đã có ít nhất
+3 quán và 60 review, chạy `python -m scripts.enrich_coverage --budget 200`. Lệnh
+kiểm tra hạn mức thật trên Account API, giữ lại một lượt dự phòng, dừng trước
+trần 200 lượt và lưu dữ liệu vào SQLite hiện tại. Có thể giới hạn phạm vi bằng
+`--wards 14 13` hoặc giảm `--budget`; truy vấn thử và truy vấn thất bại cũng
+được tính vào giới hạn cục bộ. Kết quả crawl cùng truy vấn được tái sử dụng
+qua ranh giới tháng trong 60 ngày. Chỉ địa chỉ khớp phường từ nguồn mới được
+gắn vào phường đó; nhà hàng gần kề trong kết quả tìm kiếm bị bỏ qua.
+
+Gán nhãn sơ bộ cho review có nội dung chưa gán mà không gọi Gemini bằng
+`python -m scripts.label_local_reviews`. Aspect dựa trên SVM cục bộ; polarity
+theo quy tắc sao. Nhãn được đánh dấu tự động, không được đưa vào tập gold khi
+đánh giá F1. Admin có thể kiểm tra và sửa từng review trên `/admin/`.
+
 ## Thu thập theo từng khu vực
 
 Thêm seed để ghi lại kế hoạch thu thập:
@@ -151,3 +165,6 @@ Sau khi điền relevance judgment, chạy:
 
 Kết quả `Recall@k`, `MRR` và `nDCG@k` ở cấp review/nhà hàng được lưu cục bộ tại
 `outputs/retrieval_metrics.json`. Xem `README_EVALUATION.md`.
+
+Kế hoạch thí nghiệm để cải thiện F1 và quy tắc giữ nguyên tập test nằm trong
+[`docs/research/TRAINING_IMPROVEMENT_PLAN.md`](docs/research/TRAINING_IMPROVEMENT_PLAN.md).
