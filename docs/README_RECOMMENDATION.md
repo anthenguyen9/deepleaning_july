@@ -13,7 +13,7 @@ Hệ thống dùng bộ xếp hạng giải thích được; điểm không ph�
 Sao chép `recommendation_cases.example.json`, thay candidate và `relevant_restaurant_ids` bằng nhãn đánh giá thủ công, rồi chạy:
 
 ```bat
-.venv\Scripts\python.exe evaluate_recommendation.py --cases recommendation_cases.json --k 3
+.venv\Scripts\python.exe src/evaluate_recommendation.py --cases recommendation_cases.json --k 3
 ```
 
 Kết quả được ghi vào `outputs/recommendation_metrics.json`, gồm Recall@K, MRR và nDCG@K cho từng cấu hình. Dùng cùng tập test cho A–E; không chỉnh trọng số dựa trên tập test. Cấu hình E chỉ được coi là tốt hơn khi cải thiện metric trên dữ liệu gán nhãn.

@@ -22,7 +22,7 @@ from assistant_view import build_assistant_view
 from trend_dashboard import build_dashboard
 from locations import lineage, resolve, resolve_area_text
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parent.parent
 LABELS={'food':'Món ăn','price':'Giá cả','service':'Phục vụ','ambience':'Không gian','location':'Vị trí'}
 
 def session_secret():
@@ -59,7 +59,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
             raise RuntimeError('Public deployment requires a unique ADMIN_PASSWORD (at least 16 characters).')
         if not public_hosts:
             raise RuntimeError('Public deployment requires PUBLIC_HOSTS or RAILWAY_PUBLIC_DOMAIN.')
-    app=Flask(__name__)
+    app=Flask(__name__, template_folder=str(ROOT/'templates'), static_folder=str(ROOT/'static'))
     app.config.update(SECRET_KEY=session_secret(),
         SESSION_COOKIE_NAME='foodlens_'+hashlib.sha256(str(ROOT).encode()).hexdigest()[:12],
         ADMIN_USERNAME=os.getenv('ADMIN_USERNAME','admin'),ADMIN_PASSWORD=os.getenv('ADMIN_PASSWORD','admin'),

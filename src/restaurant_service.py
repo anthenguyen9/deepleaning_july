@@ -61,7 +61,7 @@ class SerpClient:
         if row and (datetime.now(timezone.utc)-datetime.fromisoformat(row['fetched_at'])).total_seconds()<self.ttl_hours*3600:
             self.hits += 1
             return json.loads(row['payload']), row['fetched_at']
-        if not self.key: raise ApiError('Chưa cấu hình SERPAPI_API_KEY. Chạy configure_key.py rồi khởi động lại web.')
+        if not self.key: raise ApiError('Chưa cấu hình SERPAPI_API_KEY. Chạy src/configure_key.py rồi khởi động lại web.')
         with self.store.connect() as db:
             db.execute('BEGIN IMMEDIATE')
             used = db.execute('SELECT COUNT(*) FROM api_calls WHERE created_at>=?',(now()[:10],)).fetchone()[0]

@@ -2,19 +2,19 @@
 
 ## Location-aware Restaurant Assistant (2026-09)
 
-Ứng dụng Flask tại `webapp.py` dùng duy nhất `instance/food_reviews.sqlite3` qua
+Ứng dụng Flask tại `src/webapp.py` dùng duy nhất `instance/food_reviews.sqlite3` qua
 `Store`. Schema được tạo bằng `CREATE TABLE IF NOT EXISTS` khi khởi động; dữ liệu cũ
-không bị xóa. `import_gold.py` dùng đường dẫn tuyệt đối từ `data_pipeline.DEFAULT_DB`,
+không bị xóa. `src/import_gold.py` dùng đường dẫn tuyệt đối từ `data_pipeline.DEFAULT_DB`,
 kiểm tra file và bảng trước khi ghi, chỉ nhận nhãn đã được người thật duyệt.
 Nhãn AI không được coi là gold độc lập.
 
 ```powershell
 py -3.11 -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements_research.txt
+.venv\Scripts\python.exe -m pip install -r requirements/requirements_research.txt
 Copy-Item .env.example .env
 # Điền GEMINI_API_KEY, SERPAPI_API_KEY, ADMIN_PASSWORD, FLASK_SECRET_KEY trong .env
-.venv\Scripts\python.exe seed_locations.py --city "Da Nang"
-.venv\Scripts\python.exe webapp.py
+.venv\Scripts\python.exe src/seed_locations.py --city "Da Nang"
+.venv\Scripts\python.exe src/webapp.py
 ```
 
 Đăng nhập admin tại `/login` rồi mở `/admin/locations/` để chọn Việt Nam → Đà Nẵng
@@ -23,7 +23,7 @@ không còn là cấp hành chính hiện hành tại Đà Nẵng; tên một s�
 như bí danh của phường cùng tên. API `/admin/locations/api/children?parent=<id>`
 chỉ dành cho admin. Người dùng thường đăng ký rồi mở `/assistant` để chat riêng.
 
-`seed_locations.py` chạy lặp lại không tạo trùng. Snapshot `location_data/danang_2025.json`
+`src/seed_locations.py` chạy lặp lại không tạo trùng. Snapshot `location_data/danang_2025.json`
 có 94 đơn vị cấp xã theo [Nghị quyết 1659/NQ-UBTVQH15](https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-1659-nq-ubtvqh15-sap-xep-cac-dvhc-cap-xa-cua-thanh-pho-da-nang-nam-2025-119250616202714604.htm),
 áp dụng từ 01/07/2025. Snapshot `location_data/danang_osm_streets.json` chứa
 12.146 OSM highway ways có tên trong bounding box bao quanh Đà Nẵng mới, sau
@@ -48,11 +48,11 @@ Trên trang `/assistant`, mã trích dẫn `[R1]` liên kết tới review gốc
 có URL HTTPS; khi thiếu URL, giao diện ghi rõ chưa có link gốc và không hiển thị
 ID provider dài cho người dùng.
 
-Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe pipeline.py train`
+Huấn luyện là lệnh offline riêng: `.venv\Scripts\python.exe src/pipeline.py train`
 (từ tập ViTASA đã `download` và `prepare`), lưu `outputs/baseline.joblib`.
-`research.py prepare-gold` chỉ dành cho nhãn người duyệt độc lập. Để nhập nhãn
-đã duyệt: `.venv\Scripts\python.exe import_gold.py data/gold_human.json`.
-`data_pipeline.py` tiếp tục tính aggregate theo **ngày, tháng, năm** từ
+`src/research.py prepare-gold` chỉ dành cho nhãn người duyệt độc lập. Để nhập nhãn
+đã duyệt: `.venv\Scripts\python.exe src/import_gold.py data/gold_human.json`.
+`src/data_pipeline.py` tiếp tục tính aggregate theo **ngày, tháng, năm** từ
 `reviews.published_at`; ngày thiếu/không parse được không tự suy diễn.
 
 Biến môi trường nằm trong `.env` (Git bỏ qua): `SERPAPI_API_KEY`,
@@ -67,12 +67,12 @@ cùng project, kể cả khi chạy ở cổng 5000 và 5001, dùng chung khóa 
 sau lần cập nhật này cần đăng nhập lại một lần. Form có CSRF hết hạn sẽ quay về
 trang an toàn kèm thông báo để gửi lại.
 
-**Bắt đầu với [README_WEB.md](README_WEB.md).** Chạy `setup_web.bat`,
-`train_model.bat`, rồi `run_web.bat` để dùng web Flask + SQLite + SerpApi.
-Xem [`docs/verification/VERIFICATION_WEB.md`](docs/verification/VERIFICATION_WEB.md) cho kết quả kiểm thử bản web.
+**Bắt đầu với [README_WEB.md](README_WEB.md).** Chạy `scripts/windows/setup_web.bat`,
+`scripts/windows/train_model.bat`, rồi `scripts/windows/run_web.bat` để dùng web Flask + SQLite + SerpApi.
+Xem [`docs/verification/VERIFICATION_WEB.md`](verification/VERIFICATION_WEB.md) cho kết quả kiểm thử bản web.
 
 Pipeline thu thập tăng dần, ABSA pending, thống kê tháng và BM25 nằm trong
-[`README_PIPELINE.md`](README_PIPELINE.md). Chạy `run_data_pipeline.bat` để xem trạng thái.
+[`README_PIPELINE.md`](README_PIPELINE.md). Chạy `scripts/windows/run_data_pipeline.bat` để xem trạng thái.
 
 Phần dưới giữ lại tài liệu baseline v0.1 để giải thích dữ liệu và mô hình.
 Các giới hạn metadata bên dưới nói về ViTASA; bản web bổ sung metadata Google Maps.
@@ -90,12 +90,12 @@ ACD+SPC, BERTopic và đánh giá retrieval. Xem [RESEARCH_STATUS.md](RESEARCH_S
 để biết phần nào đã chạy trên dữ liệu thật và phần nào còn cần gold label,
 relevance judgments hoặc người tham gia nghiên cứu. Khóa API chỉ đặt trong `.env`.
 
-Chạy ứng dụng mới trên Windows sau khi cài `requirements_research.txt`:
+Chạy ứng dụng mới trên Windows sau khi cài `requirements/requirements_research.txt`:
 
 ```bat
-.venv\Scripts\python.exe research.py status
-.venv\Scripts\python.exe research.py build-dense
-.venv\Scripts\python.exe webapp.py
+.venv\Scripts\python.exe src/research.py status
+.venv\Scripts\python.exe src/research.py build-dense
+.venv\Scripts\python.exe src/webapp.py
 ```
 
 Mở `http://127.0.0.1:5000`; trang `/research` hiển thị độ phủ dữ liệu và
@@ -126,19 +126,19 @@ Không thay đổi file đề cương gốc.
 ## Chạy trên Windows
 
 1. Cài Python 3.11 x64 từ https://www.python.org/downloads/windows/ (kèm Python Launcher).
-2. Giải nén thư mục; chạy `setup_windows.bat` trong CMD. Cần Internet lần đầu.
-3. Chạy `run_demo.bat`; mở địa chỉ localhost hiện trong cửa sổ.
+2. Giải nén thư mục; chạy `scripts/windows/setup_windows.bat` trong CMD. Cần Internet lần đầu.
+3. Chạy `scripts/windows/run_demo.bat`; mở địa chỉ localhost hiện trong cửa sổ.
 
 Hoặc thực hiện từng lệnh trong CMD:
 
 ```bat
 py -3.11 -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pip install -r requirements/requirements.txt
 .venv\Scripts\python -m unittest discover -s tests
-.venv\Scripts\python pipeline.py download
-.venv\Scripts\python pipeline.py prepare
-.venv\Scripts\python pipeline.py train
-.venv\Scripts\python -m streamlit run app.py --server.address 127.0.0.1
+.venv\Scripts\python src/pipeline.py download
+.venv\Scripts\python src/pipeline.py prepare
+.venv\Scripts\python src/pipeline.py train
+.venv\Scripts\python -m streamlit run src/app.py --server.address 127.0.0.1
 ```
 
 CPU dùng được cho SVM; không cần API trả phí hay Conda. Nếu download lỗi mạng,
@@ -175,8 +175,8 @@ Không lặp tuning dựa trên test. Nhãn hiếm có thể vắng ở split v�
 ## PhoBERT tùy chọn
 
 ```bat
-.venv\Scripts\python -m pip install -r requirements_phobert.txt
-.venv\Scripts\python train_phobert.py --epochs 3 --batch-size 4
+.venv\Scripts\python -m pip install -r requirements/requirements_phobert.txt
+.venv\Scripts\python src/train_phobert.py --epochs 3 --batch-size 4
 ```
 
 Tải model lớn, cần Internet/dung lượng và có thể chạy chậm trên CPU.

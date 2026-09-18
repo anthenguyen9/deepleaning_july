@@ -1,12 +1,12 @@
 # Quy trình gán nhãn và đánh giá FoodLens
 
-`ai_annotation.py` có thể gán nhãn toàn bộ template bằng Gemini, lưu checkpoint
+`src/ai_annotation.py` có thể gán nhãn toàn bộ template bằng Gemini, lưu checkpoint
 vào `data/annotation_ai_20260917.json` và đánh dấu `annotation_origin=ai`.
 Đây là nhãn AI hỗ trợ để khám phá dữ liệu, thử nghiệm và ưu tiên kiểm tra thủ
 công; không phải gold label hay bằng chứng đồng thuận giữa người gán nhãn.
 `prepare-gold` từ chối các bản ghi này kể cả khi sửa `reviewed=true`.
 
-Tập SerpApi là review ứng dụng, không có gold label. `research.py
+Tập SerpApi là review ứng dụng, không có gold label. `src/research.py
 annotation-template --output data/annotation.json` xuất review duy nhất cùng ID
 nguồn. Mỗi người gán nhãn làm trên một bản sao riêng; không điền nhãn bằng dự
 đoán SVM/PhoBERT hay điểm sao. Giữ file gốc để audit.
@@ -22,7 +22,7 @@ review tiêu cực. Đặt `annotator` thành mã ẩn danh và `reviewed=true` 
 đọc review. Không sửa `restaurant_id`, `review_id`, `text`, ngày hay rating.
 
 Hai người gán nhãn độc lập trên ít nhất một tập giao nhau. Dùng
-`research.py agreement first.json second.json` để tính exact agreement và
+`src/research.py agreement first.json second.json` để tính exact agreement và
 Cohen kappa theo nhãn. Các bất đồng được đối chiếu và chốt thủ công trong bản
 adjudicated; chỉ bản đó đi vào `prepare-gold`. Lệnh này khóa train/dev/test theo
 nhà hàng và từ chối ghi đè split đã có. Với 13 nhà hàng hiện tại, cỡ mẫu và
@@ -34,7 +34,7 @@ Viết câu hỏi trước khi xem thứ hạng của các phương pháp. Ngư�
 đánh dấu review liên quan bằng ID thật theo schema trong
 `evaluation_queries.example.json`; không dùng kết quả BM25, dense hay hybrid
 để tạo đáp án. Tách câu hỏi dev/test trước khi điều chỉnh retrieval. Chạy
-`research.py evaluate-retrieval --queries ... --split test` chỉ sau khi khóa
+`src/research.py evaluate-retrieval --queries ... --split test` chỉ sau khi khóa
 judgments; báo cáo Recall@k, MRR, nDCG@k và latency cùng độ phủ.
 
 Đánh giá câu trả lời RAG theo từng mệnh đề: người chấm xem review trích dẫn có
@@ -49,4 +49,4 @@ là RAGAS/faithfulness nếu chưa chạy đúng bộ đo và kiểm tra mẫu t
 ease of use, trust, relevance, reuse intent, thang 1–5. Chỉ nhập dữ liệu sau
 khi người tham gia đồng ý; dùng mã ẩn danh, không lưu tên/số điện thoại trong
 repo. Cần phân bổ thứ tự điều kiện cân bằng và ghi nhận dropout. Lệnh
-`research.py study-summary --input ...` chỉ tổng hợp phiếu thực đã nhập.
+`src/research.py study-summary --input ...` chỉ tổng hợp phiếu thực đã nhập.

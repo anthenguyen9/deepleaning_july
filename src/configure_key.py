@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 
 if __name__=='__main__':
-    path=Path(__file__).resolve().parent/'.env'
+    path=Path(__file__).resolve().parent.parent/'.env'
     existing={}
     if path.exists():
         for line in path.read_text(encoding='utf-8').splitlines():

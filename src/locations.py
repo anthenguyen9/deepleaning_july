@@ -6,7 +6,7 @@ from pathlib import Path
 
 from storage import utcnow
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def normalize_name(value):

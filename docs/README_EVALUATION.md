@@ -20,9 +20,9 @@ Query chưa có relevance ID bị bỏ qua khi tính metric và được tính t
 ## Chạy đánh giá
 
 ```bat
-.venv\Scripts\python.exe data_pipeline.py build-index
-.venv\Scripts\python.exe research.py build-dense
-.venv\Scripts\python.exe research.py evaluate-retrieval --queries evaluation_queries.json --split test --k 5
+.venv\Scripts\python.exe src/data_pipeline.py build-index
+.venv\Scripts\python.exe src/research.py build-dense
+.venv\Scripts\python.exe src/research.py evaluate-retrieval --queries evaluation_queries.json --split test --k 5
 ```
 
 Output mặc định: `outputs/retrieval_comparison.json`, gồm BM25, dense E5 và

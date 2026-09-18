@@ -36,3 +36,37 @@ production chỉ vì có thêm dữ liệu.
 Mốc kiểm tra: trước tiên nâng micro-F1 vượt 0,75 trên dev/test độc lập; sau đó
 đánh giá khả năng đạt 0,80. Mốc 0,85 là mục tiêu thử nghiệm, không phải kết quả
 được đảm bảo bằng việc tăng số review hoặc đổi mô hình.
+
+## Kiểm tra khả thi trước khi chạy PhoBERT (18/09/2026)
+
+Đã đọc trực tiếp `data/{train,dev,test}.json` và confusion matrix trong
+`outputs/metrics.json`, không huấn luyện lại hay mở khóa test để chọn ngưỡng.
+Các tập chứa lần lượt 1.398/200/400 văn bản; tổng nhãn cặp 2.747/379/774.
+Số review có hơn một khía cạnh lần lượt 702/99/195. Không có văn bản trùng
+**chính xác** trong mỗi split hay giữa các split; kiểm tra gần trùng và
+trùng theo nhà hàng vẫn là việc phải làm trước khi huấn luyện.
+
+| Tín hiệu trên test SVM hiện tại | Số liệu | Hàm ý |
+| --- | ---: | --- |
+| TP / FP / FN gộp 15 nhãn | 536 / 127 / 238 | micro-F1 0,7460 |
+| Nhãn F1 bằng 0 | 6/15 | Macro-F1 chỉ 0,3135; trong đó 2 nhãn không có support test |
+| Food positive | 331 support, F1 0,927 | Lớp phổ biến lấn át micro-F1 |
+| Food neutral / price neutral / ambience neutral | 24 / 5 / 8 support, F1 0 | Cần đánh giá độ bất định và bổ sung gold đúng lớp |
+| Service neutral trong train | 3 mẫu | Không đủ dữ liệu để hứa tăng tốt trên lớp này |
+| Mốc micro-F1 0,80 / 0,85 | Ít nhất 65 / 130 FN đổi thành TP nếu FP cố định | Chỉ là tính toán tối ưu minh họa, không phải dự báo PhoBERT |
+
+Lệnh `train_phobert.py` hiện là **tham chiếu một đầu ra 15 nhãn** với ngưỡng
+0,5; chưa triển khai hai đầu ra như đề xuất và chưa có kết quả PhoBERT đã
+kiểm chứng. Thí nghiệm tiếp theo nên dùng PhoBERT-base-v2 với đầu ra ACD
+(sigmoid cho 5 khía cạnh) và đầu ra cực tính có điều kiện (3 lớp cho mỗi khía
+cạnh hiện diện), mask loss ở khía cạnh không có. So sánh thêm mô hình tham
+chiếu 15 nhãn hiện có và SVM cùng split, seed, cách tiền xử lý được ghi lại.
+Phân tầng lỗi theo câu nhiều khía cạnh, phủ định, giá trị trung tính và độ dài
+văn bản. Dùng dev để chọn checkpoint, threshold ACD, class weights và loss
+weight; giữ test bất biến cho một lần xác nhận cuối. Báo cáo micro/macro-F1,
+ACD macro-F1, từng lớp, exact match, bootstrap CI và thời gian suy luận CPU.
+
+Quyết định triển khai chỉ đưa PhoBERT vào FoodLens nếu tăng macro-F1 và micro-F1
+trên test cố định, không làm mất các lớp hiếm, và chi phí/tốc độ suy luận phù
+hợp máy demo. Nhãn review mới suy từ sao **không** được tính là gold hay dùng
+để đánh giá. Không có cơ sở thực nghiệm nào để bảo đảm 80–85% trước khi chạy.

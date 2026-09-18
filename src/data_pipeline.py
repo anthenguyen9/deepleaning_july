@@ -14,7 +14,7 @@ from restaurant_service import Analyzer, ApiError, SerpClient, encode, now, save
 from storage import Store
 from retrieval_service import evaluate as evaluate_retrieval
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DB = ROOT / 'instance' / 'food_reviews.sqlite3'
 DEFAULT_MODEL = ROOT / 'outputs' / 'baseline.joblib'
 ASPECTS = ['food', 'price', 'service', 'ambience', 'location']

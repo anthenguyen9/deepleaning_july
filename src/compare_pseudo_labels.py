@@ -1,6 +1,6 @@
 """Compare ViTASA baseline with AI-assisted or star-rule Google review training data.
 
-Run from the repository root with: python compare_pseudo_labels.py --label-policy rating
+Run from the repository root with: python src/compare_pseudo_labels.py --label-policy rating
 Never treat data/gold/dev.json or data/gold/test.json as independent human truth.
 """
 import argparse

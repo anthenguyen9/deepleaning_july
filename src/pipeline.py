@@ -8,7 +8,7 @@ import urllib.request
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / 'data'
 OUT = ROOT / 'outputs'
 COMMIT = 'cda6a4525bfdf7a7632a7d7c7ccdbe00af5b3094'

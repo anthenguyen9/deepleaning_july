@@ -1,10 +1,11 @@
 @echo off
-cd /d "%~dp0"
-.venv\Scripts\python.exe pipeline.py download
+cd /d "%~dp0\..\.."
+set "PYTHONPATH=%CD%\src"
+.venv\Scripts\python.exe src\pipeline.py download
 if errorlevel 1 goto fail
-.venv\Scripts\python.exe pipeline.py prepare
+.venv\Scripts\python.exe src\pipeline.py prepare
 if errorlevel 1 goto fail
-.venv\Scripts\python.exe pipeline.py train
+.venv\Scripts\python.exe src\pipeline.py train
 if errorlevel 1 goto fail
 echo Training complete. Restart web to activate the model.
 pause

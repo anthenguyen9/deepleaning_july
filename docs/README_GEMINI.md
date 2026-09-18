@@ -14,11 +14,11 @@ Tài liệu chính thức:
 
 ## Cấu hình
 
-Chạy lại `configure_key.py` bằng Python trong `.venv`, hoặc chạy `setup_web.bat`.
+Chạy lại `src/configure_key.py` bằng Python trong `.venv`, hoặc chạy `scripts/windows/setup_web.bat`.
 Script giữ key hiện tại nếu nhấn Enter.
 
 ```bat
-.venv\Scripts\python.exe configure_key.py
+.venv\Scripts\python.exe src/configure_key.py
 ```
 
 `.env` cục bộ:

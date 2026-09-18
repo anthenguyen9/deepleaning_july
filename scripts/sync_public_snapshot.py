@@ -8,6 +8,7 @@ import argparse
 import json
 import sqlite3
 from contextlib import closing
+from datetime import datetime, timezone
 from pathlib import Path
 
 from data_pipeline import build_index
@@ -23,8 +24,9 @@ def sync(source, target):
     source, target = Path(source).resolve(), Path(target).resolve()
     if source == target or not source.is_file() or not target.is_file():
         raise ValueError('Source and existing public target must be different database files.')
-    backup = target.with_name(target.stem + '_before_enrichment.sqlite3')
-    stage = target.with_name(target.stem + '_staged.sqlite3')
+    stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+    backup = target.with_name(target.stem + '_before_enrichment_' + stamp + '.sqlite3')
+    stage = target.with_name(target.stem + '_staged_' + stamp + '.sqlite3')
     if backup.exists() or stage.exists():
         raise FileExistsError('Backup or staging database already exists; inspect it first.')
     with closing(sqlite3.connect(target)) as old, closing(sqlite3.connect(backup)) as copy:

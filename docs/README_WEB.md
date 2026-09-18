@@ -7,13 +7,13 @@ Flask/Jinja/CSS + Waitress; SQLite tích hợp Python, không cần cài databas
 ## Cài và chạy (không Conda)
 
 1. Cài Python 3.11 x64. Kiểm tra `py -3.11 --version` trong CMD.
-2. Giải nén ZIP, mở thư mục `food_review_windows`, chạy `setup_web.bat`.
+2. Giải nén ZIP, mở thư mục `food_review_windows`, chạy `scripts/windows/setup_web.bat`.
 3. Dán SerpApi key khi được hỏi. Ký tự không hiện trên màn hình là bình thường.
    Key được lưu trong `.env` trên máy bạn; không gửi file này cho người khác.
-4. Chạy `train_model.bat` để tải ViTASA và huấn luyện SVM. Cần Internet lần đầu.
+4. Chạy `scripts/windows/train_model.bat` để tải ViTASA và huấn luyện SVM. Cần Internet lần đầu.
    Có thể bỏ qua bước này để thử tìm nhà hàng và tổng hợp điểm sao trước;
    khi chưa có model, web thông báo rõ chưa có phân tích ABSA.
-5. Chạy `run_web.bat`, mở http://127.0.0.1:5000.
+5. Chạy `scripts/windows/run_web.bat`, mở http://127.0.0.1:5000.
 6. Lưu hồ sơ, nhập khu vực, bấm **Tìm & phân tích nhà hàng**.
 
 Nếu vừa train lại model hoặc đổi key, dừng cửa sổ web bằng Ctrl+C rồi chạy lại.
@@ -25,13 +25,13 @@ Dùng đường dẫn Python 3.11 thực tế trên máy để tạo môi trư�
 
 ```bat
 "%LocalAppData%\Programs\Python\Python311\python.exe" -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements_web.txt
-.venv\Scripts\python.exe configure_key.py
+.venv\Scripts\python.exe -m pip install -r requirements/requirements_web.txt
+.venv\Scripts\python.exe src/configure_key.py
 .venv\Scripts\python.exe -m unittest discover -s tests
-.venv\Scripts\python.exe pipeline.py download
-.venv\Scripts\python.exe pipeline.py prepare
-.venv\Scripts\python.exe pipeline.py train
-.venv\Scripts\python.exe webapp.py
+.venv\Scripts\python.exe src/pipeline.py download
+.venv\Scripts\python.exe src/pipeline.py prepare
+.venv\Scripts\python.exe src/pipeline.py train
+.venv\Scripts\python.exe src/webapp.py
 ```
 
 ## Recommendation cá nhân hóa
@@ -99,7 +99,7 @@ Review và hồ sơ nằm trên đĩa không mã hóa; không đưa database th�
 
 Key chỉ đọc từ biến môi trường hoặc `.env` phía Python, không gửi ra HTML/JS,
 không lưu vào bảng profile và không có trong ZIP. `.env` là cấu hình plaintext tại máy;
-chỉ chia sẻ `.env.example` trống. `configure_key.py` cho phép thay key (đặt lại giới hạn
+chỉ chia sẻ `.env.example` trống. `src/configure_key.py` cho phép thay key (đặt lại giới hạn
 về 30/ngày). Key đã chia sẻ trong chat nên được thay mới trên dashboard.
 
 App chỉ bind 127.0.0.1, có CSRF token, cookie HttpOnly/SameSite, kiểm tra Host,
@@ -120,12 +120,12 @@ nhỏ không đủ để kết luận chất lượng chung, mức độ an toà
 
 Chatbot Gemini, truy xuất hybrid/BM25 và dashboard nghiên cứu đã có trong các
 module tương ứng. Script PhoBERT tùy chọn chưa tích hợp suy luận vào web.
-Chi tiết train/nhãn ViTASA: README.md và [VERIFICATION.md](docs/verification/VERIFICATION.md).
+Chi tiết train/nhãn ViTASA: README.md và [VERIFICATION.md](verification/VERIFICATION.md).
 
 ## Restaurant Assistant mới
 
 Trang `/assistant` dùng Jinja/CSS/JavaScript của Flask, không có bước build
-frontend riêng. `assistant_view.py` chuyển dữ liệu quán/review đang lưu thành
+frontend riêng. `src/assistant_view.py` chuyển dữ liệu quán/review đang lưu thành
 card, evidence, khía cạnh và tọa độ cho UI; schema SQLite và thuật toán xếp
 hạng không đổi. Điểm xếp hạng hiển thị là giá trị từ cấu hình E, không phải
 xác suất. Thanh khía cạnh là tỷ lệ nhãn tích cực của mẫu khi có ít nhất ba
@@ -133,7 +133,7 @@ nhãn; không hiện khi thiếu dữ liệu. Ảnh lấy từ thumbnail SerpApi
 dùng tọa độ nguồn với Leaflet 1.9.4 và ô nền OpenStreetMap; cần mạng để xem ô
 bản đồ. Lựa chọn quán cập nhật cùng một nguồn dữ liệu trên desktop và mobile.
 
-Chạy ứng dụng tại máy bằng `run_web.bat` hoặc `.venv\Scripts\python.exe webapp.py`,
+Chạy ứng dụng tại máy bằng `scripts/windows/run_web.bat` hoặc `.venv\Scripts\python.exe src/webapp.py`,
 sau đó mở `http://127.0.0.1:5000/assistant` và đăng nhập tài khoản người dùng.
 
 Tài liệu API đã đối chiếu:
@@ -148,4 +148,4 @@ Tài liệu API đã đối chiếu:
 
 Test giả lập API không tốn quota: kiểm tra CSRF/XSS, profile/SQL tham số hóa,
 cache/dedup, quota, lỗi API, ngày nguồn, phân trang và render trang kết quả.
-Xem [VERIFICATION_WEB.md](docs/verification/VERIFICATION_WEB.md) để biết phần nào đã chạy thực tế.
+Xem [VERIFICATION_WEB.md](verification/VERIFICATION_WEB.md) để biết phần nào đã chạy thực tế.

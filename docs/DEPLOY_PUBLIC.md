@@ -1,6 +1,17 @@
 # Triển khai FoodLens lên URL công khai
 
-## Demo đang chạy trên máy qua Cloudflare Quick Tunnel
+## Demo trên máy với địa chỉ Cloudflare cố định
+
+Địa chỉ demo: https://foodlens-demo.foodlens-anthen-demo.workers.dev/ . Cloudflare
+Worker `foodlens-demo` chuyển tiếp tới Quick Tunnel hiện tại và giữ nguyên URL
+`workers.dev` khi thay code, restart Flask/Waitress hoặc cập nhật database. Lớp
+HTTP Basic và đăng nhập FoodLens vẫn có hiệu lực. Máy chủ và tiến trình tunnel
+phải chạy trong suốt buổi demo; Worker không lưu app hoặc SQLite. Nếu Quick
+Tunnel được cấp origin mới, cập nhật đích chuyển tiếp trong Worker; URL công
+khai trên vẫn giữ nguyên. Không thể cam kết ứng dụng trực tuyến liên tục một
+tháng khi máy tính, mạng hay tunnel dừng. `compose.demo.yml` hỗ trợ tự khởi
+động lại app trong Docker khi Docker Engine sẵn sàng, nhưng không khôi phục
+tunnel hoặc thay thế nguồn điện/mạng.
 
 URL `*.trycloudflare.com` chỉ giữ nguyên khi **tiến trình tunnel hiện tại vẫn
 chạy**; khởi động lại Flask/Waitress ở cùng cổng không đổi URL. Quick Tunnel
@@ -14,7 +25,7 @@ https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-
 `python -m scripts.sync_public_snapshot`, sau đó khởi động lại worker. Script
 giữ tài khoản, hội thoại và phản hồi đã có trên demo; chỉ sao chép dữ liệu nhà
 hàng/review, địa điểm và phân tích từ database local. Script tạo file backup
-`instance/demo_tunnel_before_enrichment.sqlite3` trước khi thay database. Không
+`instance/demo_tunnel_before_enrichment_<timestamp>.sqlite3` trước khi thay database. Không
 khởi động lại tiến trình `cloudflared` nếu muốn giữ URL trong phiên hiện tại.
 
 Mục tiêu: một Railway Web Service chạy Flask, có HTTPS và một volume SQLite.
@@ -24,7 +35,7 @@ giữ nhà hàng/review và bỏ tài khoản, lịch sử chat, cache API, ph�
 ## 1. Chuẩn bị trên máy
 
 ```powershell
-python prepare_public_db.py
+python src/prepare_public_db.py
 ```
 
 File `instance/public_seed.sqlite3` được Git bỏ qua. Kiểm tra dòng tổng kết có
