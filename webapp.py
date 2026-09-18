@@ -98,6 +98,8 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
                 return Response('Authentication required',401,
                                 {'WWW-Authenticate':'Basic realm="FoodLens Demo"'})
         if demo_user_id is not None:
+            if session.get('user_id') != demo_user_id:
+                session.pop('_flashes',None)
             session['user_id']=demo_user_id
             if request.endpoint in {'auth.login','auth.register'}:
                 return redirect(url_for('assistant_page'))
