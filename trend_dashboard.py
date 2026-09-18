@@ -115,7 +115,8 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
     series = series[-limit:]
     maximum = max((row['reviews'] for row in series), default=0)
     for row in series:
-        row['height'] = max(4, round(100 * row['reviews'] / maximum)) if maximum else 0
+        # Fixed steps map to stylesheet classes; CSP blocks inline style attributes.
+        row['height'] = max(4, 4 * round(20 * row['reviews'] / maximum)) if maximum else 0
         mentions = sum(row[key] for key in sentiment)
         row['positive_pct'] = round(100 * row['positive'] / mentions) if mentions >= 5 else None
 
@@ -136,7 +137,6 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
     area_rows = sorted(areas.values(), key=lambda row: (-row['reviews'], row['name']))
     max_area_reviews = max((row['reviews'] for row in area_rows), default=0)
     for row in area_rows:
-        row['width'] = round(100 * row['reviews'] / max_area_reviews) if max_area_reviews else 0
         mentions = sum(row[key] for key in sentiment)
         row['positive_pct'] = round(100 * row['positive'] / mentions) if mentions >= 5 else None
         row['average_rating'] = round(row['rating_sum'] / row['rating_n'], 2) if row['rating_n'] else None
@@ -146,7 +146,8 @@ def build_dashboard(store, granularity='month', year='all', area_id=None, aspect
     rating_sum = sum(row['rating_sum'] for row in by_restaurant.values())
     mentions = sum(sentiment.values())
     return {
-        'areas': area_rows, 'selected_area': area_id, 'restaurants': len(selected),
+        'areas': area_rows, 'max_area_reviews': max_area_reviews,
+        'selected_area': area_id, 'restaurants': len(selected),
         'years': sorted({r['published_at'][:4] for r in reviews}, reverse=True),
         'reviews': reviewed, 'city_reviews': city_reviews,
         'average_rating': round(rating_sum / rated, 2) if rated else None,

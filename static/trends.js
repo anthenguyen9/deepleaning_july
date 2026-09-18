@@ -1,4 +1,6 @@
 (() => {
+  const chartScroll = document.querySelector('.trend-chart-scroll');
+  if (chartScroll) chartScroll.scrollLeft = chartScroll.scrollWidth;
   const host = document.getElementById('trend-map');
   const data = document.getElementById('trend-map-data');
   if (!host || !data || !window.L) return;
