@@ -3,6 +3,7 @@
 The output stays under instance/ (ignored by Git). Never upload the original DB.
 """
 import argparse
+import json
 import sqlite3
 from contextlib import closing
 from pathlib import Path
@@ -39,7 +40,17 @@ def prepare(source: Path, target: Path) -> None:
                     db.execute(f'DELETE FROM "{table}"')
             db.execute("UPDATE profile SET name='Người dùng', area='Đà Nẵng', cuisine='', min_rating=0, aspect='food'")
             db.execute("UPDATE preference_memory SET explicit_notes='', learned_summary=''")
-            db.execute("UPDATE restaurants SET payload='{}'")
+            public_fields = {'serpapi_thumbnail', 'gps_coordinates',
+                             'data_id', 'place_id', 'provider_id'}
+            for restaurant_id, payload in db.execute('SELECT id,payload FROM restaurants'):
+                try:
+                    source_payload = json.loads(payload)
+                except (ValueError, TypeError):
+                    source_payload = {}
+                public_payload = {key: source_payload[key] for key in public_fields
+                                  if key in source_payload}
+                db.execute('UPDATE restaurants SET payload=? WHERE id=?',
+                           (json.dumps(public_payload, ensure_ascii=False), restaurant_id))
             db.execute("UPDATE reviews SET payload='{}'")
             db.commit()
             db.execute('VACUUM')
