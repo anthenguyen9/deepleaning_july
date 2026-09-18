@@ -81,6 +81,23 @@ body{color:#213d34}
 .standard-content #location-form label{margin:0}
 .standard-content #location-form button{grid-column:1/-1}
 .standard-content #location-form select{margin-bottom:0}
+.standard-content #location-form .location-field{min-width:0}
+.standard-content #location-form .location-field label{margin:0 0 6px}
+.standard-content #location-form select[hidden]{display:none!important}
+.location-picker{position:relative;min-width:0}
+.standard-content .location-picker-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;margin:0;padding:10px 13px;border:1px solid #cdded3;border-radius:10px;background:#fff;color:var(--fl-ink);font-size:15px;text-align:left;box-shadow:none}
+.standard-content .location-picker-trigger:hover{background:#f6fbf8;border-color:#81b99b}
+.location-picker-trigger span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.location-picker-trigger span:last-child{flex:none;font-size:20px;line-height:1;color:#49705f}
+.location-picker-panel{position:absolute;z-index:100;top:calc(100% + 5px);left:0;right:0;padding:9px;border:1px solid #bfd9ca;border-radius:11px;background:#fff;box-shadow:0 14px 34px #123e2c2a}
+.location-picker-panel.open-up{top:auto;bottom:calc(100% + 5px)}
+.location-picker-panel[hidden]{display:none}
+.standard-content .location-picker-panel input{min-height:42px;margin:0 0 8px;padding:9px 11px;font-size:14px}
+.location-picker-list{max-height:220px;overflow-y:auto;overscroll-behavior:contain}
+.standard-content .location-picker-option{display:block;width:100%;min-height:38px;margin:0;padding:8px 10px;border:0;border-radius:7px;background:#fff;color:#24483a;text-align:left;font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.standard-content .location-picker-option:hover,.standard-content .location-picker-option:focus-visible{background:#eaf6ee;color:#0d684e}
+.standard-content .location-picker-option[aria-selected=true]{background:#dff1e6;font-weight:750}
+.location-picker-hint,.location-picker-empty{margin:6px 4px 2px;color:#617b6b;font-size:12px;line-height:1.4}
 .fl-location-detail .stats{max-width:430px}
 .fl-location-detail form{max-width:480px;margin-top:18px;padding-top:17px;border-top:1px solid #e6eee9}
 .auth-content{width:min(640px,calc(100% - 32px));margin-top:clamp(28px,7vh,76px)}

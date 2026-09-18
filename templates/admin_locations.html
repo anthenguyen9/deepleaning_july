@@ -7,8 +7,8 @@
   <form method="get" action="{{ url_for('locations.index') }}" id="location-form" data-api="{{ url_for('locations.api_children') }}">
     <label>Quốc gia <select id="country" aria-label="Quốc gia"><option value="">Chọn quốc gia</option>{% for x in countries %}<option value="{{ x.id }}">{{ x.name }}</option>{% endfor %}</select></label>
     <label>Tỉnh / thành phố <select id="province" aria-label="Tỉnh thành"><option value="">Chọn tỉnh / thành phố</option></select></label>
-    <label>Phường / xã / đặc khu <select id="ward" aria-label="Phường xã"><option value="">Có thể bỏ qua</option></select></label>
-    <label>Đường <select id="street" aria-label="Đường"><option value="">Có thể bỏ qua</option></select></label>
+    <div class="location-field"><label for="ward">Phường / xã / đặc khu</label><select id="ward" aria-label="Phường xã"><option value="">Có thể bỏ qua</option></select></div>
+    <div class="location-field"><label for="street">Đường</label><select id="street" aria-label="Đường"><option value="">Có thể bỏ qua</option></select></div>
     <input type="hidden" id="location-id" name="location_id" value="{{ selected.id if selected else '' }}">
     <button type="submit">Xem khu vực</button>
   </form>
