@@ -1,8 +1,45 @@
-{% extends 'base.html' %}{% block content %}
-<h1>Dữ liệu & biến động</h1>
-<p>Cảm xúc là dự đoán mô hình, chưa thay thế nhãn kiểm chứng. Số liệu chỉ mô tả mẫu đã thu thập, không phải dự báo.</p>
-<div class="stats"><div><strong>{{ stats.restaurants }}</strong><span>Nhà hàng</span></div><div><strong>{{ stats.reviews }}</strong><span>Review</span></div><div><strong>{{ stats.dated_reviews }}</strong><span>Có ngày nguồn</span></div><div><strong>{{ quota }}/{{ daily_limit }}</strong><span>API hôm nay UTC</span></div></div>
-<section class="panel"><h2>Mức sẵn sàng</h2><p>{{ stats.coverage.distinct_days }} ngày · {{ stats.coverage.distinct_months }} tháng · {{ stats.coverage.distinct_years }} năm có dữ liệu nguồn · {{ stats.pending_absa }} review chờ phân tích · {{ stats.review_documents }} review trong chỉ mục.</p><p>Truy xuất ưu tiên {{ method }}. Khi vector chưa sẵn sàng, web dùng BM25 và ghi lại phương pháp thực tế.</p></section>
-<section class="panel"><h2>Tổng hợp theo ngày, tháng, năm</h2><p>Chỉ review có ngày ISO từ nguồn mới được tính. Dấu cảm xúc là dự đoán ABSA, không phải nhãn gold.</p><p><a href="{{ url_for('research_dashboard',granularity='day') }}">Theo ngày</a> · <a href="{{ url_for('research_dashboard',granularity='month') }}">Theo tháng</a> · <a href="{{ url_for('research_dashboard',granularity='year') }}">Theo năm</a> — đang xem {{ {'day':'ngày','month':'tháng','year':'năm'}[granularity] }}.</p><div class="table-wrap"><table><thead><tr><th>Nhà hàng</th><th>Kỳ</th><th>Khía cạnh</th><th>Review</th><th>Tích cực</th><th>Trung tính</th><th>Tiêu cực</th><th>Điểm sao mẫu</th></tr></thead><tbody>{% for a in aggregates %}<tr><td>{{ a.name }}</td><td>{{ a.period }}</td><td>{{ aspect_names[a.aspect] }}</td><td>{{ a.review_count }}</td><td>{{ a.positive_count }}</td><td>{{ a.neutral_count }}</td><td>{{ a.negative_count }}</td><td>{{ a.average_rating if a.average_rating is not none else '—' }}</td></tr>{% else %}<tr><td colspan="8">Chưa có tổng hợp thời gian.</td></tr>{% endfor %}</tbody></table></div></section>
-<section class="panel"><h2>Biến động theo tháng</h2><p>Chỉ đánh dấu đủ mẫu khi hai tháng liên tiếp có ít nhất ba review và ba nhãn cho khía cạnh.</p><div class="table-wrap"><table><thead><tr><th>Nhà hàng</th><th>Tháng</th><th>Khía cạnh</th><th>Review</th><th>Sentiment</th><th>Thay đổi</th><th>Đủ mẫu</th></tr></thead><tbody>{% for t in trends %}<tr><td>{{ t.name }}</td><td>{{ t.month }}</td><td>{{ aspect_names[t.aspect] }}</td><td>{{ t.review_count }}</td><td>{{ t.sentiment_index if t.sentiment_index is not none else '—' }}</td><td>{{ t.sentiment_shift if t.sentiment_shift is not none else '—' }}</td><td>{{ 'Có' if t.sufficient_sample else 'Chưa' }}</td></tr>{% else %}<tr><td colspan="7">Chưa có số liệu thời gian đủ điều kiện.</td></tr>{% endfor %}</tbody></table></div></section>
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='vendor/leaflet/leaflet.css') }}">
+<div class="trend-head"><div><p class="eyebrow">FOODLENS · DỮ LIỆU ĐÃ LƯU</p><h1>Xu hướng ẩm thực Đà Nẵng</h1><p>Khám phá khu vực, quán nổi bật và biến động review theo thời gian.</p></div><span class="trend-sample">Mẫu thu thập · {{ stats.restaurants }} quán</span></div>
+
+<form class="trend-filters panel" method="get" action="{{ url_for('research_dashboard') }}" aria-label="Lọc dashboard xu hướng">
+  <label>Khu vực<select name="area"><option value="all">Toàn bộ mẫu</option>{% for item in dashboard.areas %}<option value="{{ item.id }}" {% if area == item.id|string %}selected{% endif %}>{{ item.name }}</option>{% endfor %}</select></label>
+  <label>Năm<select name="year"><option value="all" {% if year == 'all' %}selected{% endif %}>Tất cả năm</option>{% for value in dashboard.years %}<option value="{{ value }}" {% if year == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
+  <label>Chu kỳ<select name="granularity"><option value="day" {% if granularity == 'day' %}selected{% endif %}>Ngày</option><option value="month" {% if granularity == 'month' %}selected{% endif %}>Tháng</option><option value="year" {% if granularity == 'year' %}selected{% endif %}>Năm</option></select></label>
+  <label>Khía cạnh<select name="aspect">{% for code,label in aspect_names.items() %}<option value="{{ code }}" {% if aspect == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+  <button type="submit">Áp dụng</button>
+</form>
+
+<div class="trend-kpis" aria-label="Tổng quan mẫu đã lọc">
+  <div><span>Nhà hàng</span><strong>{{ dashboard.restaurants }}</strong><small>trong khu vực chọn</small></div>
+  <div><span>Review có ngày</span><strong>{{ dashboard.reviews }}</strong><small>không đếm lặp khía cạnh</small></div>
+  <div><span>Điểm sao mẫu</span><strong>{{ dashboard.average_rating if dashboard.average_rating is not none else '—' }}</strong><small>trung bình review đã lưu</small></div>
+  <div><span>Tích cực · {{ aspect_names[aspect] }}</span><strong>{{ dashboard.positive_pct|string + '%' if dashboard.positive_pct is not none else '—' }}</strong><small>{{ dashboard.mentions }} nhãn dự đoán</small></div>
+</div>
+
+<div class="trend-grid">
+  <section class="panel trend-chart-panel"><div class="trend-section-head"><div><h2>Lượng review theo {{ {'day':'ngày','month':'tháng','year':'năm'}[granularity] }}</h2><p>Ngày đăng review gốc, không phải ngày thu thập.</p></div><span>{{ dashboard.series|length }} kỳ hiển thị</span></div>
+    {% if dashboard.series %}<div class="trend-chart-scroll"><div class="trend-chart" role="img" aria-label="Biểu đồ cột lượng review theo thời gian">{% for item in dashboard.series %}<div class="trend-column" title="{{ item.period }}: {{ item.reviews }} review{% if item.positive_pct is not none %}; {{ item.positive_pct }}% nhãn {{ aspect_names[aspect] }} tích cực{% endif %}"><span class="trend-column-value">{{ item.reviews }}</span><span class="trend-column-bar" style="height:{{ item.height }}%"></span><span class="trend-column-label">{{ item.period }}</span></div>{% endfor %}</div></div>
+    {% if dashboard.series_clipped %}<p class="trend-note">Biểu đồ chỉ hiện các kỳ gần nhất; số tổng vẫn dùng toàn bộ khoảng đã chọn.</p>{% endif %}
+    <details><summary>Xem số liệu từng kỳ</summary><div class="table-wrap"><table><thead><tr><th>Kỳ</th><th>Review</th><th>Điểm sao mẫu</th><th>Nhãn tích cực · {{ aspect_names[aspect] }}</th></tr></thead><tbody>{% for item in dashboard.series %}<tr><td>{{ item.period }}</td><td>{{ item.reviews }}</td><td>{{ '%.2f'|format(item.rating_sum/item.rating_n) if item.rating_n else '—' }}</td><td>{{ item.positive_pct|string + '%' if item.positive_pct is not none else 'Chưa đủ mẫu' }}</td></tr>{% endfor %}</tbody></table></div></details>
+    {% else %}<p class="trend-empty">Chưa có review có ngày trong phạm vi đã chọn.</p>{% endif %}
+  </section>
+  <section class="panel trend-areas"><div class="trend-section-head"><div><h2>So sánh khu vực</h2><p>Nhấn vào khu vực để xem quán và xu hướng riêng.</p></div></div>
+    {% for item in dashboard.areas %}<a class="trend-area-row {% if dashboard.selected_area == item.id %}selected{% endif %}" href="{{ url_for('research_dashboard',area=item.id,year=year,granularity=granularity,aspect=aspect) }}"><span class="trend-area-label"><strong>{{ item.name }}</strong><small>{{ item.restaurants }} quán · {{ item.reviews }} review · {{ item.average_rating if item.average_rating is not none else '—' }} sao mẫu</small></span><span class="trend-area-track"><span style="width:{{ item.width }}%"></span></span><span class="trend-area-percent">{{ item.positive_pct|string + '%' if item.positive_pct is not none else '—' }} tích cực</span></a>{% else %}<p class="trend-empty">Chưa có quán được gắn khu vực.</p>{% endfor %}
+  </section>
+</div>
+
+<div class="trend-grid trend-lower">
+  <section class="panel"><div class="trend-section-head"><div><h2>Quán nổi bật trong mẫu</h2><p>Xếp theo điểm sao review đã lưu, hiệu chỉnh để mẫu nhỏ không lấn át. Tối thiểu 5 review có sao.</p></div></div>
+    {% for item in dashboard.top %}<article class="trend-top-row"><span class="trend-rank">{{ loop.index }}</span><div><h3>{{ item.name }}</h3><p>{{ item.area_name }} · {{ item.review_count }} review có ngày · {{ item.sample_rating }} sao mẫu</p>{% if item.maps_url %}<a href="{{ item.maps_url }}" target="_blank" rel="noopener noreferrer">Xem trên Google Maps ↗</a>{% endif %}</div></article>{% else %}<p class="trend-empty">Chưa có quán đủ 5 review có sao trong phạm vi này.</p>{% endfor %}
+  </section>
+  <section class="panel"><div class="trend-section-head"><div><h2>Bản đồ nhà hàng</h2><p>Ghim chỉ hiện khi dữ liệu nguồn có tọa độ.</p></div><span>{{ dashboard.map_points|length }} vị trí</span></div>
+    {% if dashboard.map_points %}<div id="trend-map" class="trend-map" aria-label="Bản đồ các nhà hàng trong khu vực đã chọn"></div><script id="trend-map-data" type="application/json">{{ dashboard.map_points|tojson }}</script>{% else %}<p class="trend-empty">Chưa có tọa độ nhà hàng để vẽ bản đồ.</p>{% endif %}
+  </section>
+</div>
+
+<section class="panel trend-method"><h2>Cách đọc số liệu</h2><p>Dashboard mô tả {{ dashboard.city_reviews }} review có ngày trong mẫu đã chọn theo năm. Tỷ lệ tích cực của khía cạnh chỉ hiện khi có ít nhất 5 nhãn; đó là dự đoán ABSA, chưa phải nhãn gold độc lập. Một review có thể có nhiều khía cạnh, nhưng lượng review và điểm sao được tính một lần. Tên khu vực dựa trên phường đã gắn với địa chỉ; tên quận cũ chỉ là bí danh tìm kiếm.</p><p>Quán nổi bật là thứ hạng trong tập nhà hàng đã thu thập, không phải xếp hạng toàn Đà Nẵng. {{ stats.pending_absa }} review còn chờ phân tích. Truy xuất Assistant hiện ưu tiên {{ method }}.</p></section>
+<script src="{{ url_for('static',filename='vendor/leaflet/leaflet.js') }}" defer></script>
+<script src="{{ url_for('static',filename='trends.js') }}" defer></script>
 {% endblock %}

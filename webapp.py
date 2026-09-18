@@ -18,6 +18,7 @@ import auth
 from chat_ui import assistant_reply, review_url
 from assistant_service import crawl_or_reuse, ensure_history_table, history as assistant_history, recommend, save_turn
 from assistant_view import build_assistant_view
+from trend_dashboard import build_dashboard
 from locations import lineage, resolve, resolve_area_text
 
 ROOT=Path(__file__).resolve().parent
@@ -122,7 +123,7 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
 
     @app.after_request
     def headers(response):
-        image_sources="'self' data: https://serpapi.com https://tile.openstreetmap.org" if request.path=='/assistant' else "'self' data:"
+        image_sources="'self' data: https://serpapi.com https://tile.openstreetmap.org" if request.path in {'/assistant','/research'} else "'self' data:"
         response.headers['Content-Security-Policy']=("default-src 'self'; style-src 'self'; "
             f"img-src {image_sources}; script-src 'self'; form-action 'self'; "
             "frame-ancestors 'none'; base-uri 'self'")
@@ -227,15 +228,19 @@ def create_app(config=None, client_factory=None, gemini_factory=None):
     def research_dashboard():
         granularity=request.args.get('granularity','month')
         if granularity not in {'day','month','year'}: abort(400)
+        aspect=request.args.get('aspect','food')
+        if aspect not in LABELS: abort(400)
+        year=request.args.get('year','all')
+        area=request.args.get('area','all')
+        if area!='all' and not area.isdecimal(): abort(400)
+        area_id=int(area) if area!='all' else None
+        dashboard=build_dashboard(store,granularity,year,area_id,aspect)
+        if year!='all' and year not in dashboard['years']: abort(400)
+        if area_id is not None and area_id not in {row['id'] for row in dashboard['areas']}: abort(400)
         with store.connect() as db:
-            trends=[dict(r) for r in db.execute('''SELECT t.*,r.name FROM trend_signals t
-                JOIN restaurants r ON r.id=t.restaurant_id ORDER BY t.month DESC,r.name,t.aspect LIMIT 200''')]
-            aggregates=[dict(r) for r in db.execute('''SELECT a.*,r.name FROM period_aggregates a
-                JOIN restaurants r ON r.id=a.restaurant_id WHERE a.granularity=?
-                ORDER BY a.period DESC,r.name,a.aspect LIMIT 200''',(granularity,))]
             quota=db.execute("SELECT COUNT(*) FROM api_calls WHERE created_at>=date('now')").fetchone()[0]
-        return render_template('research.html',stats=status(store),trends=trends,
-            aggregates=aggregates,granularity=granularity,
+        return render_template('research.html',stats=status(store),dashboard=dashboard,
+            granularity=granularity,year=year,area=area,aspect=aspect,
             quota=quota,daily_limit=app.config['DAILY_LIMIT'],method=app.config['RETRIEVAL_METHOD'])
 
     @app.post('/search')
