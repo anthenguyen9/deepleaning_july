@@ -1,0 +1,10 @@
+﻿field_path,value_type,value
+annotation_origin,str,codex_ai_evidence_audit
+human_reviewed,bool,0
+scope,str,20 queries; review text and restaurant name only; no geocoding or restaurant aggregation
+rubric.0,str,"No useful explicit evidence for defining requested attributes, or explicit location conflict without useful remaining evidence."
+rubric.1,str,"Partial evidence, missing constraints, or relevant counter-evidence; not enough to recommend as a full match."
+rubric.2,str,Direct evidence addressing every requested constraint; negative reviews remain relevant to a cuisine/location lookup.
+procedure,str,All candidates read with method/rank mapping withheld; semantic boundary cases rechecked by the same AI. Not independent raters; no inter-rater agreement claimed.
+pool_sha256,str,a92fe39d669816dfbdc3010673a74f5179a18b4fc4128181316c0cdb4d659c4c
+training_use,str,"Excluded: secondary diagnostic only, not human gold or an unseen sentiment test."

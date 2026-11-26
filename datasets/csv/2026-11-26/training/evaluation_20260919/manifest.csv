@@ -1,0 +1,39 @@
+﻿field_path,value_type,value
+seed,int,42
+restaurants,int,30
+reviews,int,290
+status,str,awaiting_two_independent_annotators
+restaurant_splits.dev[0],str,0x314219c078e0bb35:0x2e28e3601ba8bd09
+restaurant_splits.dev[1],str,0x314217d929253b79:0x49f8daf4375e563c
+restaurant_splits.dev[2],str,0x31420f0029a2d75b:0x65ba4bfeb2ab0693
+restaurant_splits.dev[3],str,0x31420d9c1d0ab463:0x15ddae1635d59d56
+restaurant_splits.dev[4],str,0x3169dbf2dbdc26cf:0x4c49a9a3ee885c02
+restaurant_splits.dev[5],str,0x314219585e5e3fd7:0x533a310a59eabefe
+restaurant_splits.dev[6],str,0x3141f7a278cffbb7:0x975be6514beaaba7
+restaurant_splits.dev[7],str,0x314219eb969642f7:0xf5ccaf8a9e96e7d5
+restaurant_splits.dev[8],str,0x31421a2106d4a139:0x3f47fa5ec19211a4
+restaurant_splits.dev[9],str,0x31421ba12d2be683:0xdac0322bfa0e83fa
+restaurant_splits.test[0],str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+restaurant_splits.test[1],str,0x31421bd288316a23:0x73dc015cbb094d27
+restaurant_splits.test[2],str,0x31420dce077af0e9:0x35c47733b941157c
+restaurant_splits.test[3],str,0x314217ca176b97d9:0xbd4b0d7295239ee0
+restaurant_splits.test[4],str,0x314219c36d7ded4d:0x3d7f3fa81ab20733
+restaurant_splits.test[5],str,0x314219c2485f8e11:0xeb47d44cdc4b3228
+restaurant_splits.test[6],str,0x314219062624b157:0xfb108ac682d9e842
+restaurant_splits.test[7],str,0x3142194005fb2865:0x99d61d369a5437f8
+restaurant_splits.test[8],str,0x3142174a21a6a55b:0xe275f8bbc9a516c0
+restaurant_splits.test[9],str,0x31421700501e426b:0xbacc74781a782abf
+restaurant_splits.test[10],str,0x314219c3b54c18d7:0x5028941bdf1ab5f5
+restaurant_splits.test[11],str,0x3142198bd89fe7d5:0x9bcc6ab9b5bf2f8f
+restaurant_splits.test[12],str,0x314219d85545c543:0x901f06685aa3a333
+restaurant_splits.test[13],str,0x314211baac03f7cf:0xe1e723c31b48b6cb
+restaurant_splits.test[14],str,0x31421989dd696dc1:0x57256f6c987bda51
+restaurant_splits.test[15],str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2
+restaurant_splits.test[16],str,0x31420f6effc76291:0x37bd809e3264f93f
+restaurant_splits.test[17],str,0x314219a4683dd409:0x4968d54eb4777bfe
+restaurant_splits.test[18],str,0x31421749323307c7:0xa14019bd0dca8da2
+restaurant_splits.test[19],str,0x31421ef3a986ffa3:0x28a8a15441f80c69
+sampling,str,"30 eligible restaurants shuffled, up to 10 deduplicated reviews each; not population-representative"
+blinding,str,"Star rating, model predictions and existing automatic labels withheld from both reviewer forms"
+source_digest,str,4d354e6e6b7eff6c6759e4f04bdfde71ec5db4b5e56e2b7088261f64f9b8eb75
+caution,str,Do not train on these reserved restaurants or mark reviewed before actual human review.

@@ -1,0 +1,3 @@
+﻿field_path,value_type,value
+source,str,SerpApi
+seed,int,42

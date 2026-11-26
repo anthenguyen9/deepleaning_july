@@ -1,0 +1,11 @@
+﻿field_path,value_type,value
+source,str,data/gold + data/annotation_20260917.json ratings
+source_sha256,str,bbdb10b7a44c57c5a3f5be9ac2e2f5dc1b023506ffef573e18f0dc7d0101d6a3
+policy,str,1-2 stars NEGATIVE; 3 NEUTRAL; 4-5 POSITIVE; preserve AI-derived aspect presence
+warning,str,"Weak labels, not independent human gold; do not evaluate against this test split as ground truth."
+counts.train,int,2615
+counts.dev,int,382
+counts.test,int,444
+changed_label_sets.train,int,454
+changed_label_sets.dev,int,44
+changed_label_sets.test,int,73

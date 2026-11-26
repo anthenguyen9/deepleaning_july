@@ -1,0 +1,7 @@
+﻿field_path,value_type,value
+seed,int,42
+source_sha256,str,b499915cea2fe5ce6da40ca5b1f9322ca318bfb6075968e11dc3e422ffc54a14
+policy,str,"restaurant-disjoint, exact-text deduplicated"
+counts.train,int,2615
+counts.dev,int,382
+counts.test,int,444

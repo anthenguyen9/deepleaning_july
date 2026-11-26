@@ -1,0 +1,3 @@
+# Preserve UTF-8 BOM, CSV newlines and manifest checksums across Git checkouts.
+*.csv -text
+**/*.csv -text
