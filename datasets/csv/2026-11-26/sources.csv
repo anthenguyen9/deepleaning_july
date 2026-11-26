@@ -1,0 +1,28 @@
+﻿source,snapshot,sha256,method,exported_at
+instance/demo_tunnel.sqlite3,operational,2659fd7cebc65185f592e09fe88acaef607735ebf37a75277af8c15dcca2a063,SQLite online backup to memory,2026-11-26T04:09:39.928674+00:00
+instance/food_reviews.sqlite3,research,5f7e6f32077d186339f7c9075abc0ab87da00cede906ee600d0d09457bb32721,SQLite online backup to memory,2026-11-26T04:09:39.928674+00:00
+data/annotation.json,training/annotation,d9f57fb5cbbe10ccf88d7b8ee2d1f6f97d222695d6d5410f89a2b4568b20520c,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/annotation_20260917.json,training/annotation_20260917,bbdb10b7a44c57c5a3f5be9ac2e2f5dc1b023506ffef573e18f0dc7d0101d6a3,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/annotation_ai_20260917.json,training/annotation_ai_20260917,a30da502ff7b77b714971dc2238e7150c2cb230b010022960313bd71712550aa,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/dev.json,training/dev,d97efffc9ceb1bf72f2f63e26c2da68950fa85fb91cbb8718d99d78f626c4118,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/ai_retrieval_judgments.json,training/evaluation_20260919/ai_retrieval_judgments,069c8536a6bcb78c59092a43349d7adf8df0fd061e6cc9d310b03eb78dd669ef,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/annotator_A.json,training/evaluation_20260919/annotator_A,0cbe2d961de53e32a5e901c94178be6cdeda6dfabd49c3e2bb90f2925d4c1123,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/annotator_B.json,training/evaluation_20260919/annotator_B,fd50b9fa5cc7a69771edea33c24c34de18f1cf8fa47ad53b1ab3f37807979555,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/manifest.json,training/evaluation_20260919/manifest,0785f0782248514ad5c360554726b324ba2e736f9b2872129d06740c8a29b0c9,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/retrieval_blinded_pool.json,training/evaluation_20260919/retrieval_blinded_pool,a92fe39d669816dfbdc3010673a74f5179a18b4fc4128181316c0cdb4d659c4c,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/retrieval_private_mapping.json,training/evaluation_20260919/retrieval_private_mapping,7434f245d603dacbc45356d97df3a3eea62e536a112c1cbc7eccd305c43ecb82,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/evaluation_20260919/retrieval_queries.json,training/evaluation_20260919/retrieval_queries,a6ac4ceafd90aca12ceb9249b8db07aeb4e046c89ed402c672babd7223850b00,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/gold/dev.json,training/gold/dev,4ba27f2d22a9d1d9f091792f8dbc52b9b726c0d9ab4db1c799a4b46455950e5a,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/gold/manifest.json,training/gold/manifest,c13f56469a162ee4dba893733bd4a0b8d7cef4f16cc47d51d7ec6987dffea4f6,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/gold/test.json,training/gold/test,a6950729dc6d40b01ce2fc0cbfc8d7c7861d33afc74f410dfa5a2eca2a32d0c2,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/gold/train.json,training/gold/train,9400e756e80deb1fc17273c5bbb14918c06efbea839cf063a604c866c816252f,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/rating_weak/dev.json,training/rating_weak/dev,651674a4dd15f40f31b7d0be8f13d76c8b4a27594a8a18ffbddaafe47901e218,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/rating_weak/manifest.json,training/rating_weak/manifest,d36b70763be6dddeb635b3f85c4c890ddb19622fddd254c4f694b85a25079557,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/rating_weak/test.json,training/rating_weak/test,7a4a74522b038a0378db2b11513f7962efb96dfd42447d5355d465629fe628b7,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/rating_weak/train.json,training/rating_weak/train,38eabb9173fa899cd845f730f55a770ad3d949db580dabaffaf9189f09a41264,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/restaurant.jsonl,training/restaurant,07ba4669addb57bb45b6dfa759138577a1c9262486936087d584a3dc0ab25db0,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/source_manifest.json,training/source_manifest,7ede8403cdeae824741b1253fff8d34d7d417e9476a032b08dd5b3d5e00a57cf,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/test.json,training/test,138522d3536ac4c10fddfc57ea48b3164c76b67edc1cb3cafdcb07a656898044,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+data/train.json,training/train,477933e7569a2f955132fd2c707de6b5f4ae8c921333af78d06d002d68fff04b,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+location_data/danang_2025.json,geography/danang_2025,005a75709a597781e913959a7c441c341805a55b598f4f580326f5b89f231d67,Read-only file conversion,2026-11-26T04:09:39.928674+00:00
+location_data/danang_osm_streets.json,geography/danang_osm_streets,9fd39575b7559643a797b6e5bfe9762299bc05e1f8b8dc7fd7de1e075083e50e,Read-only file conversion,2026-11-26T04:09:39.928674+00:00

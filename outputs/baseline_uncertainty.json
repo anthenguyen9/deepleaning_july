@@ -1,0 +1,46 @@
+{
+  "seed": 42,
+  "bootstrap_repetitions": 2000,
+  "sampling_unit": "review",
+  "confidence_level": 0.95,
+  "ci_percentile": {
+    "pair_micro_f1": [
+      0.7203760330578513,
+      0.770897696673522
+    ],
+    "pair_macro_f1_15_labels": [
+      0.27740543682902014,
+      0.34834157273904365
+    ]
+  },
+  "dataset_sha256": {
+    "train": "477933e7569a2f955132fd2c707de6b5f4ae8c921333af78d06d002d68fff04b",
+    "dev": "d97efffc9ceb1bf72f2f63e26c2da68950fa85fb91cbb8718d99d78f626c4118",
+    "test": "138522d3536ac4c10fddfc57ea48b3164c76b67edc1cb3cafdcb07a656898044"
+  },
+  "prediction_sha256": "7301765326c820d0877b3499abbd9c75d99356589a93f79f1f428efefade52de",
+  "support": {
+    "food:NEGATIVE": 76,
+    "food:NEUTRAL": 24,
+    "food:POSITIVE": 331,
+    "price:NEGATIVE": 23,
+    "price:NEUTRAL": 5,
+    "price:POSITIVE": 109,
+    "service:NEGATIVE": 21,
+    "service:NEUTRAL": 0,
+    "service:POSITIVE": 73,
+    "ambience:NEGATIVE": 24,
+    "ambience:NEUTRAL": 8,
+    "ambience:POSITIVE": 58,
+    "location:NEGATIVE": 10,
+    "location:NEUTRAL": 0,
+    "location:POSITIVE": 12
+  },
+  "near_duplicate_method": "char_wb TF-IDF 3-5 cosine >= 0.90; audit only, no fitting or split modification",
+  "near_duplicate_pairs": [],
+  "limitations": [
+    "Not a restaurant-cluster CI: ViTASA conversion has no restaurant identifiers.",
+    "Historical test split has already been reported; this is uncertainty analysis, not a fresh independent experiment.",
+    "Near-duplicate matches are review candidates, not automatic grounds to remove test rows."
+  ]
+}

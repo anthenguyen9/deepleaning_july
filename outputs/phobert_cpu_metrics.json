@@ -1,0 +1,330 @@
+{
+  "architecture": "PhoBERT two-head review-level ACD and masked SPC",
+  "backbone": "vinai/phobert-base",
+  "seed": 42,
+  "device": "cpu",
+  "split_counts": {
+    "train": 1398,
+    "dev": 200,
+    "test": 400
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.101528657693549,
+      "dev_macro_f1": 0.1625501139347871
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.893546112745105,
+      "dev_macro_f1": 0.2144415528358932
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.7374872288564074,
+      "dev_macro_f1": 0.28404713156760775
+    }
+  ],
+  "test": {
+    "acd_macro_f1": 0.6978858494189074,
+    "confusion_matrices": {
+      "food:NEGATIVE": [
+        [
+          321,
+          3
+        ],
+        [
+          64,
+          12
+        ]
+      ],
+      "food:NEUTRAL": [
+        [
+          376,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "food:POSITIVE": [
+        [
+          21,
+          48
+        ],
+        [
+          2,
+          329
+        ]
+      ],
+      "price:NEGATIVE": [
+        [
+          377,
+          0
+        ],
+        [
+          23,
+          0
+        ]
+      ],
+      "price:NEUTRAL": [
+        [
+          395,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ],
+      "price:POSITIVE": [
+        [
+          205,
+          86
+        ],
+        [
+          7,
+          102
+        ]
+      ],
+      "service:NEGATIVE": [
+        [
+          379,
+          0
+        ],
+        [
+          21,
+          0
+        ]
+      ],
+      "service:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "service:POSITIVE": [
+        [
+          304,
+          23
+        ],
+        [
+          8,
+          65
+        ]
+      ],
+      "ambience:NEGATIVE": [
+        [
+          376,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "ambience:NEUTRAL": [
+        [
+          392,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "ambience:POSITIVE": [
+        [
+          295,
+          47
+        ],
+        [
+          5,
+          53
+        ]
+      ],
+      "location:NEGATIVE": [
+        [
+          388,
+          2
+        ],
+        [
+          10,
+          0
+        ]
+      ],
+      "location:NEUTRAL": [
+        [
+          400,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "location:POSITIVE": [
+        [
+          385,
+          3
+        ],
+        [
+          11,
+          1
+        ]
+      ]
+    },
+    "pair_micro_f1": 0.7260981912144703,
+    "pair_macro_f1_15_labels": 0.23222153158512215,
+    "exact_match": 0.44,
+    "per_label": {
+      "food:NEGATIVE": {
+        "precision": 0.8,
+        "recall": 0.15789473684210525,
+        "f1-score": 0.26373626373626374,
+        "support": 76.0
+      },
+      "food:NEUTRAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 24.0
+      },
+      "food:POSITIVE": {
+        "precision": 0.8726790450928382,
+        "recall": 0.9939577039274925,
+        "f1-score": 0.9293785310734464,
+        "support": 331.0
+      },
+      "price:NEGATIVE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 23.0
+      },
+      "price:NEUTRAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 5.0
+      },
+      "price:POSITIVE": {
+        "precision": 0.5425531914893617,
+        "recall": 0.9357798165137615,
+        "f1-score": 0.6868686868686869,
+        "support": 109.0
+      },
+      "service:NEGATIVE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 21.0
+      },
+      "service:NEUTRAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 0.0
+      },
+      "service:POSITIVE": {
+        "precision": 0.7386363636363636,
+        "recall": 0.8904109589041096,
+        "f1-score": 0.8074534161490683,
+        "support": 73.0
+      },
+      "ambience:NEGATIVE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 24.0
+      },
+      "ambience:NEUTRAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 8.0
+      },
+      "ambience:POSITIVE": {
+        "precision": 0.53,
+        "recall": 0.9137931034482759,
+        "f1-score": 0.6708860759493671,
+        "support": 58.0
+      },
+      "location:NEGATIVE": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 10.0
+      },
+      "location:NEUTRAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 0.0
+      },
+      "location:POSITIVE": {
+        "precision": 0.25,
+        "recall": 0.08333333333333333,
+        "f1-score": 0.125,
+        "support": 12.0
+      },
+      "micro avg": {
+        "precision": 0.7260981912144703,
+        "recall": 0.7260981912144703,
+        "f1-score": 0.7260981912144703,
+        "support": 774.0
+      },
+      "macro avg": {
+        "precision": 0.24892457334790427,
+        "recall": 0.26501131019793855,
+        "f1-score": 0.23222153158512215,
+        "support": 774.0
+      },
+      "weighted avg": {
+        "precision": 0.6414153957926673,
+        "recall": 0.7260981912144703,
+        "f1-score": 0.6484398300799727,
+        "support": 774.0
+      },
+      "samples avg": {
+        "precision": 0.7295416666666666,
+        "recall": 0.7219583333333334,
+        "f1-score": 0.7045615079365077,
+        "support": 774.0
+      }
+    }
+  },
+  "selection": "best dev pair macro F1",
+  "dataset_sha256": {
+    "train": "477933e7569a2f955132fd2c707de6b5f4ae8c921333af78d06d002d68fff04b",
+    "dev": "d97efffc9ceb1bf72f2f63e26c2da68950fa85fb91cbb8718d99d78f626c4118",
+    "test": "138522d3536ac4c10fddfc57ea48b3164c76b67edc1cb3cafdcb07a656898044"
+  },
+  "torch_version": "2.14.0+cpu",
+  "config": {
+    "data_dir": "data",
+    "output_dir": "E:\\FoodLensArtifacts\\experiments\\phobert_base_cpu_v2",
+    "backbone": "vinai/phobert-base",
+    "epochs": 3,
+    "batch_size": 2,
+    "max_length": 256,
+    "seed": 42,
+    "learning_rate": 2e-05,
+    "acd_positive_weight": 2,
+    "spc_weight": 1,
+    "acd_threshold": 0.5,
+    "spc_threshold": 0.5,
+    "patience": 2,
+    "cpu": true,
+    "threads": 4,
+    "accumulation": 8
+  },
+  "elapsed_seconds": 1432.8978264000034,
+  "test_status": "Fixed ViTASA split previously reported for SVM; no test-based tuning in this run",
+  "limitation": "Review-level ViTASA label mapping; no span extraction; underthesea word segmentation."
+}

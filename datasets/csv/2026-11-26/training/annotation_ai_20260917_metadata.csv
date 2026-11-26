@@ -1,0 +1,6 @@
+﻿field_path,value_type,value
+source,str,SerpApi
+seed,int,42
+annotation_method,str,"AI-assisted, not independent human gold"
+models_used[0],str,gemini-3.1-flash-lite
+models_used[1],str,gemini-3.6-flash

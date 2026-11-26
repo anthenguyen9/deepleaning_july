@@ -1,0 +1,101 @@
+﻿record_index,field_path,value_type,value
+0,id,str,Q01
+0,query,str,Quán hải sản có view biển ở Đà Nẵng
+0,split,str,dev
+0,judgments,null,
+0,reviewed,bool,0
+1,id,str,Q02
+1,query,str,Quán hải sản ở Hòa Xuân
+1,split,str,dev
+1,judgments,null,
+1,reviewed,bool,0
+2,id,str,Q03
+2,query,str,Quán thịt nướng gần Hải Châu
+2,split,str,dev
+2,judgments,null,
+2,reviewed,bool,0
+3,id,str,Q04
+3,query,str,Quán ăn gia đình ở Sơn Trà
+3,split,str,dev
+3,judgments,null,
+3,reviewed,bool,0
+4,id,str,Q05
+4,query,str,Quán giá hợp lý ở Ngũ Hành Sơn
+4,split,str,dev
+4,judgments,null,
+4,reviewed,bool,0
+5,id,str,Q06
+5,query,str,Nhà hàng yên tĩnh để trò chuyện
+5,split,str,dev
+5,judgments,null,
+5,reviewed,bool,0
+6,id,str,Q07
+6,query,str,"Nhà hàng phục vụ nhanh, nhân viên thân thiện"
+6,split,str,test
+6,judgments,null,
+6,reviewed,bool,0
+7,id,str,Q08
+7,query,str,Quán có món chay
+7,split,str,test
+7,judgments,null,
+7,reviewed,bool,0
+8,id,str,Q09
+8,query,str,Quán có chỗ đỗ xe thuận tiện
+8,split,str,test
+8,judgments,null,
+8,reviewed,bool,0
+9,id,str,Q10
+9,query,str,Quán sạch sẽ phù hợp trẻ em
+9,split,str,test
+9,judgments,null,
+9,reviewed,bool,0
+10,id,str,Q11
+10,query,str,Review phàn nàn giá cao
+10,split,str,test
+10,judgments,null,
+10,reviewed,bool,0
+11,id,str,Q12
+11,query,str,Review về món ăn nguội hoặc phục vụ chậm
+11,split,str,test
+11,judgments,null,
+11,reviewed,bool,0
+12,id,str,Q13
+12,query,str,Quán hải sản tươi ở Thanh Khê
+12,split,str,test
+12,judgments,null,
+12,reviewed,bool,0
+13,id,str,Q14
+13,query,str,Quán ăn sáng gần biển
+13,split,str,test
+13,judgments,null,
+13,reviewed,bool,0
+14,id,str,Q15
+14,query,str,Seafood restaurant with a sea view in Da Nang
+14,split,str,test
+14,judgments,null,
+14,reviewed,bool,0
+15,id,str,Q16
+15,query,str,Affordable dinner in Hai Chau
+15,split,str,test
+15,judgments,null,
+15,reviewed,bool,0
+16,id,str,Q17
+16,query,str,Friendly service and vegetarian options
+16,split,str,test
+16,judgments,null,
+16,reviewed,bool,0
+17,id,str,Q18
+17,query,str,Quiet restaurant suitable for a family
+17,split,str,test
+17,judgments,null,
+17,reviewed,bool,0
+18,id,str,Q19
+18,query,str,Nhà hàng nổi bật tại Liên Chiểu
+18,split,str,test
+18,judgments,null,
+18,reviewed,bool,0
+19,id,str,Q20
+19,query,str,Quán ăn ở Cẩm Lệ có giá hợp lý
+19,split,str,test
+19,judgments,null,
+19,reviewed,bool,0

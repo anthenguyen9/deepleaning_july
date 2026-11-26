@@ -1,0 +1,285 @@
+﻿field_path,value_type,value
+source,str,https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-1659-nq-ubtvqh15-sap-xep-cac-dvhc-cap-xa-cua-thanh-pho-da-nang-nam-2025-119250616202714604.htm
+effective_from,str,2025-07-01
+units[0].code,int,1
+units[0].level,str,phường
+units[0].name,str,Hải Châu
+units[1].code,int,2
+units[1].level,str,phường
+units[1].name,str,Hòa Cường
+units[2].code,int,3
+units[2].level,str,phường
+units[2].name,str,Thanh Khê
+units[3].code,int,4
+units[3].level,str,phường
+units[3].name,str,An Khê
+units[4].code,int,5
+units[4].level,str,phường
+units[4].name,str,An Hải
+units[5].code,int,6
+units[5].level,str,phường
+units[5].name,str,Sơn Trà
+units[6].code,int,7
+units[6].level,str,phường
+units[6].name,str,Ngũ Hành Sơn
+units[7].code,int,8
+units[7].level,str,phường
+units[7].name,str,Hòa Khánh
+units[8].code,int,9
+units[8].level,str,phường
+units[8].name,str,Hải Vân
+units[9].code,int,10
+units[9].level,str,phường
+units[9].name,str,Liên Chiểu
+units[10].code,int,11
+units[10].level,str,phường
+units[10].name,str,Cẩm Lệ
+units[11].code,int,12
+units[11].level,str,phường
+units[11].name,str,Hòa Xuân
+units[12].code,int,13
+units[12].level,str,phường
+units[12].name,str,Tam Kỳ
+units[13].code,int,14
+units[13].level,str,phường
+units[13].name,str,Quảng Phú
+units[14].code,int,15
+units[14].level,str,phường
+units[14].name,str,Hương Trà
+units[15].code,int,16
+units[15].level,str,phường
+units[15].name,str,Bàn Thạch
+units[16].code,int,17
+units[16].level,str,phường
+units[16].name,str,Điện Bàn
+units[17].code,int,18
+units[17].level,str,phường
+units[17].name,str,Điện Bàn Đông
+units[18].code,int,19
+units[18].level,str,phường
+units[18].name,str,An Thắng
+units[19].code,int,20
+units[19].level,str,phường
+units[19].name,str,Điện Bàn Bắc
+units[20].code,int,21
+units[20].level,str,phường
+units[20].name,str,Hội An
+units[21].code,int,22
+units[21].level,str,phường
+units[21].name,str,Hội An Đông
+units[22].code,int,23
+units[22].level,str,phường
+units[22].name,str,Hội An Tây
+units[23].code,int,24
+units[23].level,str,xã
+units[23].name,str,Hòa Vang
+units[24].code,int,25
+units[24].level,str,xã
+units[24].name,str,Hòa Tiến
+units[25].code,int,26
+units[25].level,str,xã
+units[25].name,str,Bà Nà
+units[26].code,int,27
+units[26].level,str,xã
+units[26].name,str,Núi Thành
+units[27].code,int,28
+units[27].level,str,xã
+units[27].name,str,Tam Mỹ
+units[28].code,int,29
+units[28].level,str,xã
+units[28].name,str,Tam Anh
+units[29].code,int,30
+units[29].level,str,xã
+units[29].name,str,Đức Phú
+units[30].code,int,31
+units[30].level,str,xã
+units[30].name,str,Tam Xuân
+units[31].code,int,32
+units[31].level,str,xã
+units[31].name,str,Tây Hồ
+units[32].code,int,33
+units[32].level,str,xã
+units[32].name,str,Chiên Đàn
+units[33].code,int,34
+units[33].level,str,xã
+units[33].name,str,Phú Ninh
+units[34].code,int,35
+units[34].level,str,xã
+units[34].name,str,Lãnh Ngọc
+units[35].code,int,36
+units[35].level,str,xã
+units[35].name,str,Tiên Phước
+units[36].code,int,37
+units[36].level,str,xã
+units[36].name,str,Thạnh Bình
+units[37].code,int,38
+units[37].level,str,xã
+units[37].name,str,Sơn Cẩm Hà
+units[38].code,int,39
+units[38].level,str,xã
+units[38].name,str,Trà Liên
+units[39].code,int,40
+units[39].level,str,xã
+units[39].name,str,Trà Giáp
+units[40].code,int,41
+units[40].level,str,xã
+units[40].name,str,Trà Tân
+units[41].code,int,42
+units[41].level,str,xã
+units[41].name,str,Trà Đốc
+units[42].code,int,43
+units[42].level,str,xã
+units[42].name,str,Trà My
+units[43].code,int,44
+units[43].level,str,xã
+units[43].name,str,Nam Trà My
+units[44].code,int,45
+units[44].level,str,xã
+units[44].name,str,Trà Tập
+units[45].code,int,46
+units[45].level,str,xã
+units[45].name,str,Trà Vân
+units[46].code,int,47
+units[46].level,str,xã
+units[46].name,str,Trà Linh
+units[47].code,int,48
+units[47].level,str,xã
+units[47].name,str,Trà Leng
+units[48].code,int,49
+units[48].level,str,xã
+units[48].name,str,Thăng Bình
+units[49].code,int,50
+units[49].level,str,xã
+units[49].name,str,Thăng An
+units[50].code,int,51
+units[50].level,str,xã
+units[50].name,str,Thăng Trường
+units[51].code,int,52
+units[51].level,str,xã
+units[51].name,str,Thăng Điền
+units[52].code,int,53
+units[52].level,str,xã
+units[52].name,str,Thăng Phú
+units[53].code,int,54
+units[53].level,str,xã
+units[53].name,str,Đồng Dương
+units[54].code,int,55
+units[54].level,str,xã
+units[54].name,str,Quế Sơn Trung
+units[55].code,int,56
+units[55].level,str,xã
+units[55].name,str,Quế Sơn
+units[56].code,int,57
+units[56].level,str,xã
+units[56].name,str,Xuân Phú
+units[57].code,int,58
+units[57].level,str,xã
+units[57].name,str,Nông Sơn
+units[58].code,int,59
+units[58].level,str,xã
+units[58].name,str,Quế Phước
+units[59].code,int,60
+units[59].level,str,xã
+units[59].name,str,Duy Nghĩa
+units[60].code,int,61
+units[60].level,str,xã
+units[60].name,str,Nam Phước
+units[61].code,int,62
+units[61].level,str,xã
+units[61].name,str,Duy Xuyên
+units[62].code,int,63
+units[62].level,str,xã
+units[62].name,str,Thu Bồn
+units[63].code,int,64
+units[63].level,str,xã
+units[63].name,str,Điện Bàn Tây
+units[64].code,int,65
+units[64].level,str,xã
+units[64].name,str,Gò Nổi
+units[65].code,int,66
+units[65].level,str,xã
+units[65].name,str,Đại Lộc
+units[66].code,int,67
+units[66].level,str,xã
+units[66].name,str,Hà Nha
+units[67].code,int,68
+units[67].level,str,xã
+units[67].name,str,Thượng Đức
+units[68].code,int,69
+units[68].level,str,xã
+units[68].name,str,Vu Gia
+units[69].code,int,70
+units[69].level,str,xã
+units[69].name,str,Phú Thuận
+units[70].code,int,71
+units[70].level,str,xã
+units[70].name,str,Thạnh Mỹ
+units[71].code,int,72
+units[71].level,str,xã
+units[71].name,str,Bến Giằng
+units[72].code,int,73
+units[72].level,str,xã
+units[72].name,str,Nam Giang
+units[73].code,int,74
+units[73].level,str,xã
+units[73].name,str,Đắc Pring
+units[74].code,int,75
+units[74].level,str,xã
+units[74].name,str,La Dêê
+units[75].code,int,76
+units[75].level,str,xã
+units[75].name,str,La Êê
+units[76].code,int,77
+units[76].level,str,xã
+units[76].name,str,Sông Vàng
+units[77].code,int,78
+units[77].level,str,xã
+units[77].name,str,Sông Kôn
+units[78].code,int,79
+units[78].level,str,xã
+units[78].name,str,Đông Giang
+units[79].code,int,80
+units[79].level,str,xã
+units[79].name,str,Bến Hiên
+units[80].code,int,81
+units[80].level,str,xã
+units[80].name,str,Avương
+units[81].code,int,82
+units[81].level,str,xã
+units[81].name,str,Tây Giang
+units[82].code,int,83
+units[82].level,str,xã
+units[82].name,str,Hùng Sơn
+units[83].code,int,84
+units[83].level,str,xã
+units[83].name,str,Hiệp Đức
+units[84].code,int,85
+units[84].level,str,xã
+units[84].name,str,Việt An
+units[85].code,int,86
+units[85].level,str,xã
+units[85].name,str,Phước Trà
+units[86].code,int,87
+units[86].level,str,xã
+units[86].name,str,Khâm Đức
+units[87].code,int,88
+units[87].level,str,xã
+units[87].name,str,Phước Năng
+units[88].code,int,89
+units[88].level,str,xã
+units[88].name,str,Phước Chánh
+units[89].code,int,90
+units[89].level,str,xã
+units[89].name,str,Phước Thành
+units[90].code,int,91
+units[90].level,str,xã
+units[90].name,str,Phước Hiệp
+units[91].code,int,92
+units[91].level,str,đặc khu
+units[91].name,str,Hoàng Sa
+units[92].code,int,93
+units[92].level,str,xã
+units[92].name,str,Tam Hải
+units[93].code,int,94
+units[93].level,str,xã
+units[93].name,str,Tân Hiệp

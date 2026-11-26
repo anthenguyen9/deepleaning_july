@@ -1,0 +1,4 @@
+﻿id,version,created_at,restaurant_count,review_count,dated_review_count,min_review_date,max_review_date,source
+1,serpapi-20260917T064415Z,2026-09-17T06:44:15.137928+00:00,3,84,84,2022-10-27T16:10:12+00:00,2026-09-17T04:07:09+00:00,SerpApi Google Maps
+2,serpapi-20260917T065115Z,2026-09-17T06:51:15.405399+00:00,13,375,375,2019-07-23T02:48:47+00:00,2026-09-17T04:07:09+00:00,SerpApi Google Maps
+3,serpapi-20260917T071815Z,2026-09-17T07:18:15.310658+00:00,28,4821,4821,2018-08-01T06:21:19+00:00,2026-09-17T07:03:38+00:00,SerpApi Google Maps

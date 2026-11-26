@@ -1,0 +1,26 @@
+services:
+  foodlens:
+    build: .
+    image: foodlens:local-demo
+    restart: unless-stopped
+    env_file:
+      - ./instance/docker_demo.env
+    environment:
+      DEPLOYMENT_MODE: public
+      PUBLIC_HOSTS: housewives-porcelain-aquarium-informal.trycloudflare.com
+      DATABASE_PATH: /app/instance/demo_tunnel.sqlite3
+      MODEL_PATH: /app/outputs/baseline.joblib
+      RETRIEVAL_METHOD: bm25
+      AUTO_BUILD_DENSE: "0"
+      PORT: "5000"
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - ./instance:/app/instance
+      - ./outputs/baseline.joblib:/app/outputs/baseline.joblib:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,base64,urllib.request; a=base64.b64encode(('foodlens:'+os.environ['DEMO_ACCESS_PASSWORD']).encode()).decode(); q=urllib.request.Request('http://127.0.0.1:5000/health',headers={'Authorization':'Basic '+a}); urllib.request.urlopen(q,timeout=5)"]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+      start_period: 30s

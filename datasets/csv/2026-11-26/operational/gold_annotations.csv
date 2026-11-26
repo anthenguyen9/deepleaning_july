@@ -1,0 +1,1 @@
+﻿restaurant_id,review_id,text_hash,labels,labels_available,food_negative,food_neutral,food_positive,price_negative,price_neutral,price_positive,service_negative,service_neutral,service_positive,ambience_negative,ambience_neutral,ambience_positive,location_negative,location_neutral,location_positive

@@ -1,0 +1,4 @@
+Flask>=3.1,<4
+waitress>=3,<4
+python-dotenv>=1,<2
+-r requirements_core.txt

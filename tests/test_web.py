@@ -7,6 +7,7 @@ from restaurant_service import Analyzer, ApiError, SerpClient, iso_date, now, sa
 from webapp import create_app
 from gemini_service import GeminiClient, GeminiError
 from data_pipeline import build_index
+from locations import seed_danang
 
 def fake_api(params):
     if params['engine']=='google_maps':
@@ -21,6 +22,7 @@ class WebTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory()
         self.path=Path(self.temp.name)
         self.store=Store(self.path/'test.sqlite3')
+        seed_danang(self.store)
         self.analyzer=Analyzer(self.path/'missing.joblib')
 
     def tearDown(self): self.temp.cleanup()
@@ -95,7 +97,11 @@ class WebTests(unittest.TestCase):
         self.assertEqual(client.get('/').status_code,302)
         token=self.login_admin(client)
         self.assertEqual(client.get('/').status_code,200)
-        self.assertEqual(client.post('/search',data={'area':'Đà Nẵng'}).status_code,400)
+        rejected=client.post('/search',data={'area':'Đà Nẵng'})
+        self.assertEqual(rejected.status_code,303)
+        with self.store.connect() as db:
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM searches').fetchone()[0],0)
+        with client.session_transaction() as state: token=state['csrf']
         result=client.post('/profile',data={'csrf':token,'name':"An'; DROP TABLE profile;--",'area':'Hải Châu',
             'cuisine':'món Việt','aspect':'price','min_rating':'3.5','explicit_notes':'Thích món Việt'},follow_redirects=True)
         self.assertEqual(result.status_code,200)
@@ -146,6 +152,37 @@ class WebTests(unittest.TestCase):
         self.assertEqual(result['abstention_reason'],'no_text_evidence')
         self.assertEqual(result['recommended_restaurant_ids'],[])
         self.assertEqual(called,[])
+
+    def test_gemini_uses_inline_citations_when_json_list_is_incomplete(self):
+        payload={'reply':'Quán này có bình luận về món ăn [R1].','learned_preferences':'',
+                 'recommended_restaurant_ids':['r1'],'citations':[]}
+        calls=[]
+        client=GeminiClient(key='fake',transport=lambda body:(calls.append(body),payload)[1])
+        restaurant={'id':'r1','name':'Quán Việt','assessment':{'evidence':[
+            {'id':'v1','text':'Món ăn ngon.','source_url':'https://example.test/review'}]}}
+        result=client.advise({}, {}, [], [], [restaurant],'Gợi ý')
+        self.assertEqual(result['citations'],['R1'])
+        self.assertEqual(result['citation_attempts'],1)
+        self.assertEqual(len(calls),1)
+
+    def test_gemini_uses_local_evidence_for_stale_citation_without_retry(self):
+        calls=[]
+        payload={'reply':'Quán này ngon [R9].','learned_preferences':'',
+                 'recommended_restaurant_ids':['r1'],'citations':['R9']}
+        def transport(body):
+            calls.append(body)
+            return payload
+        client=GeminiClient(key='fake',transport=transport)
+        restaurant={'id':'r1','name':'Quán Việt','address':'Đà Nẵng','assessment':{'evidence':[
+            {'id':'v1','text':'Món ăn ngon.','source_url':'https://example.test/review'}]}}
+        result=client.advise({}, {}, [], [{'role':'assistant','content':'Quán cũ [R9].'}],
+                             [restaurant],'Gợi ý')
+        self.assertEqual(len(calls),1)
+        self.assertNotIn('[R9]',calls[0]['input'])
+        self.assertEqual(result['citation_status'],'fallback')
+        self.assertEqual(result['citations'],['R1'])
+        self.assertIn('Món ăn ngon',result['reply'])
+        self.assertNotIn('Quán này ngon',result['reply'])
 
     def test_gemini_rejects_uncited_recommendation(self):
         payload={'reply':'Chọn quán này.','learned_preferences':'','recommended_restaurant_ids':['r1'],'citations':[]}

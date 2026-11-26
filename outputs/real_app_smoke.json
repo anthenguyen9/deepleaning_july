@@ -1,0 +1,51 @@
+{
+  "database_copy": "E:\\FoodLensArtifacts\\validation\\app_smoke_20260919.sqlite3",
+  "external_api_calls": 0,
+  "pages": {
+    "/": 200,
+    "/assistant": 200,
+    "/research": 200,
+    "/profile": 200,
+    "/admin/": 200,
+    "/admin/locations/": 200
+  },
+  "assistant_cases": [
+    {
+      "query": "Quán hải sản ở Hòa Xuân Đà Nẵng",
+      "http": 200,
+      "location": "Việt Nam › Đà Nẵng › phường Hòa Xuân",
+      "candidates": 5,
+      "citation_status": "local_evidence",
+      "source_count": 3,
+      "query_fallback": "local"
+    },
+    {
+      "query": "Quán thịt nướng gần Hải Châu",
+      "http": 200,
+      "location": "Việt Nam › Đà Nẵng › phường Hải Châu",
+      "candidates": 3,
+      "citation_status": "local_evidence",
+      "source_count": 3,
+      "query_fallback": "local"
+    },
+    {
+      "query": "Quán hải sản có view biển ở Đà Nẵng",
+      "http": 200,
+      "location": "Việt Nam › Đà Nẵng",
+      "candidates": 5,
+      "citation_status": "local_evidence",
+      "source_count": 3,
+      "query_fallback": "local"
+    },
+    {
+      "query": "Seafood restaurant in Son Tra Da Nang",
+      "http": 200,
+      "location": "Việt Nam › Đà Nẵng › phường Sơn Trà",
+      "candidates": 5,
+      "citation_status": "local_evidence",
+      "source_count": 3,
+      "query_fallback": "local"
+    }
+  ],
+  "interpretation": "Integration under deliberate model outage; not a relevance, faithfulness or user study score."
+}

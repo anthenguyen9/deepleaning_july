@@ -1,0 +1,79 @@
+﻿snapshot,table,source_rows,action,reason
+operational,accounts,3,excluded,"Account identities, password hashes and preference profiles"
+operational,analyses,9989,exported,Explicit public fields; raw payloads and tokens omitted
+operational,api_cache,216,excluded,Raw provider payloads and duplicate cached data
+operational,api_calls,219,exported,Explicit public fields; raw payloads and tokens omitted
+operational,assistant_messages,52,excluded,Private conversations
+operational,chat_messages,0,excluded,Private conversations
+operational,chat_sessions,0,excluded,Private conversation sessions
+operational,crawl_runs,7,exported,Explicit public fields; raw payloads and tokens omitted
+operational,dataset_versions,4,exported,Explicit public fields; raw payloads and tokens omitted
+operational,dense_vectors,5242,exported,Explicit public fields; raw payloads and tokens omitted
+operational,evaluation_queries,0,exported,Explicit public fields; raw payloads and tokens omitted
+operational,gold_annotations,0,exported,Explicit public fields; raw payloads and tokens omitted
+operational,ingestion_seeds,3,exported,Explicit public fields; raw payloads and tokens omitted
+operational,location_aliases,104,exported,Explicit public fields; raw payloads and tokens omitted
+operational,locations,5001,exported,Explicit public fields; raw payloads and tokens omitted
+operational,monthly_trends,16455,exported,Explicit public fields; raw payloads and tokens omitted
+operational,period_aggregates,75895,exported,Explicit public fields; raw payloads and tokens omitted
+operational,pipeline_jobs,0,exported,Explicit public fields; raw payloads and tokens omitted
+operational,preference_memory,1,excluded,Personal preference memory
+operational,profile,1,excluded,Personal profile
+operational,restaurant_crawl_state,28,exported,Explicit public fields; raw payloads and tokens omitted
+operational,restaurant_feedback,0,excluded,Private feedback notes
+operational,restaurant_locations,281,exported,Explicit public fields; raw payloads and tokens omitted
+operational,restaurants,146,exported,Explicit public fields; raw payloads and tokens omitted
+operational,retrieval_events,21,excluded,Personal queries and diagnostic traces
+operational,review_documents,9989,exported,Explicit public fields; raw payloads and tokens omitted
+operational,review_fts,9989,excluded,Rebuildable SQLite/FTS internals
+operational,review_fts_config,1,excluded,Rebuildable SQLite/FTS internals
+operational,review_fts_content,9989,excluded,Rebuildable SQLite/FTS internals
+operational,review_fts_data,708,excluded,Rebuildable SQLite/FTS internals
+operational,review_fts_docsize,9989,excluded,Rebuildable SQLite/FTS internals
+operational,review_fts_idx,631,excluded,Rebuildable SQLite/FTS internals
+operational,review_languages,9989,exported,Explicit public fields; raw payloads and tokens omitted
+operational,reviews,14206,exported,Explicit public fields; raw payloads and tokens omitted
+operational,searches,5,excluded,Personal search history and duplicate nested results
+operational,study_evaluations,100,exported,Anonymous participant IDs and numeric ratings; free text and submission timestamps omitted
+operational,trend_signals,16455,exported,Explicit public fields; raw payloads and tokens omitted
+operational,user_feedback,13,excluded,Private user feedback
+operational,user_searches,3,excluded,Account-search associations
+research,accounts,2,excluded,"Account identities, password hashes and preference profiles"
+research,analyses,5170,exported,Explicit public fields; raw payloads and tokens omitted
+research,api_cache,503,excluded,Raw provider payloads and duplicate cached data
+research,api_calls,522,exported,Explicit public fields; raw payloads and tokens omitted
+research,assistant_messages,50,excluded,Private conversations
+research,chat_messages,8,excluded,Private conversations
+research,chat_sessions,4,excluded,Private conversation sessions
+research,crawl_runs,35,exported,Explicit public fields; raw payloads and tokens omitted
+research,dataset_versions,3,exported,Explicit public fields; raw payloads and tokens omitted
+research,dense_vectors,8750,exported,Explicit public fields; raw payloads and tokens omitted
+research,evaluation_queries,0,exported,Explicit public fields; raw payloads and tokens omitted
+research,gold_annotations,5170,exported,Explicit public fields; raw payloads and tokens omitted
+research,ingestion_seeds,3,exported,Explicit public fields; raw payloads and tokens omitted
+research,location_aliases,104,exported,Explicit public fields; raw payloads and tokens omitted
+research,locations,5001,exported,Explicit public fields; raw payloads and tokens omitted
+research,monthly_trends,6050,exported,Explicit public fields; raw payloads and tokens omitted
+research,period_aggregates,27480,exported,Explicit public fields; raw payloads and tokens omitted
+research,pipeline_jobs,26,exported,Explicit public fields; raw payloads and tokens omitted
+research,preference_memory,1,excluded,Personal preference memory
+research,profile,1,excluded,Personal profile
+research,restaurant_crawl_state,28,exported,Explicit public fields; raw payloads and tokens omitted
+research,restaurant_feedback,3,excluded,Private feedback notes
+research,restaurant_locations,270,exported,Explicit public fields; raw payloads and tokens omitted
+research,restaurants,138,exported,Explicit public fields; raw payloads and tokens omitted
+research,retrieval_events,20,excluded,Personal queries and diagnostic traces
+research,review_documents,5170,exported,Explicit public fields; raw payloads and tokens omitted
+research,review_fts,5170,excluded,Rebuildable SQLite/FTS internals
+research,review_fts_config,1,excluded,Rebuildable SQLite/FTS internals
+research,review_fts_content,5170,excluded,Rebuildable SQLite/FTS internals
+research,review_fts_data,359,excluded,Rebuildable SQLite/FTS internals
+research,review_fts_docsize,5170,excluded,Rebuildable SQLite/FTS internals
+research,review_fts_idx,324,excluded,Rebuildable SQLite/FTS internals
+research,review_languages,0,exported,Explicit public fields; raw payloads and tokens omitted
+research,reviews,7331,exported,Explicit public fields; raw payloads and tokens omitted
+research,searches,33,excluded,Personal search history and duplicate nested results
+research,study_evaluations,0,exported,Anonymous participant IDs and numeric ratings; free text and submission timestamps omitted
+research,trend_signals,6050,exported,Explicit public fields; raw payloads and tokens omitted
+research,user_feedback,4,excluded,Private user feedback
+research,user_searches,0,excluded,Account-search associations

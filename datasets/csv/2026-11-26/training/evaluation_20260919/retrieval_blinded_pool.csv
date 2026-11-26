@@ -1,0 +1,1551 @@
+﻿record_index,field_path,value_type,value
+0,id,str,Q01
+0,query,str,Quán hải sản có view biển ở Đà Nẵng
+0,split,str,dev
+0,candidates[0].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:ChZDSUhNMG9nS0VJQ0FnTURveUxiVEVREAE
+0,candidates[0].text,str,"Hải sản ngon, tươi, chủ quán thân thiện, lần nào vào Đà Nẵng cũng ăn ở đây"
+0,candidates[0].restaurant_name,str,Quán Hải Sản Bé Nữ
+0,candidates[0].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+0,candidates[0].relevance,null,
+0,candidates[0].reviewed,bool,0
+0,candidates[1].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT2pWSE9UQmFkaTFMTFRsQlRXVXdUazE2U1VGUldYYxAB
+0,candidates[1].text,str,Quán đông giá rẻ hơn các quán ngoài biển rất nhiều
+0,candidates[1].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[1].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[1].relevance,null,
+0,candidates[1].reviewed,bool,0
+0,candidates[2].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT2psdVIyMWZRMWN5UkdGS2NYcDBNVlZKYTNoaVdHYxAB
+0,candidates[2].text,str,"MỌI NGƯỜI NÊN NÉ CÁI QUÁN NÀY RA NHÉ!
+LÀM ĂN LỪA DỐI, ĐỒ ĂN CHẾ BIẾN RẤT DỞ, NHÂN VIÊN TRỊCH THƯỢNG!!!!
+Mình hoàn toàn có lí do tin rằng hầu hết các review 5 sao viết về quán hải sản này đều do nhân viên viết ra. Bài viết của Thương Nguyễn Hoài đăng vào ngày 12/8 là mọi người ở trong đoàn của mình. Tự chụp tự đăng tự khen trong khi cả bàn mình không ai thấy đồ ăn ngon. Mình gọi rất nhiều món và thật sự không 1 món nào chế biến một cách bình thường, nếu không muốn nói là RẤT TỆ VÀ RẤT DỞ.
+Thái độ nhân viên thay đổi khi nhóm không gọi đúng món mà nhân viên tư vấn, đã vậy còn cố tình lợi dụng cơ hội nhóm đông người, mang sai đồ ăn ra rồi xin tính tiền.
+Đến cuối nhóm muốn xuất hoá đơn thì nhân viên bảo ở đây không xuất hoá đơn với một thái độ cực kì trịch thượng. Quán trốn thuế và không đăng ký hộ kinh doanh. Trên bill chỉ in tên món thậm chí còn không in tên quán luôn."
+0,candidates[2].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[2].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[2].relevance,null,
+0,candidates[2].reviewed,bool,0
+0,candidates[3].document_key,str,0x3142119b4ac249f9:0xb63e421ecc9921db:Ci9DQUlRQUNvZENodHljRjlvT2pkNmJrSkRaRTlEU25ORU9XZDVTRkZIVUVOamFHYxAB
+0,candidates[3].text,str,"Quán hải sản mặt biển Hà My, đồ hải sản tươi sống, chế biến ngon. Mình thích nhất món tôm sống và món ngao sống ở đây. Giá cả cũng bình dân hơn so với nhiều quán ở trong Đà Nẵng"
+0,candidates[3].restaurant_name,str,Nhà hàng Hải sản Thu Hà ( Restaurant Seafood )
+0,candidates[3].restaurant_id,str,0x3142119b4ac249f9:0xb63e421ecc9921db
+0,candidates[3].relevance,null,
+0,candidates[3].reviewed,bool,0
+0,candidates[4].document_key,str,0x314217bc80b20999:0xc121aceff3729571:Ci9DQUlRQUNvZENodHljRjlvT201a2JtRnRUMjF5UWtOVE9HWlNWMWwwVEZsbWNsRRAB
+0,candidates[4].text,str,Ok đồ ăn rất ngon
+0,candidates[4].restaurant_name,str,Hải Sản Đà Nẵng Bé Biển
+0,candidates[4].restaurant_id,str,0x314217bc80b20999:0xc121aceff3729571
+0,candidates[4].relevance,null,
+0,candidates[4].reviewed,bool,0
+0,candidates[5].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT21ocldtNUVlalZuTmtsQ1MyRm5PWHA2VVhKa1kxRRAB
+0,candidates[5].text,str,"Review bình dân nhưng giá khá cao, ngang các quán mặt biển. K có chỗ đậu ô tô. Nv luônmời chào các món đắt tiền, nên chú ý gọi món theo ý định hoặc hỏi giá trước."
+0,candidates[5].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[5].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[5].relevance,null,
+0,candidates[5].reviewed,bool,0
+0,candidates[6].document_key,str,0x314221033746cbd9:0xddb03c6f24ff3545:Ci9DQUlRQUNvZENodHljRjlvT2pOMFZYbzRVMWRSVDJ4UFVqazVTV2xJVG1seVdsRRAB
+0,candidates[6].text,str,"Quán khá đặc biệt ở khu Nam Ô – cửa sông Cu Đê, Đà Nẵng, nổi bật không chỉ vì món ăn mà còn vì vị trí rất đẹp và dân dã. Không gian khá đơn sơ nhưng rộng rãi, thoáng mát. Từ quán có thể nhìn ra sông Cu Đê, núi Xuân Dương, khu vực ghềnh Nam Ô và cửa biển; đặc biệt có thể thấy những chuyến tàu Bắc–Nam chạy qua. Quán chuyên về hải sản và các món đặc sản địa phương, hải sản tươi ngon, giá phải chăng, rất đáng thử."
+0,candidates[6].restaurant_name,str,HẢI LÂM CHÂN CẦU QUÁN
+0,candidates[6].restaurant_id,str,0x314221033746cbd9:0xddb03c6f24ff3545
+0,candidates[6].relevance,null,
+0,candidates[6].reviewed,bool,0
+0,candidates[7].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnSUNUdDQ2Z2tnRRAB
+0,candidates[7].text,str,"Đồ ăn ngon, phục vụ rất tận tình, có view nhìn ra biển rất đẹp"
+0,candidates[7].restaurant_name,str,Biển Rạng Sơn Trà
+0,candidates[7].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+0,candidates[7].relevance,null,
+0,candidates[7].reviewed,bool,0
+0,candidates[8].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT21zekxUWnVhRjltVlhWTWF6VkNaVnBKVkY5dWFWRRAB
+0,candidates[8].text,str,"quan ngon,rẻ hơn các quán khác nhiều✨"
+0,candidates[8].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[8].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[8].relevance,null,
+0,candidates[8].reviewed,bool,0
+0,candidates[9].document_key,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e:Ci9DQUlRQUNvZENodHljRjlvT2sxdWMwMXJOSGRQYTBjNE5sQjBSRjlwYzA4d01FRRAB
+0,candidates[9].text,str,QUÁN  ĂN NGON RẺ HỢP TÚI TIỀN VIEW ĐẸP
+0,candidates[9].restaurant_name,str,Nhà Hàng Biển Việt
+0,candidates[9].restaurant_id,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e
+0,candidates[9].relevance,null,
+0,candidates[9].reviewed,bool,0
+0,candidates[10].document_key,str,0x3169dbd607b1eac9:0xe83eb014e2dfca04:Ci9DQUlRQUNvZENodHljRjlvT21FeFpteFVRVkJHWm5GWlRuVjNlRk5JYVhGRE5tYxAB
+0,candidates[10].text,str,"Hải sản tươi ngon, quán view biển đẹp, NV thân thiện"
+0,candidates[10].restaurant_name,str,Nhà Hàng BÍCH HOẠ TAM THANH
+0,candidates[10].restaurant_id,str,0x3169dbd607b1eac9:0xe83eb014e2dfca04
+0,candidates[10].relevance,null,
+0,candidates[10].reviewed,bool,0
+0,candidates[11].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT2xwbFZWa3dVbU5hY1RrdE1uZFJTV3BNY1U1UlFrRRAB
+0,candidates[11].text,str,"giá rẻ hơn các quán ngoài đường biển rất nhiều, đồ ăn tươi"
+0,candidates[11].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[11].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[11].relevance,null,
+0,candidates[11].reviewed,bool,0
+0,candidates[12].document_key,str,0x314217ca176b97d9:0xbd4b0d7295239ee0:Ci9DQUlRQUNvZENodHljRjlvT21WalptMUdWRkF4UTNOMlVGUndjWFZJVkcxYVVXYxAB
+0,candidates[12].text,str,"Nhà hàng Việt view biển, ngon, có biểu diễn"
+0,candidates[12].restaurant_name,str,Ngon Phố Đà - Homey Authentic Vietnamese Cuisine
+0,candidates[12].restaurant_id,str,0x314217ca176b97d9:0xbd4b0d7295239ee0
+0,candidates[12].relevance,null,
+0,candidates[12].reviewed,bool,0
+0,candidates[13].document_key,str,0x3169db1377fd1473:0xa7baec625dd04a79:ChdDSUhNMG9nS0VJQ0FnSUQ5bnBYSDJ3RRAB
+0,candidates[13].text,str,"Quán có view triệu đô, mát mẻ thoáng gió, tầm nhìn biển rộng. Món ăn ngon, giá bình dân, cảnh vật còn hoang sơ."
+0,candidates[13].restaurant_name,str,Thu Vỵ Quán
+0,candidates[13].restaurant_id,str,0x3169db1377fd1473:0xa7baec625dd04a79
+0,candidates[13].relevance,null,
+0,candidates[13].reviewed,bool,0
+0,candidates[14].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT21SbFRYVkRObE0yY2pKaE1ITnZNVXR3YldSVlpsRRAB
+0,candidates[14].text,str,"Ngon, bổ, giá rẻ hơn các quán ngoài biển rất nhiều"
+0,candidates[14].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+0,candidates[14].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+0,candidates[14].relevance,null,
+0,candidates[14].reviewed,bool,0
+1,id,str,Q02
+1,query,str,Quán hải sản ở Hòa Xuân
+1,split,str,dev
+1,candidates[0].document_key,str,0x31421bd288316a23:0x73dc015cbb094d27:ChZDSUhNMG9nS0VJQ0FnTURJeE5IWmFnEAE
+1,candidates[0].text,str,"Quán hải sản số 1 Hòa Xuân! Hải sản tươi rói, chế biến hấp dẫn, bia mát lạnh, nhân viên phục vụ thân thiện, không gian rộng rãi. Ngồi nhâm nhi cùng bạn bè quá chuẩn bài! 10/10 điểm nhé! Sẽ quay lại ủng hộ."
+1,candidates[0].restaurant_name,str,Beer Đêm Phố Hoà Xuân
+1,candidates[0].restaurant_id,str,0x31421bd288316a23:0x73dc015cbb094d27
+1,candidates[0].relevance,null,
+1,candidates[0].reviewed,bool,0
+1,candidates[1].document_key,str,0x31421bd288316a23:0x73dc015cbb094d27:Ci9DQUlRQUNvZENodHljRjlvT2t0blpsWkVWSFJ6T0hsb1ZYTkpUbFZSUlVOWFoyYxAB
+1,candidates[1].text,str,Tầng 2 nhà hàng Phố Hoà Xuân
+1,candidates[1].restaurant_name,str,Beer Đêm Phố Hoà Xuân
+1,candidates[1].restaurant_id,str,0x31421bd288316a23:0x73dc015cbb094d27
+1,candidates[1].relevance,null,
+1,candidates[1].reviewed,bool,0
+1,candidates[2].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNqcnFIaUpnEAE
+1,candidates[2].text,str,dẹp tiệm là vừa hỉ
+1,candidates[2].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[2].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[2].relevance,null,
+1,candidates[2].reviewed,bool,0
+1,candidates[3].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNqanVPb2ZREAE
+1,candidates[3].text,str,"Đồ ăn ngon , giá rẻ , không gian thoáng mát, nhân viên nhiệt tình . Chắc chắn sẻ quay lại nhiều lần nửa. 5*"
+1,candidates[3].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[3].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[3].relevance,null,
+1,candidates[3].reviewed,bool,0
+1,candidates[4].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNqMXFHU0ZBEAE
+1,candidates[4].text,str,"Đồ ăn dở
+Phí tiền
+Ko xứng"
+1,candidates[4].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[4].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[4].relevance,null,
+1,candidates[4].reviewed,bool,0
+1,candidates[5].document_key,str,0x314221033746cbd9:0xddb03c6f24ff3545:Ci9DQUlRQUNvZENodHljRjlvT201VFJWUjBOVkJGY0ZjeFl6ZFpVaTFUVkdGT2RHYxAB
+1,candidates[5].text,str,"Quán nằm sát sông dưới cầu Nam Ô nên không khí rất mát mẻ. Buổi trưa thì quán đông nhưng lên món cho khách rất nhanh là một điểm cộng. Giá cả thì hợp lý. Nhân viên thì nhiệt tình, vui vẻ"
+1,candidates[5].restaurant_name,str,HẢI LÂM CHÂN CẦU QUÁN
+1,candidates[5].restaurant_id,str,0x314221033746cbd9:0xddb03c6f24ff3545
+1,candidates[5].relevance,null,
+1,candidates[5].reviewed,bool,0
+1,candidates[6].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNEam9qTGJREAE
+1,candidates[6].text,str,"Đồ ăn giở quad ít so với giá tiền hàu nướng còn sống nhăn ăn mà muốn nôn
+Vị trí thì nhìn cx đẹp nma ăn dở k quán nào bằng
+ốc móng tay được 4 con 1 dĩa
+Ếch sả ớt thấy sả k thấy ếch
+Dĩa sụn gà 105k loe ngoe mấy hột"
+1,candidates[6].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[6].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[6].relevance,null,
+1,candidates[6].reviewed,bool,0
+1,candidates[7].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChdDSUhNMG9nS0VJQ0FnSURUNE1PVTFnRRAB
+1,candidates[7].text,str,Trải nghiệm tuyệt vời
+1,candidates[7].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[7].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[7].relevance,null,
+1,candidates[7].reviewed,bool,0
+1,candidates[8].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChdDSUhNMG9nS0VJQ0FnSURUNEszanh3RRAB
+1,candidates[8].text,str,Nhân viên phục vụ tận tình món ăn ngon
+1,candidates[8].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[8].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[8].relevance,null,
+1,candidates[8].reviewed,bool,0
+1,candidates[9].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNqOXViUlpREAE
+1,candidates[9].text,str,Đồ ăn ngon...
+1,candidates[9].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+1,candidates[9].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+1,candidates[9].relevance,null,
+1,candidates[9].reviewed,bool,0
+2,id,str,Q03
+2,query,str,Quán thịt nướng gần Hải Châu
+2,split,str,dev
+2,candidates[0].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2toNlpFRnFlRzlTU1RoVE16Sk5lWFppZVY5MVNsRRAB
+2,candidates[0].text,str,Xem rivew tikok 10 điểm 😘
+2,candidates[0].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[0].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[0].relevance,null,
+2,candidates[0].reviewed,bool,0
+2,candidates[1].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT21wVVJ6VlFkWEZETlVwdVIxSm5VRzE2WlUwNE5IYxAB
+2,candidates[1].text,str,"Đối với tôi, Hải sản Châu Sơn 1 (Châu Nga) là địa điểm phù hợp để thưởng thức hải sản với hương vị đậm đà. Quán có nhiều loại hải sản tươi sống, được chế biến theo yêu cầu nên giữ được độ tươi ngon của món ăn. Không khí quán nhộn nhịp, phục vụ nhanh và tạo cảm giác gần gũi, thích hợp cho những buổi ăn uống cùng gia đình hoặc bạn bè."
+2,candidates[1].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[1].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[1].relevance,null,
+2,candidates[1].reviewed,bool,0
+2,candidates[2].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT25RNFZtUnpTbmRRWmpnelJGWjBSV1pHUzFwUlFYYxAB
+2,candidates[2].text,str,Ghiền đồ ăn ở đây 🫶🏻
+2,candidates[2].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[2].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[2].relevance,null,
+2,candidates[2].reviewed,bool,0
+2,candidates[3].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2trMVdrVndlRzVyWm1Kb05ucGlValJyV0VsR1gwRRAB
+2,candidates[3].text,str,"Tôm sốt bơ tỏi là món không thể bỏ qua ở quán
+Sò dương nướng mọi - chip chip hấp
+Trên cả tuyệt vời"
+2,candidates[3].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[3].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[3].relevance,null,
+2,candidates[3].reviewed,bool,0
+2,candidates[4].document_key,str,0x31420f50b62fbb27:0x36fdfdf03c641bc:Ci9DQUlRQUNvZENodHljRjlvT2twdU1FaFVkVTh5UzFCaGEzVlVVbkpsZEhSaGFtYxAB
+2,candidates[4].text,str,Fantastic dinner with exceptionally fast service! Really delicious Hoi An speciality Cao Lầu and the Thịt Xiên Nướng Cuốn Bánh Tráng 🥰
+2,candidates[4].restaurant_name,str,Bep Nha Hoi An - Cơm Gia Đình - Local Food Restaurant in Hoi An - 호이안맛집
+2,candidates[4].restaurant_id,str,0x31420f50b62fbb27:0x36fdfdf03c641bc
+2,candidates[4].relevance,null,
+2,candidates[4].reviewed,bool,0
+2,candidates[5].document_key,str,0x3142177841884be1:0xc5c42e0652765fcf:Ci9DQUlRQUNvZENodHljRjlvT21sQlVFaHpOMFY2VEhWTGRVTnBSbTloYmpobE1WRRAB
+2,candidates[5].text,str,"quán đẹp, nhân viên nhiệt tình."
+2,candidates[5].restaurant_name,str,Koko House - Nhà Hàng Thịt Nướng Hàn Quốc
+2,candidates[5].restaurant_id,str,0x3142177841884be1:0xc5c42e0652765fcf
+2,candidates[5].relevance,null,
+2,candidates[5].reviewed,bool,0
+2,candidates[6].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT25RNWJuWkdUVTFNYmxJME1WQlhaakpxVlRKdE0zYxAB
+2,candidates[6].text,str,"Lần cuối cùng quay lại đây vì chờ quá lâu.
+Nhà mình gọi Hàu nướng phô mai, tôm sốt bơ tỏi và nghêu hấp, mà còn vào trước cả bàn bên cạnh mà bàn bên còn lên đồ trước. It’s okay nhưng đồ ăn thì chờ lâu mà phải hỏi tới 3 lần, cho đến khi mình bảo em k cần lên món tôm nữa, tính tiền cho c đi về thì món mới được mang ra.
+Các em phục vụ vẫn dễ thương
+Chỉ chê khoản chờ(xếp hàng chờ lấy bàn nhưng các em cho bàn của người đến sau trước, chờ đồ ăn) và nóng vì ngồi gần bếp dù đã nhờ các em sắp xếp do nhà có bạn bé.
+Còn xếp hạng đồ ăn vẫn ngon như cách đây cả gần chục năm."
+2,candidates[6].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[6].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[6].relevance,null,
+2,candidates[6].reviewed,bool,0
+2,candidates[7].document_key,str,0x314219c36d7ded4d:0x3d7f3fa81ab20733:Ci9DQUlRQUNvZENodHljRjlvT2tGdFdGWktUMDlJU0ZKSmFWQmxUamMzTjFsYWFFRRAB
+2,candidates[7].text,str,"Quán ăn ngon, không gian chill, nhân viên thân thiện dễ thương, hỗ trợ khách nướng thịt, vừa nướng vừa nói chuyện với khách, 10 điểm nha"
+2,candidates[7].restaurant_name,str,Vườn Nướng Trên Mây
+2,candidates[7].restaurant_id,str,0x314219c36d7ded4d:0x3d7f3fa81ab20733
+2,candidates[7].relevance,null,
+2,candidates[7].reviewed,bool,0
+2,candidates[8].document_key,str,0x31421749323307c7:0xa14019bd0dca8da2:Ci9DQUlRQUNvZENodHljRjlvT2taTFduRmtielJKWm5OMlJEQlJaVnB5WHpaQ05uYxAB
+2,candidates[8].text,str,"Quán ngồi thoáng, đồ ăn lên nhanh
+Ghẹ nhỏ nhưng chắc thịt, hàu nướng pho mai trẻ con nhà rất thích.
+Ồc hương, mực, chem chép, cơm rang, rau xào cũng rất ngon.
+Gọi thêm con cá chìa vôi nướng quấn kèm rau cải xanh món nào cũng ngon
+Nhà 8 người ăn sạch các món , tổng thiệt hại 2.100k ê hề hải sản"
+2,candidates[8].restaurant_name,str,Hải Sản A SÂM
+2,candidates[8].restaurant_id,str,0x31421749323307c7:0xa14019bd0dca8da2
+2,candidates[8].relevance,null,
+2,candidates[8].reviewed,bool,0
+2,candidates[9].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChZDSUhNMG9nS0VJQ0FnSUNEam9qTGJREAE
+2,candidates[9].text,str,"Đồ ăn giở quad ít so với giá tiền hàu nướng còn sống nhăn ăn mà muốn nôn
+Vị trí thì nhìn cx đẹp nma ăn dở k quán nào bằng
+ốc móng tay được 4 con 1 dĩa
+Ếch sả ớt thấy sả k thấy ếch
+Dĩa sụn gà 105k loe ngoe mấy hột"
+2,candidates[9].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+2,candidates[9].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+2,candidates[9].relevance,null,
+2,candidates[9].reviewed,bool,0
+2,candidates[10].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT21KTmNUZGZRa2hsUVVWdVRIbFJRelpPV0hwdVYwRRAB
+2,candidates[10].text,str,Rất ngon
+2,candidates[10].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+2,candidates[10].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+2,candidates[10].relevance,null,
+2,candidates[10].reviewed,bool,0
+3,id,str,Q04
+3,query,str,Quán ăn gia đình ở Sơn Trà
+3,split,str,dev
+3,candidates[0].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnTUNZM01tSTN3RRAB
+3,candidates[0].text,str,"Nhà hàng mặt biển sơn trà, Hải sản rất tươi. Mình đi dịp lễ 30.4 rất đông khách nhưng phục vụ nhiệt tình dù hơi đông. Giá cá rẻ hơn quán bên cạnh nhiều."
+3,candidates[0].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[0].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[0].relevance,null,
+3,candidates[0].reviewed,bool,0
+3,candidates[1].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnSUNqMDhqOWdBRRAB
+3,candidates[1].text,str,"Đồ ăn rất ngon, giá rẻ"
+3,candidates[1].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[1].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[1].relevance,null,
+3,candidates[1].reviewed,bool,0
+3,candidates[2].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT2kxdlkxTkdjRXhGV2xBMmFtMXhNa0p6YlMxVlFtYxAB
+3,candidates[2].text,str,"Đồ ăn tươi ngon giá phải chăng. Không giang rộng rãi thoáng mát. Nhiều cây cối, ngay sát chân núi Sơn Trà. Có khỉ 🙉 nữa cẩn thận hắn lấy đồ ăn nhé, đừng treo đồ ăn ở xe:))
+Vườn xung quanh nên có muỗi ai hay bị muỗi thì nhớ mang đồ xịt chống nè.
+10 đỉm"
+3,candidates[2].restaurant_name,str,Sơn Tịnh quán
+3,candidates[2].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+3,candidates[2].relevance,null,
+3,candidates[2].reviewed,bool,0
+3,candidates[3].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT2xkWFdWb3lhV3BJWjNGUlNUVTBkRWx6TUhsQ1JuYxAB
+3,candidates[3].text,str,"Đồ ăn ngon, đậm đà, bình dân, mát mẻ. Quán nằm trên đường lên núi Sơn Trà. Quán có cây cối nhiều, vừa ăn vừa chill với tiếng ve kêu 😉🫶🥦🥬🫜🫐🍅🍓🫛🍏🌽🥬🫑🥕🍍🍋‍🟩🍠🥒"
+3,candidates[3].restaurant_name,str,Sơn Tịnh quán
+3,candidates[3].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+3,candidates[3].relevance,null,
+3,candidates[3].reviewed,bool,0
+3,candidates[4].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VJQ0FnSUQ3dmIyOEd3EAE
+3,candidates[4].text,str,Không gian quán tuyệt vời ! Nhân viên nhiệt tình. Tình cảm như gia đình
+3,candidates[4].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[4].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[4].relevance,null,
+3,candidates[4].reviewed,bool,0
+3,candidates[5].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChZDSUhNMG9nS0VJQ0FnTUNneDhhNEpREAE
+3,candidates[5].text,str,"Bardzo fajna rodzinna wegetariańska miejscówka do zjedzenia czegoś doprawdy pysznego.  Mniam 😁👍
+Polecamy odwiedzić to bardzo niepozorne miejsce bo warto."
+3,candidates[5].restaurant_name,str,Sơn Tịnh quán
+3,candidates[5].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+3,candidates[5].relevance,null,
+3,candidates[5].reviewed,bool,0
+3,candidates[6].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnSURqc1pxMm5nRRAB
+3,candidates[6].text,str,"Đồ ăn tươi ngon, rẻ Phục vụ nhiệt tình chu đáo có dịp tôi ghé lại đà nẵng nhất định tôi sẽ quay lại quán này và dẫn thêm gia đình tôi tới để thưởng thức những món ăn ngon ở đây"
+3,candidates[6].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[6].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[6].relevance,null,
+3,candidates[6].reviewed,bool,0
+3,candidates[7].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChZDSUhNMG9nS0VJQ0FnSURPNF9MX0J3EAE
+3,candidates[7].text,str,"Món chay được nấu kỹ càng, ngon miệng, mang năng lượng tích cực, ẩn mình dưới chân núi Sơn Trà vô cùng mát mẻ, phù hợp với những ai yêu cây cối, thiên nhiên. Chúc cho gia đình cô chủ quán được an bình, hạnh phúc!"
+3,candidates[7].restaurant_name,str,Sơn Tịnh quán
+3,candidates[7].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+3,candidates[7].relevance,null,
+3,candidates[7].reviewed,bool,0
+3,candidates[8].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VJQ0FnSUNMaHJTNFhBEAE
+3,candidates[8].text,str,Đồ ăn tươi sống giá hợp lí
+3,candidates[8].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[8].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[8].relevance,null,
+3,candidates[8].reviewed,bool,0
+3,candidates[9].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnSURVN29Tbmh3RRAB
+3,candidates[9].text,str,Có các món ăn địa phương mà các nhà hàng khác kg có
+3,candidates[9].restaurant_name,str,Biển Rạng Sơn Trà
+3,candidates[9].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+3,candidates[9].relevance,null,
+3,candidates[9].reviewed,bool,0
+4,id,str,Q05
+4,query,str,Quán giá hợp lý ở Ngũ Hành Sơn
+4,split,str,dev
+4,candidates[0].document_key,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5:Ci9DQUlRQUNvZENodHljRjlvT2s1TlIyVTVXbkpyTTBSbGRtbDBPSE40TVhaMU1IYxAB
+4,candidates[0].text,str,"quán ngon, giá cả hợp lý"
+4,candidates[0].restaurant_name,str,Đại Dương Quán
+4,candidates[0].restaurant_id,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5
+4,candidates[0].relevance,null,
+4,candidates[0].reviewed,bool,0
+4,candidates[1].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2tWTFoySkhhVTQzVmxCU2IyTnhTR3hMT1ZGTVJsRRAB
+4,candidates[1].text,str,"Thức ăn ở đây giá hợp lí , đồ ăn tươi ngon ."
+4,candidates[1].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+4,candidates[1].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+4,candidates[1].relevance,null,
+4,candidates[1].reviewed,bool,0
+4,candidates[2].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2xaaFYwSkZNVFI2TVZoYVNFdE5SaTFWUmtaWmQxRRAB
+4,candidates[2].text,str,"Đồ ăn ngon, hợp khẩu vị, giá cũng rất hợp lý."
+4,candidates[2].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+4,candidates[2].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+4,candidates[2].relevance,null,
+4,candidates[2].reviewed,bool,0
+4,candidates[3].document_key,str,0x314219d85545c543:0x901f06685aa3a333:ChdDSUhNMG9nS0VJQ0FnSUMxcjRubDh3RRAB
+4,candidates[3].text,str,"Tươi thì có tươi. Nhưng thái độ phục vụ khá bùn chán. Ko dành cho khách địa phương. Sẽ không quay lại. Giá cũng chát so với quán vỉa hè, bàn nhựa ghế xếp nhưng giá nhà hàng. Cải thiện thái độ bán hàng nữa ok"
+4,candidates[3].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+4,candidates[3].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+4,candidates[3].relevance,null,
+4,candidates[3].reviewed,bool,0
+4,candidates[4].document_key,str,0x314221033746cbd9:0xddb03c6f24ff3545:Ci9DQUlRQUNvZENodHljRjlvT2xVeWNEaHZjbTk0YkdWbVlreG1hMnRyT0RSek9WRRAB
+4,candidates[4].text,str,"​Quán ruột mỗi lần có dịp ghé Đà Nẵng, dù ở trung tâm xa đến mấy cũng sẵn sàng chạy xe tầm 20km ngược lên mạn Nam Ô để ăn cho bằng được.
+​tôi đi ăn từ cái thời đĩa gỏi cá trích còn 80k, giờ giá lên hơn 100k một chút theo mặt bằng chung nhưng chất lượng thì bao năm vẫn giữ trọn phong độ:
+​Chất lượng món ăn: Gỏi cá trích ở đây tươi rói, thịt ngọt và xử lý rất khéo, hoàn toàn không bị tanh. Cả gỏi ướt lẫn gỏi khô đều chuẩn vị, nước chấm đậm đà, bùi béo đặc trưng của xứ Nam Ô. Rổ rau rừng ăn kèm luôn đầy đặn, tươi và đa dạng loại lá. Ngoài gỏi cá thì các món từ mực (mực hấp, mực chiên mắm...) cũng rất tươi, giòn ngọt tự nhiên, nêm nếm vừa miệng.
+​Tốc độ phục vụ: Điểm cộng lớn là quán ra món rất nhanh, đồ ăn dọn lên liền tay không phải đợi lâu dù khách ra vào liên tục. Nhân viên và chủ quán phục vụ xởi lởi, nhanh nhẹn.
+​Không gian & Vị trí: Quán nằm ngay mạn chân cầu Nam Ô, đường đi vào ngõ hơi khuất và lắt léo một chút cho ai đi lần đầu, nhưng định vị Google Maps chuẩn nên cứ chịu khó đi chậm là tới. Không gian quán kiểu bình dân, mộc mạc, ngồi ăn có gió mát mẻ, chuẩn chất quán ăn địa phương.
+​Một địa chỉ rất đáng để lặn lội đường xa ghé ăn nếu muốn thưởng thức đúng vị gỏi cá Nam Ô chuẩn."
+4,candidates[4].restaurant_name,str,HẢI LÂM CHÂN CẦU QUÁN
+4,candidates[4].restaurant_id,str,0x314221033746cbd9:0xddb03c6f24ff3545
+4,candidates[4].relevance,null,
+4,candidates[4].reviewed,bool,0
+4,candidates[5].document_key,str,0x31420353228be695:0xe1fc838d2254161a:ChZDSUhNMG9nS0VJQ0FnSUNLOXRpYlF3EAE
+4,candidates[5].text,str,"Ngon, giá cả hợp lý, sạch sẽ"
+4,candidates[5].restaurant_name,str,Quán Diệu Hương
+4,candidates[5].restaurant_id,str,0x31420353228be695:0xe1fc838d2254161a
+4,candidates[5].relevance,null,
+4,candidates[5].reviewed,bool,0
+4,candidates[6].document_key,str,0x3169c39c414f896b:0x94dcb7850c39f2e6:ChdDSUhNMG9nS0VJQ0FnSURSOG9HT193RRAB
+4,candidates[6].text,str,"Quán nhậu ngon, giá hợp lý. Thoáng mát"
+4,candidates[6].restaurant_name,str,Gà Tre Đèo Le
+4,candidates[6].restaurant_id,str,0x3169c39c414f896b:0x94dcb7850c39f2e6
+4,candidates[6].relevance,null,
+4,candidates[6].reviewed,bool,0
+4,candidates[7].document_key,str,0x31421b819112e033:0xfafb8c774e9a13ae:ChZDSUhNMG9nS0VJQ0FnSURSbzUzVFdnEAE
+4,candidates[7].text,str,"Không gian thoáng, giá cả hợp lý..
+Đồ ăn hợp khẩu vị
+Trừ món nướng mỡ hành quá mặn ra"
+4,candidates[7].restaurant_name,str,333 Nguyễn Phước Lan
+4,candidates[7].restaurant_id,str,0x31421b819112e033:0xfafb8c774e9a13ae
+4,candidates[7].relevance,null,
+4,candidates[7].reviewed,bool,0
+4,candidates[8].document_key,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15:ChdDSUhNMG9nS0VJQ0FnSUNpdUlTRjFnRRAB
+4,candidates[8].text,str,Quán đẹp. Giá cả hợp lý. Món ăn ngon.
+4,candidates[8].restaurant_name,str,Quán BẾN QUÊ
+4,candidates[8].restaurant_id,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15
+4,candidates[8].relevance,null,
+4,candidates[8].reviewed,bool,0
+4,candidates[9].document_key,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2:Ci9DQUlRQUNvZENodHljRjlvT21wUlFWSmhMVXR3VFdWak5HeGtWMlk1TTBaSWJIYxAB
+4,candidates[9].text,str,"Ngon, giá cả hợp lý ok"
+4,candidates[9].restaurant_name,str,Nhà hàng Hội An Hoa
+4,candidates[9].restaurant_id,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2
+4,candidates[9].relevance,null,
+4,candidates[9].reviewed,bool,0
+4,candidates[10].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT25oMVNFa3lhek55V25sSWVWOUZUM0ZHU0ZwQ01IYxAB
+4,candidates[10].text,str,"Chất lượng đồ ăn cũng ổn. Nhưng giá khá cao so với số lượng và chất lượng. Quán ngồi vỉa hè. Số lượng đồ ăn khá ít so với giá. Hàu 6 con 100k, sò dương 6-7con 352k, nghêu 200k 1 nồi nma khá nhạt kh có gì đặc biệt, tôm sú vỏ to dày bơ thì tách với tỏi 6con 260k, cua gạch 1 con to bằng lòng bàn tay 420k???????? Nchung là giá rất đắt so với số lượng đồ ăn như này và còn phải ngồi ngoài vỉa hè. Tổng 1tr364k mà ăn còn chả no cho 2 người cơ🤷‍♂️. Cùng số tiền như này có rất nhiều lựa chọn cho 2 người ăn no mà tươi luôn. Mn định qua thì cứ cân nhắc"
+4,candidates[10].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+4,candidates[10].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+4,candidates[10].relevance,null,
+4,candidates[10].reviewed,bool,0
+5,id,str,Q06
+5,query,str,Nhà hàng yên tĩnh để trò chuyện
+5,split,str,dev
+5,candidates[0].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT2xkRFpHOUtTaTFQY1ZsUldsRnhTM3BhVldGTmJsRRAB
+5,candidates[0].text,str,Quán yên tĩnh
+5,candidates[0].restaurant_name,str,Sơn Tịnh quán
+5,candidates[0].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+5,candidates[0].relevance,null,
+5,candidates[0].reviewed,bool,0
+5,candidates[1].document_key,str,0x3142180fa3798a7b:0x292476c9f4006a6e:Ci9DQUlRQUNvZENodHljRjlvT2t0WFZEbGpiVTEwVHpkS2VVTjJWbWQ2TlZaVFozYxAB
+5,candidates[1].text,str,"Vị trí tuyệt vời để ngồi ăn uống, tán chuyện với bạn bè, người thân"
+5,candidates[1].restaurant_name,str,Nhà hàng Chân Trời Góc Bể
+5,candidates[1].restaurant_id,str,0x3142180fa3798a7b:0x292476c9f4006a6e
+5,candidates[1].relevance,null,
+5,candidates[1].reviewed,bool,0
+5,candidates[2].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNVb3RiUnFnRRAB
+5,candidates[2].text,str,Món an ngon va yên tĩnh
+5,candidates[2].restaurant_name,str,Sơn Tịnh quán
+5,candidates[2].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+5,candidates[2].relevance,null,
+5,candidates[2].reviewed,bool,0
+5,candidates[3].document_key,str,0x3169c2573c4f54ef:0x178a55d64e663495:Ci9DQUlRQUNvZENodHljRjlvT2xKd01ISmpWR1pMUlU0ME4waENNMUV5V0hGTGRtYxAB
+5,candidates[3].text,str,"Nơi đáng để trải nghiệm và biết đến với khách du lịch nhiều hơn, cảnh đẹp- hồ rừng thông, home xinh, nhâ viên nhiệt tình rót nuớc tận miệng hỗ trợ chơi các trò chơi nhiệt tình, sẽ đi lại lần 2"
+5,candidates[3].restaurant_name,str,Khu du lịch sinh thái nghỉ dưỡng Hồ Phú Ninh
+5,candidates[3].restaurant_id,str,0x3169c2573c4f54ef:0x178a55d64e663495
+5,candidates[3].relevance,null,
+5,candidates[3].reviewed,bool,0
+5,candidates[4].document_key,str,0x31421ba12d2be683:0xdac0322bfa0e83fa:Ci9DQUlRQUNvZENodHljRjlvT21WZlIwUnBTRWhIYldzdFNYTkhWMHBuYm01NlNYYxAB
+5,candidates[4].text,str,"Yên tĩnh, phù hợp với nhóm bạn, công ty, tiệc nhiều người.
++ Có phòng Karaoke riêng và ăn uống thoải mái từ 5-7 bàn.
++ Không gian riêng tư
++ Đồ ăn ổn, đậm đà vị miền trung
++ Vị trí hơi xa trung tâm thành phố, nhưng gần khu Hoà Xuân.
++ Cho dắt thú cưng
++ Hải sản tươi sống
+
+ĐIỂM TRỪ:
+- Dàn Karaoke đôi lúc còn bị delay, không load được bài hát.
+- Bầu không khí Hơi buồn"
+5,candidates[4].restaurant_name,str,Nhà hàng Đảo Nổi
+5,candidates[4].restaurant_id,str,0x31421ba12d2be683:0xdac0322bfa0e83fa
+5,candidates[4].relevance,null,
+5,candidates[4].reviewed,bool,0
+5,candidates[5].document_key,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb:Ci9DQUlRQUNvZENodHljRjlvT2tSRWVXUjVSSFV6ZVhWcU9VOTZVVkpGZDA1cldWRRAB
+5,candidates[5].text,str,"Khu này dân cư chưa phát rrieenr lắm, nhưng bù lại yên tĩnh"
+5,candidates[5].restaurant_name,str,UNO House Restaurant
+5,candidates[5].restaurant_id,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb
+5,candidates[5].relevance,null,
+5,candidates[5].reviewed,bool,0
+5,candidates[6].document_key,str,0x31420d3b449f4f03:0xa6e3a65fe1a95f6f:Ci9DQUlRQUNvZENodHljRjlvT2xOR1JYRnBUSHAzZDFaSmJtMVNVWGRHTkVsUVYxRRAB
+5,candidates[6].text,str,"Điểm mình ấn tượng ở An Restaurant & Bar là món ăn được chăm chút khá kỹ từ hương vị đến cách trình bày. Các món có cảm giác chỉn chu, nguyên liệu tươi, gia vị vừa phải nên dễ ăn nhưng vẫn có điểm nhấn riêng. Phần plating đẹp mắt, phù hợp với không gian nhà hàng và tạo cảm giác khá tinh tế khi dùng bữa.
+Một điểm cộng lớn khác là âm nhạc. Nhạc được lựa chọn vừa đủ chill, âm lượng không quá lớn nên vẫn có thể trò chuyện thoải mái. Đặc biệt vào buổi tối, âm nhạc kết hợp với ánh sáng và không gian tạo nên một bầu không khí thư giãn, lãng mạn, rất phù hợp cho một buổi hẹn hò hoặc ngồi ăn tối cùng bạn bè.
+Nhìn chung, An Restaurant & Bar mang đến trải nghiệm khá trọn vẹn giữa món ăn, âm nhạc và không khí. Đây là kiểu nơi mình có thể vừa thưởng thức một bữa tối ngon, vừa ngồi lâu hơn một chút để tận hưởng không gian và những bản nhạc dễ chịu."
+5,candidates[6].restaurant_name,str,An Restaurant & Bar
+5,candidates[6].restaurant_id,str,0x31420d3b449f4f03:0xa6e3a65fe1a95f6f
+5,candidates[6].relevance,null,
+5,candidates[6].reviewed,bool,0
+5,candidates[7].document_key,str,0x314219001064ce23:0x67d2fa43164ccba6:ChdDSUhNMG9nS0VJQ0FnTURncUpEdG1RRRAB
+5,candidates[7].text,str,Yên tĩnh
+5,candidates[7].restaurant_name,str,Khu Văn hóa Du lịch Không Gian Xưa
+5,candidates[7].restaurant_id,str,0x314219001064ce23:0x67d2fa43164ccba6
+5,candidates[7].relevance,null,
+5,candidates[7].reviewed,bool,0
+6,id,str,Q07
+6,query,str,"Nhà hàng phục vụ nhanh, nhân viên thân thiện"
+6,split,str,test
+6,candidates[0].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT21kUE4wNXBUR054Y21RMVRYWnhXa1poVlZaVlRrRRAB
+6,candidates[0].text,str,"Nhân viên nhiệt tình , dễ thương ."
+6,candidates[0].restaurant_name,str,Cơm nhà vui
+6,candidates[0].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+6,candidates[0].relevance,null,
+6,candidates[0].reviewed,bool,0
+6,candidates[1].document_key,str,0x3142174a21a6a55b:0xe275f8bbc9a516c0:Ci9DQUlRQUNvZENodHljRjlvT25oM1RuZHJka1pvYW1KS2IzbG9WRjl1UzJoelFsRRAB
+6,candidates[1].text,str,Nhân viên nhiệt tình thân thiện …
+6,candidates[1].restaurant_name,str,Buffet Hải Sản Đà Nẵng Mr Mộc
+6,candidates[1].restaurant_id,str,0x3142174a21a6a55b:0xe275f8bbc9a516c0
+6,candidates[1].relevance,null,
+6,candidates[1].reviewed,bool,0
+6,candidates[2].document_key,str,0x31420f000ffaa797:0x6e3b793575f8b793:Ci9DQUlRQUNvZENodHljRjlvT2psc1VFbzJWV1ZXVmprMk4yZzBUbDlpUTBkQmExRRAB
+6,candidates[2].text,str,thật tuyệt vời khi đã đến đây món ăn ngon . nhân viên phục vụ nhiệt tình thân thiện
+6,candidates[2].restaurant_name,str,Vườn Phố Hội Restaurant
+6,candidates[2].restaurant_id,str,0x31420f000ffaa797:0x6e3b793575f8b793
+6,candidates[2].relevance,null,
+6,candidates[2].reviewed,bool,0
+6,candidates[3].document_key,str,0x314217ca176b97d9:0xbd4b0d7295239ee0:Ci9DQUlRQUNvZENodHljRjlvT21wQlNtdzNVRlZQWkMxaE1WbGtiWGxJY1RneVVVRRAB
+6,candidates[3].text,str,"Nhân viên Vi phục vụ nhiệt tình, thân thiện và chu đáo không gian nhà hàng sạch sẽ thoải mái"
+6,candidates[3].restaurant_name,str,Ngon Phố Đà - Homey Authentic Vietnamese Cuisine
+6,candidates[3].restaurant_id,str,0x314217ca176b97d9:0xbd4b0d7295239ee0
+6,candidates[3].relevance,null,
+6,candidates[3].reviewed,bool,0
+6,candidates[4].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT2tSMU5FNHRaMjFCWm10MlkwVmtVVGxrV1dKbmEzYxAB
+6,candidates[4].text,str,Nhân viên thân thiện đồ ăn ngon.
+6,candidates[4].restaurant_name,str,Cơm nhà vui
+6,candidates[4].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+6,candidates[4].relevance,null,
+6,candidates[4].reviewed,bool,0
+6,candidates[5].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT25GZlJrZHNURTVKT1ZwdmNXcFVWM000WmpoYVprRRAB
+6,candidates[5].text,str,"Phục vụ tốt , nhân viên thân thiện"
+6,candidates[5].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+6,candidates[5].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+6,candidates[5].relevance,null,
+6,candidates[5].reviewed,bool,0
+6,candidates[6].document_key,str,0x3142199eef80bd7d:0x74fe36a686707bc2:Ci9DQUlRQUNvZENodHljRjlvT2tGa2QyWmlabFpPUm1aMWIwODRia3RrVW5oclZFRRAB
+6,candidates[6].text,str,staff are friendly and food taste very fresh
+6,candidates[6].restaurant_name,str,Nhà Hàng Hải Sản - Ơ Kìa
+6,candidates[6].restaurant_id,str,0x3142199eef80bd7d:0x74fe36a686707bc2
+6,candidates[6].relevance,null,
+6,candidates[6].reviewed,bool,0
+6,candidates[7].document_key,str,0x31421a210ef80d57:0x6711ee42dda899a3:Ci9DQUlRQUNvZENodHljRjlvT21Sc2RuUkdWMHBwZEZaYWEzQmpUemRpU2pBMWNYYxAB
+6,candidates[7].text,str,"Món ăn rất ngon, Nhân viên phục vụ thân thiện, nhanh nhẹn, giá cả hợp lý. Rất đáng để quay lại cùng gia đình hoặc bạn bè!"
+6,candidates[7].restaurant_name,str,Đặc sản Cầy Hương Đà Nẵng
+6,candidates[7].restaurant_id,str,0x31421a210ef80d57:0x6711ee42dda899a3
+6,candidates[7].relevance,null,
+6,candidates[7].reviewed,bool,0
+6,candidates[8].document_key,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f:Ci9DQUlRQUNvZENodHljRjlvT25kaGRuaEJNWGhaU0VSRmNuWkdkRmRxTTBwdGJIYxAB
+6,candidates[8].text,str,"Món ra nhanh,nhân viên phục vụ nhanh nhẹn,thân thiện,trải nghiệm tuyệt vời"
+6,candidates[8].restaurant_name,str,Son Tra Retreat - Garden Lounge & Eatery
+6,candidates[8].restaurant_id,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f
+6,candidates[8].relevance,null,
+6,candidates[8].reviewed,bool,0
+6,candidates[9].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT21ac1FqVjNiV3RKTUMwMk9VRjBaRFY0U25kVFRVRRAB
+6,candidates[9].text,str,"Lễ tân nhiệt tình, nhân viên thân thiện, phục vụ món nhanh. Không gian thoáng mát, sẽ quay lại"
+6,candidates[9].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+6,candidates[9].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+6,candidates[9].relevance,null,
+6,candidates[9].reviewed,bool,0
+7,id,str,Q08
+7,query,str,Quán có món chay
+7,split,str,test
+7,candidates[0].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNydjhYejZ3RRAB
+7,candidates[0].text,str,"Món ăn ở đây thật sự rất healthy. Không khí thì trong lành, ăn chay ở đây quá là an yên"
+7,candidates[0].restaurant_name,str,Sơn Tịnh quán
+7,candidates[0].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[0].relevance,null,
+7,candidates[0].reviewed,bool,0
+7,candidates[1].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNyaEtfWmx3RRAB
+7,candidates[1].text,str,quá tuyệt vời luôn không ngờ được có một quán chay mà vừa ngon vừa chill như vậy tại Đà Nẵng ❤️ ❤️❤️
+7,candidates[1].restaurant_name,str,Sơn Tịnh quán
+7,candidates[1].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[1].relevance,null,
+7,candidates[1].reviewed,bool,0
+7,candidates[2].document_key,str,0x3141f7a278cffbb7:0x975be6514beaaba7:Ci9DQUlRQUNvZENodHljRjlvT21OQkxXa3lORU5uZFZsRldWYzJhbDkwV2tGSWVHYxAB
+7,candidates[2].text,str,"Quán đẹp, các món chay trang trí bắt mắt, đồ ăn ok"
+7,candidates[2].restaurant_name,str,NGOC CHI VEGAN RESTAURANTS - BÀ NÀ HILLS
+7,candidates[2].restaurant_id,str,0x3141f7a278cffbb7:0x975be6514beaaba7
+7,candidates[2].relevance,null,
+7,candidates[2].reviewed,bool,0
+7,candidates[3].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNUdkl2TnVBRRAB
+7,candidates[3].text,str,"cao lầu và mỳ quảng chay siêu ngon, giá qá rẻ Ối zồi ôiii. nhiều người nc ngoài đến đây ăn."
+7,candidates[3].restaurant_name,str,Sơn Tịnh quán
+7,candidates[3].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[3].relevance,null,
+7,candidates[3].reviewed,bool,0
+7,candidates[4].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT205cVREaENaRXR6ZUhRdFQxUkRUMVk1Y0ZKSGFrRRAB
+7,candidates[4].text,str,"Quán có ít bàn thôi nhưng không gian rất thoáng,món ăn chay thanh đạm,giá cả hợp lí. Anh chị chủ thân thiện,khách nóng là có mấy em bé con chị chủ bật quạt hỏi “chị mát không?” Quá trời mát luôn bé ơi.🥰🥰🥰"
+7,candidates[4].restaurant_name,str,Sơn Tịnh quán
+7,candidates[4].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[4].relevance,null,
+7,candidates[4].reviewed,bool,0
+7,candidates[5].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChZDSUhNMG9nS0VJQ0FnSURPNF9MX0J3EAE
+7,candidates[5].text,str,"Món chay được nấu kỹ càng, ngon miệng, mang năng lượng tích cực, ẩn mình dưới chân núi Sơn Trà vô cùng mát mẻ, phù hợp với những ai yêu cây cối, thiên nhiên. Chúc cho gia đình cô chủ quán được an bình, hạnh phúc!"
+7,candidates[5].restaurant_name,str,Sơn Tịnh quán
+7,candidates[5].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[5].relevance,null,
+7,candidates[5].reviewed,bool,0
+7,candidates[6].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT21kUGFrcGFMWFEwTm1oc1QyTndlVTlpTTBKU1JGRRAB
+7,candidates[6].text,str,"Quán ăn chay ngon, ít người biết. Đặc biệt rất nhiểu khỉ chạy quanh cần chúnys đồ đạc"
+7,candidates[6].restaurant_name,str,Sơn Tịnh quán
+7,candidates[6].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[6].relevance,null,
+7,candidates[6].reviewed,bool,0
+7,candidates[7].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT25ac2RFeDBNblowTjBsWGMweDJTbEJ5UTB4TE9XYxAB
+7,candidates[7].text,str,"Mình đi dạo Sơn Trà trưa tìm quán ăn thì thấy quán ngay gần chân núi, hơi khuất nhưng dễ tìm. Quán chay với nhiều cây, bóng râm và tiếng ve kêu hoà mình cùng thiên nhiên rất dễ chịu không bị nắng gắt và có quạt mát.
+Đồ chay giá hợp lý, nhiều rau gia vị thanh đạm mình thích nhất Bún mắm chay và gỏi vả ở đây. Có dịp ghé Sơn Trà Tịnh Viên, dạo bộ trên Sơn Trà xong hãy ghé Sơn Tịnh Quán ăn chay là đủ combo 1 buổi sáng cuối tuần đẹp, khoẻ, đủ đầy nha mn 😉"
+7,candidates[7].restaurant_name,str,Sơn Tịnh quán
+7,candidates[7].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[7].relevance,null,
+7,candidates[7].reviewed,bool,0
+7,candidates[8].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChZDSUhNMG9nS0VJQ0FnSUNuMVlTX1pBEAE
+7,candidates[8].text,str,"Quán chay ngon, bổ, rẻ. Ai đến đây rồi thì cũng thành khách quen. Khá là nhiều khách nước ngoài ghé đến."
+7,candidates[8].restaurant_name,str,Sơn Tịnh quán
+7,candidates[8].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[8].relevance,null,
+7,candidates[8].reviewed,bool,0
+7,candidates[9].document_key,str,0x31421ba46acc4563:0x3187e2648eb45f47:ChdDSUhNMG9nS0VJQ0FnSUNpc1ozWGh3RRAB
+7,candidates[9].text,str,"Quán đông vui. Khu vực xung quanh sôi động. Thích hợp cho nhóm nhiều người. Được thực hành làm bếp tại bàn ăn.... Đặc biệt "" Ăn no không lo về giá"""
+7,candidates[9].restaurant_name,str,"QUÁN NHẬT NGUYỆT ỐC CAY và NƯỚNG Chuyên nhận nấu đám cưới hỏi,liên hoan,tiệc sinh nhật"
+7,candidates[9].restaurant_id,str,0x31421ba46acc4563:0x3187e2648eb45f47
+7,candidates[9].relevance,null,
+7,candidates[9].reviewed,bool,0
+7,candidates[10].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChZDSUhNMG9nS0VJQ0FnSURxNXF5VkdnEAE
+7,candidates[10].text,str,"Đây là quán chay, tất cả các món đều rất ngon và dể ăn, hợp khẩu vị cho nhiều người. Không gian quán nằm dưới chân núi, rộng rải, nhiều cây cối và tỉnh lặng. Gia đình chủ quán sống ở đây lâu và đều ăn chay trường, các loại rau đa số trồng tại vườn, gia đình cởi mở và thân thiện. Nếu muốn thưởng thức các món chay ngon thì nên đến đây 1 lần."
+7,candidates[10].restaurant_name,str,Sơn Tịnh quán
+7,candidates[10].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+7,candidates[10].relevance,null,
+7,candidates[10].reviewed,bool,0
+8,id,str,Q09
+8,query,str,Quán có chỗ đỗ xe thuận tiện
+8,split,str,test
+8,candidates[0].document_key,str,0x314219062624b157:0xfb108ac682d9e842:Ci9DQUlRQUNvZENodHljRjlvT2pCeGFHdFFaMUJrVDNndFVYSXdaemc0WmpaUU1rRRAB
+8,candidates[0].text,str,good for service
+8,candidates[0].restaurant_name,str,Nhà hàng Sân Ga - Khu Đảo Xanh
+8,candidates[0].restaurant_id,str,0x314219062624b157:0xfb108ac682d9e842
+8,candidates[0].relevance,null,
+8,candidates[0].reviewed,bool,0
+8,candidates[1].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT2pkMmNqaE5aRXRWYnpCUFVIZExXbXhSTm5KNE5GRRAB
+8,candidates[1].text,str,"Nhà hàng rộng hơn mình tưởng khi xem hình trên mạng. Chỗ ngồi thoải mái, bãi đậu xe thuận tiện. Đồ ăn hợp khẩu vị gia đình mình"
+8,candidates[1].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+8,candidates[1].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+8,candidates[1].relevance,null,
+8,candidates[1].reviewed,bool,0
+8,candidates[2].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT2pGTldEZE9SWEpPUm5aa05IZ3pkbXhGV1daTlVuYxAB
+8,candidates[2].text,str,"Mình ghé ăn trưa và thấy hài lòng
+✅ đồ ăn ngon và giá hợp lí, mình ăn lẩu phở cuốn, phồng tôm thấy ngon, lẩu riêu tạm ổn
+❗️đỗ xe ô tô sẽ đỗ bên đường vì mặt nhà hàng thường kín chỗ đỗ"
+8,candidates[2].restaurant_name,str,Cơm nhà vui
+8,candidates[2].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+8,candidates[2].relevance,null,
+8,candidates[2].reviewed,bool,0
+8,candidates[3].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnTUNZNUxuODF3RRAB
+8,candidates[3].text,str,"Quán ăn khá ngon(theo khẩu vị của mình) nhân viên nhiệt tình, thân thiện nha dù quán đông(mình đi ngày lễ) nhưng vẫn phục vụ nhiệt tình nha. Ngày đông có thể sẽ ra hơi chậm một chút nhưng k đến nỗi quá lâu nhe.
+View ngay bờ biển nha, có chỗ đỗ xe thoải mái. Giá cả cũng oke nha
+P/s: Mải ăn quên chụp ảnh🥲"
+8,candidates[3].restaurant_name,str,Biển Rạng Sơn Trà
+8,candidates[3].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+8,candidates[3].relevance,null,
+8,candidates[3].reviewed,bool,0
+8,candidates[4].document_key,str,0x31421ba12d2be683:0xdac0322bfa0e83fa:ChZDSUhNMG9nS0VJQ0FnSUNpbHB5ZVV3EAE
+8,candidates[4].text,str,"Quán nằm tách biệt với thành phố, không gian rộng rãi, bãi đỗ xe Ok. Về mòn ăn thì đa dạng về hải sản, đặc sản vùng.....thích hợp tổ chức tiệc"
+8,candidates[4].restaurant_name,str,Nhà hàng Đảo Nổi
+8,candidates[4].restaurant_id,str,0x31421ba12d2be683:0xdac0322bfa0e83fa
+8,candidates[4].relevance,null,
+8,candidates[4].reviewed,bool,0
+8,candidates[5].document_key,str,0x314219c4d0ecf329:0x9cf3edff3fd0a4a:Ci9DQUlRQUNvZENodHljRjlvT25KMFRuWjNTR1JNWnpOUlVUZFpSR0ZZT0haVFVtYxAB
+8,candidates[5].text,str,Không gian bên ngoài rộng rãi nên đậu xe thoải mái
+8,candidates[5].restaurant_name,str,Nhà Hàng Cội Nguồn Đảo Xanh
+8,candidates[5].restaurant_id,str,0x314219c4d0ecf329:0x9cf3edff3fd0a4a
+8,candidates[5].relevance,null,
+8,candidates[5].reviewed,bool,0
+8,candidates[6].document_key,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8:ChdDSUhNMG9nS0VJQ0FnSUNyaUkzTmxBRRAB
+8,candidates[6].text,str,"Đồ ăn đa dạng, cách nấu nhiều gia vị, thiên về các món cay. Quán có không gian xanh mát, thoáng rộng bên sông và dễ thương và buổi tối. Đỗ xe tiện."
+8,candidates[6].restaurant_name,str,Hải Sản Rót - Ven Sông Sân Vườn Hoà Xuân
+8,candidates[6].restaurant_id,str,0x31421b3b69b9dabd:0x8bdafb0b06d81ec8
+8,candidates[6].relevance,null,
+8,candidates[6].reviewed,bool,0
+8,candidates[7].document_key,str,0x3169db982925955f:0xd50ae38178e1bbd9:Ci9DQUlRQUNvZENodHljRjlvT2tabU1teFBaRkZTTmxCdFJVUlNkV1JEVFMwME9VRRAB
+8,candidates[7].text,str,"Ăn ngon, nhất là món Hàu và các loại cá biển. Giá cả hợp lý. Chỗ ngồi, chỗ đỗ xe rộng rãi. Rất ok, sẽ ghé thăm nhiều lần nữa!"
+8,candidates[7].restaurant_name,str,TAM THANH FOOD - Làng Bích Hoạ
+8,candidates[7].restaurant_id,str,0x3169db982925955f:0xd50ae38178e1bbd9
+8,candidates[7].relevance,null,
+8,candidates[7].reviewed,bool,0
+8,candidates[8].document_key,str,0x3142194631223d1b:0xfa4e8b2125438b87:Ci9DQUlRQUNvZENodHljRjlvT20wNE5uRk1aMWxqWVV0aWExaHdZMWxqV0c1d1kyYxAB
+8,candidates[8].text,str,"Quán siêu rộng, có bãi đỗ ô tô phía sau có nhà chơi cho kid
+Món ăn ok"
+8,candidates[8].restaurant_name,str,Bò tơ Ông Minh Ngô Thì Nhậm
+8,candidates[8].restaurant_id,str,0x3142194631223d1b:0xfa4e8b2125438b87
+8,candidates[8].relevance,null,
+8,candidates[8].reviewed,bool,0
+8,candidates[9].document_key,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8:ChdDSUhNMG9nS0VJQ0FnSUNEazREYnBBRRAB
+8,candidates[9].text,str,"Quán ăn kết hợp nghỉ ngơi buổi trưa rất mát, đồ ăn đậm chất quê hương, anh chủ thân thương vui vẻ nhiệt tình, vị trí ngay quốc lộ 1A gần sát Tam Kỳ có chỗ đỗ xe thoải mái"
+8,candidates[9].restaurant_name,str,Quê Hương Quán
+8,candidates[9].restaurant_id,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8
+8,candidates[9].relevance,null,
+8,candidates[9].reviewed,bool,0
+8,candidates[10].document_key,str,0x31421749323307c7:0xa14019bd0dca8da2:Ci9DQUlRQUNvZENodHljRjlvT2xrMVRucDNWRVJpTjJ4UlNsVnRlVmhFVFRoWmJHYxAB
+8,candidates[10].text,str,"Quán đông khách, giá cả hợp lý, anh chị chủ quán rất thân thiện và nhiệt tình, đỗ xe rộng rãi thoải mái"
+8,candidates[10].restaurant_name,str,Hải Sản A SÂM
+8,candidates[10].restaurant_id,str,0x31421749323307c7:0xa14019bd0dca8da2
+8,candidates[10].relevance,null,
+8,candidates[10].reviewed,bool,0
+9,id,str,Q10
+9,query,str,Quán sạch sẽ phù hợp trẻ em
+9,split,str,test
+9,candidates[0].document_key,str,0x3169dddad9ee7849:0xc49e42477207f516:Ci9DQUlRQUNvZENodHljRjlvT2tVd1kyRlBSVFU1Yms5YVpVcDFWbmRvVDIxQ2MyYxAB
+9,candidates[0].text,str,"Quán đẹp và sạch sẽ, nhân viên phục vụ tốt và đồ ăn chế biến tại nhà hàng ngon! Nhà hàng phù hợp để tiếp khách hàng!"
+9,candidates[0].restaurant_name,str,Nhà Hàng Thủy Bờ Kênh
+9,candidates[0].restaurant_id,str,0x3169dddad9ee7849:0xc49e42477207f516
+9,candidates[0].relevance,null,
+9,candidates[0].reviewed,bool,0
+9,candidates[1].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VJQ0FnSURidmQyeEVBEAE
+9,candidates[1].text,str,"Quán sạch sẽ, đồ ăn vừa miệng, giá hợp lí, các bạn phục vụ nhanh nhẹn. Good!"
+9,candidates[1].restaurant_name,str,Biển Rạng Sơn Trà
+9,candidates[1].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+9,candidates[1].relevance,null,
+9,candidates[1].reviewed,bool,0
+9,candidates[2].document_key,str,0x3169c566381243ab:0x2bc4b8fa365d1e56:ChZDSUhNMG9nS0VJenE2ZnV6cTRlN1ZREAE
+9,candidates[2].text,str,"Mình tới quán với gia đình, đồ ăn đa dạng hợp cả trẻ em và người lớn, không gian thoáng"
+9,candidates[2].restaurant_name,str,Xê & Tê Quán Nhậu - Billiards
+9,candidates[2].restaurant_id,str,0x3169c566381243ab:0x2bc4b8fa365d1e56
+9,candidates[2].relevance,null,
+9,candidates[2].reviewed,bool,0
+9,candidates[3].document_key,str,0x31420f0035316a51:0x61b4c81343cfbc5:ChZDSUhNMG9nS0VJQ0FnSUM1c3NPdEtnEAE
+9,candidates[3].text,str,Ngon bổ rẻ sạch sẽ mát mẽ
+9,candidates[3].restaurant_name,str,Bà Phương
+9,candidates[3].restaurant_id,str,0x31420f0035316a51:0x61b4c81343cfbc5
+9,candidates[3].relevance,null,
+9,candidates[3].reviewed,bool,0
+9,candidates[4].document_key,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5:Ci9DQUlRQUNvZENodHljRjlvT25kU2MwbHBNa2RrYmxKdFgzUnhOR3hRTVVoUE5IYxAB
+9,candidates[4].text,str,"Đồ ăn tươi ngon, chế biến hợp khẩu vị, món chip chip rất cuốn cả người lớn và trẻ em"
+9,candidates[4].restaurant_name,str,Đại Dương Quán
+9,candidates[4].restaurant_id,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5
+9,candidates[4].relevance,null,
+9,candidates[4].reviewed,bool,0
+9,candidates[5].document_key,str,0x3169cf325c294b67:0xae9a0d6c42378e8:ChdDSUhNMG9nS0VJQ0FnSURwMmNIUXF3RRAB
+9,candidates[5].text,str,Vip sạch sẽ thoáng mát
+9,candidates[5].restaurant_name,str,Nhà Hàng Nổi Khởi Nghiệp
+9,candidates[5].restaurant_id,str,0x3169cf325c294b67:0xae9a0d6c42378e8
+9,candidates[5].relevance,null,
+9,candidates[5].reviewed,bool,0
+9,candidates[6].document_key,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8:ChdDSUhNMG9nS0VJQ0FnSUMxdXBxQzZBRRAB
+9,candidates[6].text,str,Chu đáo nhiệt tình sạch sẽ.
+9,candidates[6].restaurant_name,str,Quê Hương Quán
+9,candidates[6].restaurant_id,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8
+9,candidates[6].relevance,null,
+9,candidates[6].reviewed,bool,0
+9,candidates[7].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT201UU55MWlXSFJpV2tNNWNYVllhalI0VFdkQ1kzYxAB
+9,candidates[7].text,str,Đồ ăn rất ngon và đẹp mắt. Không gian yên tĩnh mát mẻ. Đồ ăn chay rất hợp khẩu vị với cả trẻ em.
+9,candidates[7].restaurant_name,str,Sơn Tịnh quán
+9,candidates[7].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+9,candidates[7].relevance,null,
+9,candidates[7].reviewed,bool,0
+9,candidates[8].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT2tWUVNIaGljM2g1WDJsMVdsOXNPR010WVdGWlZtYxAB
+9,candidates[8].text,str,"Quán ăn ngon nhà hàng lớn đẹp , giá cả hợp lí bình dân có hồ câu tôm với khu vui chơi trẻ em tiện ích sẽ quay lại lần nữa"
+9,candidates[8].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+9,candidates[8].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+9,candidates[8].relevance,null,
+9,candidates[8].reviewed,bool,0
+9,candidates[9].document_key,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8:Ci9DQUlRQUNvZENodHljRjlvT21NelRrODFkRWMyYW5adFExSXdTMkZrTTNsUVZYYxAB
+9,candidates[9].text,str,Sạch sẽ gọn gàn
+9,candidates[9].restaurant_name,str,Quê Hương Quán
+9,candidates[9].restaurant_id,str,0x3169dd83cfe4e747:0xde8292b6bc5c74c8
+9,candidates[9].relevance,null,
+9,candidates[9].reviewed,bool,0
+9,candidates[10].document_key,str,0x31420353228be695:0xe1fc838d2254161a:ChZDSUhNMG9nS0VJQ0FnSUNLOXRpYlF3EAE
+9,candidates[10].text,str,"Ngon, giá cả hợp lý, sạch sẽ"
+9,candidates[10].restaurant_name,str,Quán Diệu Hương
+9,candidates[10].restaurant_id,str,0x31420353228be695:0xe1fc838d2254161a
+9,candidates[10].relevance,null,
+9,candidates[10].reviewed,bool,0
+10,id,str,Q11
+10,query,str,Review phàn nàn giá cao
+10,split,str,test
+10,candidates[0].document_key,str,0x31420f0035316a51:0x61b4c81343cfbc5:Ci9DQUlRQUNvZENodHljRjlvT21oeGMzcHJUM0ZXUm5kNVRYTXdSRXh2Y25WUVYyYxAB
+10,candidates[0].text,str,Đồ ăn dỡ giá cao
+10,candidates[0].restaurant_name,str,Bà Phương
+10,candidates[0].restaurant_id,str,0x31420f0035316a51:0x61b4c81343cfbc5
+10,candidates[0].relevance,null,
+10,candidates[0].reviewed,bool,0
+10,candidates[1].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChdDSUhNMG9nS0VJQ0FnTUNvbTV5dW93RRAB
+10,candidates[1].text,str,"Mùi của biển, mùi của ngư dân vùng biển ấm áp, nồng nàn!"
+10,candidates[1].restaurant_name,str,Biển Rạng Sơn Trà
+10,candidates[1].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+10,candidates[1].relevance,null,
+10,candidates[1].reviewed,bool,0
+10,candidates[2].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT21ocldtNUVlalZuTmtsQ1MyRm5PWHA2VVhKa1kxRRAB
+10,candidates[2].text,str,"Review bình dân nhưng giá khá cao, ngang các quán mặt biển. K có chỗ đậu ô tô. Nv luônmời chào các món đắt tiền, nên chú ý gọi món theo ý định hoặc hỏi giá trước."
+10,candidates[2].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+10,candidates[2].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+10,candidates[2].relevance,null,
+10,candidates[2].reviewed,bool,0
+10,candidates[3].document_key,str,0x31421b819112e033:0xfafb8c774e9a13ae:ChZDSUhNMG9nS0VJQ0FnSURWaFpmQUNBEAE
+10,candidates[3].text,str,Giá hơi cao dịch vụ chưa tốt lắm.
+10,candidates[3].restaurant_name,str,333 Nguyễn Phước Lan
+10,candidates[3].restaurant_id,str,0x31421b819112e033:0xfafb8c774e9a13ae
+10,candidates[3].relevance,null,
+10,candidates[3].reviewed,bool,0
+10,candidates[4].document_key,str,0x3142199eef80bd7d:0x74fe36a686707bc2:Ci9DQUlRQUNvZENodHljRjlvT21WS1FYZFpNelV6TTNKM1YycG5jM290U1hWWmVXYxAB
+10,candidates[4].text,str,"* ENGLISH BELOW*
+Đến Đà Nẵng đúng dịp DIFF 2026, mình chọn quán này vì thấy nhiều review nói hải sản ngon và có view xem pháo hoa đẹp. Nhưng trải nghiệm thực tế khá thất vọng.
+
+Đầu tiên, đánh giá khách quan thì đồ ăn gia giảm ngon, dù giá khá cao nhưng có thể hiểu vì vị trí trung tâm và đang mùa du lịch.
+
+Điều mình không hài lòng nhất là món cua. Nhà mình chọn 2 con cua tổng 1.4kg, nhưng chờ hơn 30 phút thì quán tự ý đổi cua khác mà không báo trước. Khi hỏi cân nặng, lúc đầu nói vẫn 1.4kg, hỏi lại thì lại thành 1kg. Gia đình không hài lòng thì các bạn lấy 2 con cua còn bé hơn 2 con cua 1kg và bảo mình đây là cua của chị 😅. Sự thiếu minh bạch và không nhất quán này khiến mình quyết định hủy món. Cảm giác cách bán hàng khá chộp giật.
+
+Ngoài ra, quán tư vấn có view pháo hoa và yêu cầu cọc 500k để giữ bàn. Nhưng khi đến lại xếp vào bàn phía trong, còn các bàn ngoài để trống suốt lúc mình ăn. Cảm giác thông tin tư vấn ban đầu không đúng thực tế.
+
+Mình viết review này mong quán rút kinh nghiệm: bán hàng minh bạch hơn, tôn trọng khách hơn. Và cũng để những ai du lịch Đà Nẵng có thêm một góc nhìn trước khi chọn quán.
+
+*************
+I came to Da Nang during DIFF 2026 and chose this restaurant after reading many reviews saying the seafood was good and the fireworks view was great. Unfortunately, my actual experience was quite disappointing.
+
+To be fair, the food was tasty. The prices were quite high, but understandable considering the central location and peak tourist season.
+
+What disappointed me most was the crab. My family picked 2 crabs with a total weight of 1.4kg, but after waiting more than 30 minutes, the restaurant changed them without informing us. When we asked about the weight, they first said it was still 1.4kg, but when questioned again, it suddenly became only 1kg. When my family was unhappy, they even brought out 2 even smaller crabs than the 1kg ones and claimed, “These are the crabs you chose” 😅. This lack of transparency and inconsistency made us cancel the order. It honestly felt like a very dishonest way of doing business.
+
+On top of that, the restaurant told us it had a fireworks view and required a 500k deposit to reserve the table. But when we arrived, they seated us inside while the outside tables remained empty the whole time we were eating. It felt like the information given beforehand was misleading.
+
+I’m writing this review hoping the restaurant can improve: be more transparent, respect customers’ choices, and provide more honest service. I also hope this helps other travelers have another perspective before choosing this place."
+10,candidates[4].restaurant_name,str,Nhà Hàng Hải Sản - Ơ Kìa
+10,candidates[4].restaurant_id,str,0x3142199eef80bd7d:0x74fe36a686707bc2
+10,candidates[4].relevance,null,
+10,candidates[4].reviewed,bool,0
+10,candidates[5].document_key,str,0x31420f9c0d09876f:0x89911288e32bfb42:ChdDSUhNMG9nS0VJQ0FnSUNxaTdLVndRRRAB
+10,candidates[5].text,str,"Món ngon, giá vừa phải"
+10,candidates[5].restaurant_name,str,Alibaba Quán
+10,candidates[5].restaurant_id,str,0x31420f9c0d09876f:0x89911288e32bfb42
+10,candidates[5].relevance,null,
+10,candidates[5].reviewed,bool,0
+10,candidates[6].document_key,str,0x31420e7e55af18c7:0x6ab8c1e98148ccdc:Ci9DQUlRQUNvZENodHljRjlvT25ka01GOWpiVlV0T0hCV2FFaEpZM2RvUzNkTE5VRRAB
+10,candidates[6].text,str,We had a high expectation but was ok
+10,candidates[6].restaurant_name,str,Nhà Hàng HOME
+10,candidates[6].restaurant_id,str,0x31420e7e55af18c7:0x6ab8c1e98148ccdc
+10,candidates[6].relevance,null,
+10,candidates[6].reviewed,bool,0
+10,candidates[7].document_key,str,0x3142199eef80bd7d:0x74fe36a686707bc2:Ci9DQUlRQUNvZENodHljRjlvT21JM2NXSjJPRWx3WldkTlJUSkRWVVZOTWpsR2FGRRAB
+10,candidates[7].text,str,Delicious review and great staff!
+10,candidates[7].restaurant_name,str,Nhà Hàng Hải Sản - Ơ Kìa
+10,candidates[7].restaurant_id,str,0x3142199eef80bd7d:0x74fe36a686707bc2
+10,candidates[7].relevance,null,
+10,candidates[7].reviewed,bool,0
+10,candidates[8].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:Ci9DQUlRQUNvZENodHljRjlvT2pCM09DMVJUbkp1Wm1WU1YweFFaRzFNTlZwWGJVRRAB
+10,candidates[8].text,str,It is good
+10,candidates[8].restaurant_name,str,Biển Rạng Sơn Trà
+10,candidates[8].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+10,candidates[8].relevance,null,
+10,candidates[8].reviewed,bool,0
+10,candidates[9].document_key,str,0x3142190ca008e439:0xd0dd6beea16d655f:ChdDSUhNMG9nS0VJQ0FnSURXNXRPODVRRRAB
+10,candidates[9].text,str,khá tệ
+10,candidates[9].restaurant_name,str,Dịch Vụ Nấu Ăn - Đặt Tiệc Tại Nhà Đà Nẵng
+10,candidates[9].restaurant_id,str,0x3142190ca008e439:0xd0dd6beea16d655f
+10,candidates[9].relevance,null,
+10,candidates[9].reviewed,bool,0
+10,candidates[10].document_key,str,0x3142180fa3798a7b:0x292476c9f4006a6e:Ci9DQUlRQUNvZENodHljRjlvT21nNGVrUmlNSEZCTjJaTWVHNXRhVzQzY1VadVNYYxAB
+10,candidates[10].text,str,"Mình thấy giá hải sản cao hơn nhiều nơi khác.
+
+Ví dụ: Tôm hùm, cua ghẹ, cá… giá đây cao hơn 20-30% so với nơi khác"
+10,candidates[10].restaurant_name,str,Nhà hàng Chân Trời Góc Bể
+10,candidates[10].restaurant_id,str,0x3142180fa3798a7b:0x292476c9f4006a6e
+10,candidates[10].relevance,null,
+10,candidates[10].reviewed,bool,0
+11,id,str,Q12
+11,query,str,Review về món ăn nguội hoặc phục vụ chậm
+11,split,str,test
+11,candidates[0].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT2xoWk9UbFRVbTFMTkVSNlNtcHlaRkpWZFhBd01YYxAB
+11,candidates[0].text,str,"Theo cá nhân mình thấy đồ ăn hơi nguội, như kiểu đã dc chuẩn bị từ trước @@ nhân viên thì chỉ mải xem điện thoại, không để ý đến khách"
+11,candidates[0].restaurant_name,str,Cơm nhà vui
+11,candidates[0].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+11,candidates[0].relevance,null,
+11,candidates[0].reviewed,bool,0
+11,candidates[1].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT213eWJUZHplRXgzYTFKNVQzbDZUbVUwU1VwU2QxRRAB
+11,candidates[1].text,str,nhân viên chậm chạp không nhiệt tình khẩu phần ít đồ ăn bình thường
+11,candidates[1].restaurant_name,str,Cơm nhà vui
+11,candidates[1].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+11,candidates[1].relevance,null,
+11,candidates[1].reviewed,bool,0
+11,candidates[2].document_key,str,0x3142174a21a6a55b:0xe275f8bbc9a516c0:Ci9DQUlRQUNvZENodHljRjlvT2twNlpqQmplbmxLVEhWSlVtUnNSVEYxV0c1bVQyYxAB
+11,candidates[2].text,str,"Dở, phục vụ kém, đồ line nguội, ỉu, hải sản đông lạnh"
+11,candidates[2].restaurant_name,str,Buffet Hải Sản Đà Nẵng Mr Mộc
+11,candidates[2].restaurant_id,str,0x3142174a21a6a55b:0xe275f8bbc9a516c0
+11,candidates[2].relevance,null,
+11,candidates[2].reviewed,bool,0
+11,candidates[3].document_key,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd:Ci9DQUlRQUNvZENodHljRjlvT2pGR2NIWXRjamRWVWw5VE5XaDFPVlJuZVRSS1IxRRAB
+11,candidates[3].text,str,"Quán phục vụ quá tệ
+Các đoàn tập thể về ăn uống lấy hoá đơn để thành toán thuế mà quán không xuất hoặc xuất không đầy đủ
+Cơ quan thuế cần kiểm tra xem xét cơ sở này"
+11,candidates[3].restaurant_name,str,Quán Biển Nhớ
+11,candidates[3].restaurant_id,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd
+11,candidates[3].relevance,null,
+11,candidates[3].reviewed,bool,0
+11,candidates[4].document_key,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb:Ci9DQUlRQUNvZENodHljRjlvT2xCTmJIWmZhUzFmVEVGT05ERldkbFZFVGpSVldsRRAB
+11,candidates[4].text,str,lên món chậm đã v còn thái độ đồ ăn ko tươi dở
+11,candidates[4].restaurant_name,str,Quán Bống - Hải Sản Tươi Sống
+11,candidates[4].restaurant_id,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb
+11,candidates[4].relevance,null,
+11,candidates[4].reviewed,bool,0
+11,candidates[5].document_key,str,0x314219eb969642f7:0xf5ccaf8a9e96e7d5:Ci9DQUlRQUNvZENodHljRjlvT2xOaGFHTjRkSHAzTnpobmVFUktUbUpJWW1Sb2FXYxAB
+11,candidates[5].text,str,Quá sức tệ đặt đồ ăn trước không đem ra. Đồ nguội nhờ hâm đem vô vứt bên. Bia hết gọi không có. Phục vụ quá kém…
+11,candidates[5].restaurant_name,str,ÔNG TOÀN
+11,candidates[5].restaurant_id,str,0x314219eb969642f7:0xf5ccaf8a9e96e7d5
+11,candidates[5].relevance,null,
+11,candidates[5].reviewed,bool,0
+11,candidates[6].document_key,str,0x314217f4632748f9:0xdc14dcdba4c73425:Ci9DQUlRQUNvZENodHljRjlvT2xGSU1uRnRRWEpGUm5BeWVUUndTV0kwVVRSaU1YYxAB
+11,candidates[6].text,str,"Mauvais resto ""viet""
+On y a été par dépit parce qu'on devait trouver un truc rapidement pour manger. Mais déjà en regardant les mauvais commentaires qu'il y avait, on s'en doutait un peu.
+C'est clair que c'est un piège à touristes, les novices d'entre-eux qui ne connaissent rien à la cuisine vietnamienne. Ni goût, ni saveur, ni fraîcheur. Ils servent des plats fades, sans ame. Le cuisinier ne doit même pas être vietnamien, sinon il aurait au moins pu faire comme il cuisinerait pour lui-même. Impossible qu'on ne sache pas faire un simple Phô ou bien des nouilles sautées aux fruits de mer (ils ont eu le culot de nous servir des nouilles instantanées!!! C'était flagrant !).
+Les bons avis sont achetés, c'est certain ! À fuir absolument!!!"
+11,candidates[6].restaurant_name,str,Bếp Cuốn Đà Nẵng - Michelin Selected 2025-2026
+11,candidates[6].restaurant_id,str,0x314217f4632748f9:0xdc14dcdba4c73425
+11,candidates[6].relevance,null,
+11,candidates[6].reviewed,bool,0
+11,candidates[7].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT2kxME5HdHJRMDR6V1VFeWQyUnRaVkF5UWs1dFJYYxAB
+11,candidates[7].text,str,"Vào bàn: Phục vụ lơ là, cực kỳ tệ, thiếu thốn
+Món ăn: Hàu nướng , nguội, ko chín hẳn, nếm thử ko thấy gia vị, mà gọi 2 lầm mới chịu đem sốt ra chấm
+, bánh mỳ chấm sốt dịu nguội cũ, cũng ko làm nóng giòn 1 chút, dai lắm ạ,  mình oder 2 con mực sống thì lại mang ra một con thôi ( mình cũng đồng ý, vì ko muốn đợi thêm 1 vòng nữa)
+Thời gian chờ quá lâu, mình định cancel món nhưng thấy tội bạn nhân viên dù mình thấy bạn phục vụ ko tốt
+Món ăn mang ra cứ nhầm bàn.
+Không phải riêng mình, các bàn kế bên cũng than vãn vì thời gian chờ quá lâu và hời hợt, bếp làm quá lâu, lẫu thì bàn bên kêu sơ sài ko có toping đâu khuôn gì cả. Hôm nay quán thực sự không đông lắm đâu, quan bảo quá tải nhưng với lượng khách tầm 1/4 lượng bàn có trong quán nhưng rất chậm ạ.
+Quản lý thì cứ đứng ỷ y.
+Mình chỉ thấy quán đc điểm cộng là : Mát , rộng"
+11,candidates[7].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+11,candidates[7].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+11,candidates[7].relevance,null,
+11,candidates[7].reviewed,bool,0
+11,candidates[8].document_key,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15:ChdDSUhNMG9nS0VJQ0FnSUR5OV9fMWpnRRAB
+11,candidates[8].text,str,"Khu vực thoáng nhân viên phục vụ tốt , món ăn cũng ngon.cần chú ý về phần vệ sinh chén đũa"
+11,candidates[8].restaurant_name,str,Quán BẾN QUÊ
+11,candidates[8].restaurant_id,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15
+11,candidates[8].relevance,null,
+11,candidates[8].reviewed,bool,0
+11,candidates[9].document_key,str,0x314219c36d7ded4d:0x3d7f3fa81ab20733:Ci9DQUlRQUNvZENodHljRjlvT21oNU0zaFlOWGRqVjBoclVYcDJkWGRmTTJocldYYxAB
+11,candidates[9].text,str,"Quán view biển Ok, nhưng nhân viên phục vụ thì chậm, làm món cũng quán chậm.Đã vậy món ăn cũng k ngon, quán view sang xịn mịn mà hải sản toàn bán ba loại rẻ tiền size nhỏ cho khách, mà giá cũng tầm trung chứ k hề rẻ.Nhậu thử lần đầu và k có lần thứ 2."
+11,candidates[9].restaurant_name,str,Vườn Nướng Trên Mây
+11,candidates[9].restaurant_id,str,0x314219c36d7ded4d:0x3d7f3fa81ab20733
+11,candidates[9].relevance,null,
+11,candidates[9].reviewed,bool,0
+11,candidates[10].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT21wSlRERktNalJJYURFMFlYaE9lWEJFYm1sWFlrRRAB
+11,candidates[10].text,str,"Đang ăn thì quán bị mất điện, không đèn, không quạt trong suốt gần 1 tiếng. Điều đáng nói là trong thời gian đó, không hề có một lời giải thích hay thông báo nào cho khách, gọi nhân viên hỏi thì nhân viên cười đùa, cợt nhã. Cuối cùng khách phải vừa ăn vừa bật flash điện thoại để nhìn.
+
+Món gà mình order thì chờ rất lâu vẫn không thấy ra. Gọi nhân viên đến hỏi thì nhân viên nói “để em hỏi bếp”, sau đó đi luôn và không hề quay lại thông báo tình trạng món ăn. Chờ quá lâu nên mình quyết định tính tiền thì lúc đó gà mới được mang ra. Điều khó chịu hơn là thái độ của nhân viên kiểu: “Gà nướng thì phải lâu chứ?” — trong khi mình đã hỏi nhưng ko hề nhận đc phản hồi, và nếu món cần nhiều thời gian, hoàn toàn có thể thông báo ngay từ đầu để khách chủ động.
+
+Tôm sốt bơ tỏi thì bị cứng, không ngon. Mình gọi quản lý đến để góp ý về trải nghiệm thì ban đầu quản lý còn không muốn trực tiếp ra gặp, để người khác ra. Mình khẳng định muốn gặp quản lý thì sau đó mới ra.
+
+Nhưng điều thất vọng nhất là sau khi nghe phản ánh, quản lý không có một lời giải thích hay xin lỗi nào, rồi cũng bỏ đi luôn.
+
+Đi ăn không chỉ là vấn đề món ăn ngon hay dở, mà còn là cách quán xử lý sự cố và thái độ phục vụ khách hàng. Mất điện là sự cố ngoài ý muốn, món ăn lâu cũng có thể thông cảm nếu được thông báo rõ ràng. Nhưng việc khách phải tự xoay xở trong hơn 1 tiếng, chờ món không được cập nhật, rồi nhận lại thái độ thiếu thiện chí khi góp ý thì thực sự không thể chấp nhận được.
+
+Đây là lần đầu tiên mình lên Google để đánh giá tệ, mình cũng ngại ảnh hưởng đến quán nhưng mình vẫn phải lên tiếng, quán thực sự nên xem lại nhân viên, thái độ phục vụ và cách giải quyết vấn đề với khách."
+11,candidates[10].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+11,candidates[10].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+11,candidates[10].relevance,null,
+11,candidates[10].reviewed,bool,0
+11,candidates[11].document_key,str,0x3169dd439ddc37dd:0x19b8f2c15eb3a16e:Ci9DQUlRQUNvZENodHljRjlvT214NFMxTlFPREY0VFZCb09GVkplVGs1ZGpkUE0zYxAB
+11,candidates[11].text,str,"Phục vụ chậm quá 🥲. Có tóc trong đồ ăn, nhà hàng đã hỗ trợ mình mình đổi món"
+11,candidates[11].restaurant_name,str,Thai Market Restaurant - Tam Kỳ
+11,candidates[11].restaurant_id,str,0x3169dd439ddc37dd:0x19b8f2c15eb3a16e
+11,candidates[11].relevance,null,
+11,candidates[11].reviewed,bool,0
+11,candidates[12].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VQYVdsdWFqcnFDVUJREAE
+11,candidates[12].text,str,Đồ ăn ngon nhưng phục vụ hơi chậm.
+11,candidates[12].restaurant_name,str,Biển Rạng Sơn Trà
+11,candidates[12].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+11,candidates[12].relevance,null,
+11,candidates[12].reviewed,bool,0
+12,id,str,Q13
+12,query,str,Quán hải sản tươi ở Thanh Khê
+12,split,str,test
+12,candidates[0].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:ChdDSUhNMG9nS0VJQ0FnTUNvMTV1VGhnRRAB
+12,candidates[0].text,str,Chất lượng đồ ăn tuyệt vời. Giá thành rẻ
+12,candidates[0].restaurant_name,str,Quán Hải Sản Bé Nữ
+12,candidates[0].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+12,candidates[0].relevance,null,
+12,candidates[0].reviewed,bool,0
+12,candidates[1].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT21JelNIWkJjR1pHY0doQk4zUm5PVmhqYnpKcFJIYxAB
+12,candidates[1].text,str,"tình cờ thấy quán ở 1 cái comment trên threads thôi, mà đến ăn thì ưng vô cùng
+chủ quán gợi ý đồ ăn siêu hợp lý, ko bị chèo kéo tí nào. đồ thì siêu siêu rẻ, mình đi 4 người hết tổng 1tr250, nếu ko ăn ghẹ thì còn rẻ nữa í, nma con ghẹ xứng đáng lắm
+món ngon nhất là quả bề bề sốt bơ tỏi kia, ôi làm khéo cực kỳ, sốt vừa vặn chấm bánh mì xuất sắc luôn. nhà mình còn phải gọi thêm bánh mì để vét nốt chỗ sốt :)))))
+
+chấm quán này 10 điểm, đồ ăn + không gian + phục vụ đều quá ok. tổng kết là sẽ quay lại, giờ nhìn ảnh thèm ơi là thèmmmm"
+12,candidates[1].restaurant_name,str,Quán Hải Sản Bé Nữ
+12,candidates[1].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+12,candidates[1].relevance,null,
+12,candidates[1].reviewed,bool,0
+12,candidates[2].document_key,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5:Ci9DQUlRQUNvZENodHljRjlvT21Fd1pqUm9SVkJyYlhOeVV6VlFMVnB1Ukd0TlNGRRAB
+12,candidates[2].text,str,"Hải sản tươi sống, phục vụ nhanh"
+12,candidates[2].restaurant_name,str,Đại Dương Quán
+12,candidates[2].restaurant_id,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5
+12,candidates[2].relevance,null,
+12,candidates[2].reviewed,bool,0
+12,candidates[3].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT2t4b1JHNVRkWFZoVjFaTWR6Y3hNMFl3YjJrNVlVRRAB
+12,candidates[3].text,str,"Đồ ăn tươi , a chủ nhiệt tình"
+12,candidates[3].restaurant_name,str,Quán Hải Sản Bé Nữ
+12,candidates[3].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+12,candidates[3].relevance,null,
+12,candidates[3].reviewed,bool,0
+12,candidates[4].document_key,str,0x31421f7858ffb977:0xd51a63b9a858582b:Ci9DQUlRQUNvZENodHljRjlvT20wNWVHTkZSa2xEVnpWeE0wbG1RbUZxV0V4YVNsRRAB
+12,candidates[4].text,str,"Hải sản tươi ngon, giá thành rẻ, view sông, phục vụ nhiệt tình, vui vẻ, bạn nên thử món gỏi cá, signature của quán"
+12,candidates[4].restaurant_name,str,Quán Hải Sản Ngọc Giỏi
+12,candidates[4].restaurant_id,str,0x31421f7858ffb977:0xd51a63b9a858582b
+12,candidates[4].relevance,null,
+12,candidates[4].reviewed,bool,0
+12,candidates[5].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT2tOT2RsWlJOek5pUlZsMlpDMXhiVkJZZVZsWGRVRRAB
+12,candidates[5].text,str,"Ghé ăn mấy lần rồi, đồ ăn ngon tươi mà giá rẻ lắm. Anh chị phục vụ dễ thương"
+12,candidates[5].restaurant_name,str,Quán Hải Sản Bé Nữ
+12,candidates[5].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+12,candidates[5].relevance,null,
+12,candidates[5].reviewed,bool,0
+12,candidates[6].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT25Kc1VIVnNaRUpLWTI1VVJrZHhlbGxhVkc5WmFsRRAB
+12,candidates[6].text,str,"Quán ăn tuy trong ngõ nhưng rất chuyên nghiệp, chỉn chu. Hải sản tươi rói, giá cả phải chăng, chế biến ngon. Mình đi 2 người ăn cỡ 550k cũng no cái bụng rồi. Rất tuyệt vời 100 điểm d=(^o^)=b"
+12,candidates[6].restaurant_name,str,Quán Hải Sản Bé Nữ
+12,candidates[6].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+12,candidates[6].relevance,null,
+12,candidates[6].reviewed,bool,0
+12,candidates[7].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT2psdVIyMWZRMWN5UkdGS2NYcDBNVlZKYTNoaVdHYxAB
+12,candidates[7].text,str,"MỌI NGƯỜI NÊN NÉ CÁI QUÁN NÀY RA NHÉ!
+LÀM ĂN LỪA DỐI, ĐỒ ĂN CHẾ BIẾN RẤT DỞ, NHÂN VIÊN TRỊCH THƯỢNG!!!!
+Mình hoàn toàn có lí do tin rằng hầu hết các review 5 sao viết về quán hải sản này đều do nhân viên viết ra. Bài viết của Thương Nguyễn Hoài đăng vào ngày 12/8 là mọi người ở trong đoàn của mình. Tự chụp tự đăng tự khen trong khi cả bàn mình không ai thấy đồ ăn ngon. Mình gọi rất nhiều món và thật sự không 1 món nào chế biến một cách bình thường, nếu không muốn nói là RẤT TỆ VÀ RẤT DỞ.
+Thái độ nhân viên thay đổi khi nhóm không gọi đúng món mà nhân viên tư vấn, đã vậy còn cố tình lợi dụng cơ hội nhóm đông người, mang sai đồ ăn ra rồi xin tính tiền.
+Đến cuối nhóm muốn xuất hoá đơn thì nhân viên bảo ở đây không xuất hoá đơn với một thái độ cực kì trịch thượng. Quán trốn thuế và không đăng ký hộ kinh doanh. Trên bill chỉ in tên món thậm chí còn không in tên quán luôn."
+12,candidates[7].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+12,candidates[7].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+12,candidates[7].relevance,null,
+12,candidates[7].reviewed,bool,0
+12,candidates[8].document_key,str,0x31423d433332efc9:0xeba005a5d25ad9c2:Ci9DQUlRQUNvZENodHljRjlvT2xGNGFIaEZSa3RwVDNGQ1VWOUxValY1Um1oaVJXYxAB
+12,candidates[8].text,str,Hơi xa trung tâm thành phố
+12,candidates[8].restaurant_name,str,Hải sản tươi sống Bà Rô
+12,candidates[8].restaurant_id,str,0x31423d433332efc9:0xeba005a5d25ad9c2
+12,candidates[8].relevance,null,
+12,candidates[8].reviewed,bool,0
+12,candidates[9].document_key,str,0x3142177976f97ad5:0x3d4a6a72dc718a49:Ci9DQUlRQUNvZENodHljRjlvT20xTFFtVTFSVk5GYmxOVGJsUnFWRmxYVG0xUVJHYxAB
+12,candidates[9].text,str,"Giá rẻ, hải sản rất tươi"
+12,candidates[9].restaurant_name,str,Quán Hải Sản Thời Cổ Đà Nẵng - Seafood Restaurant
+12,candidates[9].restaurant_id,str,0x3142177976f97ad5:0x3d4a6a72dc718a49
+12,candidates[9].relevance,null,
+12,candidates[9].reviewed,bool,0
+12,candidates[10].document_key,str,0x314219c44b425df9:0x7733cb31c5a11bbc:Ci9DQUlRQUNvZENodHljRjlvT21GclFXNUVTakZJVTNSUVdVWm9kMFZKUW5Vek1YYxAB
+12,candidates[10].text,str,"Sau khi tắm biển Mỹ Khê, nhóm mình chạy qua khu Sơn Trà để ăn tối. Quán có nhiều lựa chọn hải sản tươi sống, từ tôm, cua đến các loại ốc. Đồ ăn vừa miệng và không bị quá dầu mỡ"
+12,candidates[10].restaurant_name,str,Nhà hàng Bếp Xưa seafood
+12,candidates[10].restaurant_id,str,0x314219c44b425df9:0x7733cb31c5a11bbc
+12,candidates[10].relevance,null,
+12,candidates[10].reviewed,bool,0
+12,candidates[11].document_key,str,0x3169dbd607b1eac9:0xe83eb014e2dfca04:Ci9DQUlRQUNvZENodHljRjlvT21FeFpteFVRVkJHWm5GWlRuVjNlRk5JYVhGRE5tYxAB
+12,candidates[11].text,str,"Hải sản tươi ngon, quán view biển đẹp, NV thân thiện"
+12,candidates[11].restaurant_name,str,Nhà Hàng BÍCH HOẠ TAM THANH
+12,candidates[11].restaurant_id,str,0x3169dbd607b1eac9:0xe83eb014e2dfca04
+12,candidates[11].relevance,null,
+12,candidates[11].reviewed,bool,0
+13,id,str,Q14
+13,query,str,Quán ăn sáng gần biển
+13,split,str,test
+13,candidates[0].document_key,str,0x314219eb969642f7:0xf5ccaf8a9e96e7d5:Ci9DQUlRQUNvZENodHljRjlvT2twTFluSlBOQzFCUW5GZlVXWjNaRFZ0Ym1wSFVuYxAB
+13,candidates[0].text,str,"View thoáng mát vì gần sông, menu phong phú"
+13,candidates[0].restaurant_name,str,ÔNG TOÀN
+13,candidates[0].restaurant_id,str,0x314219eb969642f7:0xf5ccaf8a9e96e7d5
+13,candidates[0].relevance,null,
+13,candidates[0].reviewed,bool,0
+13,candidates[1].document_key,str,0x3169dba127326ba5:0x9fdc90e2a156f44f:ChZDSUhNMG9nS0VJQ0FnSURobEptdk5nEAE
+13,candidates[1].text,str,"Quán rộng rãi, mới. Gần biển bên đồ ăn như tôm mực cá khá tươi ngon"
+13,candidates[1].restaurant_name,str,Nhà Hàng Sương Phương - Tam Thanh
+13,candidates[1].restaurant_id,str,0x3169dba127326ba5:0x9fdc90e2a156f44f
+13,candidates[1].relevance,null,
+13,candidates[1].reviewed,bool,0
+13,candidates[2].document_key,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb:Ci9DQUlRQUNvZENodHljRjlvT2twcFdWTkdkRVozWjBKeVVrdDBVVEJRUms5UWNHYxAB
+13,candidates[2].text,str,"Quán có phòng lạnh nên vào buổi trưa khá mát mẻ, phù hợp để đặt bàn tiệc , đồ ăn tạm ổn, khá gần biển"
+13,candidates[2].restaurant_name,str,Quán Bống - Hải Sản Tươi Sống
+13,candidates[2].restaurant_id,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb
+13,candidates[2].relevance,null,
+13,candidates[2].reviewed,bool,0
+13,candidates[3].document_key,str,0x3169dba127326ba5:0x9fdc90e2a156f44f:ChZDSUhNMG9nS0VJQ0FnSUNVM192ZkZ3EAE
+13,candidates[3].text,str,"Nhà hàng nằm gần biển, không gian rộng rãi, có nhà để xe rộng, phòng lớn bàn ghế đẹp sang trọng, món ăn ở đây nấu rất ngon theo yêu cầu khách hàng, tùy theo mùa có nhiều loại hải sản tươi ngon, trang trí đẹp, phục vụ nhiệt tình chu đáo, bà chủ nhà hàng thân thiện"
+13,candidates[3].restaurant_name,str,Nhà Hàng Sương Phương - Tam Thanh
+13,candidates[3].restaurant_id,str,0x3169dba127326ba5:0x9fdc90e2a156f44f
+13,candidates[3].relevance,null,
+13,candidates[3].reviewed,bool,0
+13,candidates[4].document_key,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd:Ci9DQUlRQUNvZENodHljRjlvT2xWRmRuVm5VekI2U1dSblZEZDRkRXRRYkdsVFNXYxAB
+13,candidates[4].text,str,Ăn tôm hùm được
+13,candidates[4].restaurant_name,str,Quán Biển Nhớ
+13,candidates[4].restaurant_id,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd
+13,candidates[4].relevance,null,
+13,candidates[4].reviewed,bool,0
+13,candidates[5].document_key,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd:Ci9DQUlRQUNvZENodHljRjlvT21KRmNGZFhkMFZxTjFKVk5tbGZaamhsVDJSUGNXYxAB
+13,candidates[5].text,str,Hải sản tưoi ngon. Quán to và đông nhất ở đây. Ghé qua ăn trưa thỉ rất ok
+13,candidates[5].restaurant_name,str,Quán Biển Nhớ
+13,candidates[5].restaurant_id,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd
+13,candidates[5].relevance,null,
+13,candidates[5].reviewed,bool,0
+13,candidates[6].document_key,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd:Ci9DQUlRQUNvZENodHljRjlvT205WE0xbDJjMjFLYVhobGRuUXdSbm95VG1ST2NuYxAB
+13,candidates[6].text,str,Tuyệt
+13,candidates[6].restaurant_name,str,Quán Biển Nhớ
+13,candidates[6].restaurant_id,str,0x3169cf1b33d1f043:0x62d5bbb5b73906bd
+13,candidates[6].relevance,null,
+13,candidates[6].reviewed,bool,0
+13,candidates[7].document_key,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb:Ci9DQUlRQUNvZENodHljRjlvT21Od1FXNDVNVmhaWHpsTVpESkpTbTFNVDNaS1dsRRAB
+13,candidates[7].text,str,"Rất thích không khí ấm cúng, nhẹ nhàng, nhạc sang trọng và quan trọng nhất là đồ ăn ngon, giá hợp lý, gần sát bên Mikazuki. Đây là lựa chọn chuẩn nhất nếu không muốn ăn sang chảnh ngay trong resort. Rất khuyến nghị mọi người nên ăn quán này."
+13,candidates[7].restaurant_name,str,UNO House Restaurant
+13,candidates[7].restaurant_id,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb
+13,candidates[7].relevance,null,
+13,candidates[7].reviewed,bool,0
+13,candidates[8].document_key,str,0x31420e76e75e01f5:0x9dfae12b2a89d657:Ci9DQUlRQUNvZENodHljRjlvT2s4MVdFdHBhVE5YUW5rM1UyMW5RbE5ZV2xWVWFWRRAB
+13,candidates[8].text,str,"Đi từ thành phố Hoa Lư xuống đây ăn sáng đúng là trải nghiệm thú vị, đồ ăn ngon mà giá hợp lý."
+13,candidates[8].restaurant_name,str,Quán ăn Hoài Linh
+13,candidates[8].restaurant_id,str,0x31420e76e75e01f5:0x9dfae12b2a89d657
+13,candidates[8].relevance,null,
+13,candidates[8].reviewed,bool,0
+13,candidates[9].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VJQ0FnSUNyN295ZkVnEAE
+13,candidates[9].text,str,"Quán đồ ăn ngon, hợp khẩu vị, nhân viên phục vụ nhiệt tình, chú đáo.
+Sẽ ghé lại vào một dịp gần nhất."
+13,candidates[9].restaurant_name,str,Biển Rạng Sơn Trà
+13,candidates[9].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+13,candidates[9].relevance,null,
+13,candidates[9].reviewed,bool,0
+13,candidates[10].document_key,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e:Ci9DQUlRQUNvZENodHljRjlvT2sxdWMwMXJOSGRQYTBjNE5sQjBSRjlwYzA4d01FRRAB
+13,candidates[10].text,str,QUÁN  ĂN NGON RẺ HỢP TÚI TIỀN VIEW ĐẸP
+13,candidates[10].restaurant_name,str,Nhà Hàng Biển Việt
+13,candidates[10].restaurant_id,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e
+13,candidates[10].relevance,null,
+13,candidates[10].reviewed,bool,0
+13,candidates[11].document_key,str,0x3142180fa3798a7b:0x292476c9f4006a6e:Ci9DQUlRQUNvZENodHljRjlvT2xCeWRsTlVWWGhDVXpOR2RHaEVjV1oyVkhaTVgyYxAB
+13,candidates[11].text,str,"Nếu bạn đang muốn tìm một nơi để ""chill"" cùng bạn bè, mình vừa khám phá ra một quán nhậu ven biển cực kỳ ấn tượng. Điểm cộng lớn nhất chính là không gian mở sát mép nước, nơi bạn có thể vừa nhâm nhi đồ uống, vừa lắng nghe tiếng sóng vỗ rì rào và đón những cơn gió biển mát rượi, xua tan mọi cái nóng bức. Đặc biệt, nếu đến vào tầm chiều tà, bạn sẽ được chiêm ngưỡng khung cảnh hoàng hôn rực rỡ nhuộm đỏ cả mặt biển – một ""background"" sống ảo không thể xịn xò hơn. Đồ ăn của quán khá đa dạng, chủ yếu là các món hải sản tươi sống được chế biến đậm đà, rất hợp để ""lai rai"" tới bến."
+13,candidates[11].restaurant_name,str,Nhà hàng Chân Trời Góc Bể
+13,candidates[11].restaurant_id,str,0x3142180fa3798a7b:0x292476c9f4006a6e
+13,candidates[11].relevance,null,
+13,candidates[11].reviewed,bool,0
+13,candidates[12].document_key,str,0x314211baac03f7cf:0xe1e723c31b48b6cb:ChZDSUhNMG9nS0VJQ0FnSUNaaU1QeUJREAE
+13,candidates[12].text,str,Món ăn sáng rất ngon
+13,candidates[12].restaurant_name,str,Madame Son
+13,candidates[12].restaurant_id,str,0x314211baac03f7cf:0xe1e723c31b48b6cb
+13,candidates[12].relevance,null,
+13,candidates[12].reviewed,bool,0
+14,id,str,Q15
+14,query,str,Seafood restaurant with a sea view in Da Nang
+14,split,str,test
+14,candidates[0].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT2poaFlrTTJiVEIwVTNaMGRqRkhTV2R5VjBwWFltYxAB
+14,candidates[0].text,str,"It is a small restaurant inside a neighbourhood, very very authentic seafood restaurant, and the seafood we ordered are real fresh, all the clams and oyster are pearl like and chewy, sooo goood!
+
+The staff are friendly, they also guide us how to eat their food there, compare to the seafood restaurant nearby the beach and tourist spot i had tried, this is the freshest one, will definitely go back to eat when I go Da Nang again😋"
+14,candidates[0].restaurant_name,str,Quán Hải Sản Bé Nữ
+14,candidates[0].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+14,candidates[0].relevance,null,
+14,candidates[0].reviewed,bool,0
+14,candidates[1].document_key,str,0x314217d929253b79:0x49f8daf4375e563c:Ci9DQUlRQUNvZENodHljRjlvT2s0MlNpMTFhR015TVhGUGMzWndhMU5qTWpCRWEyYxAB
+14,candidates[1].text,str,"As a local, if I could pick only one seafood restaurant in Da Nang, this is it. It is tucked away in an alley, and it is family-run, which makes it more affordable than seaside restaurants.
+I have tried pretty much everything here and particularly enjoy grilled seafood with cheese and lime sauce. The owner told me they have been running it for twenty years! I hope they soars higher.
+💡📚Learn Vietnamese or English 1-1 with an 8.5 IELTS, American graduate teacher who worked in New York with TESOL certificate at @marialinguist"
+14,candidates[1].restaurant_name,str,Quán Hải Sản Bé Nữ
+14,candidates[1].restaurant_id,str,0x314217d929253b79:0x49f8daf4375e563c
+14,candidates[1].relevance,null,
+14,candidates[1].reviewed,bool,0
+14,candidates[2].document_key,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e:Ci9DQUlRQUNvZENodHljRjlvT2pjNGNuZHhWMGxQT1VkQ1IwNHhRVWg1U1VJMlVuYxAB
+14,candidates[2].text,str,"Our company of 11 picked this location for our company dinner. As we had a companion who was Muslim, it was not easy to find a seafood restaurant that does not serve pork dishes. After searching through so many restaurants, we finally chanced upon this restaurant and decided to make a booking after confirming that they do not serve pork over a Facebook message on their Facebook page.
+
+The food was great and exceeded our expectations. Having tried a few seafood restaurants in Da Nang before this, we felt that their prawn, oyster, steamed fish, and seafood noodle dishes stood out the most. As a result, we re-ordered these dishes multiple times. We also ordered crabs, clams, and seafood fried rice, which all tasted great as well.
+
+In terms of improvement, we felt that the seafood soup could be better, as it tasted slightly bland.
+
+Service was excellent as the waiters and waitresses were very prompt and responsive to our requests. They also offered to de-shell the prawns and crabs for us.
+
+Price turned out to be about 650k VND for each person, which was average for seafood restaurants around the touristy area of Da Nang.
+
+We would recommend everyone to give this restaurant a try if you want to try out a seafood restaurant."
+14,candidates[2].restaurant_name,str,Nhà Hàng Biển Việt
+14,candidates[2].restaurant_id,str,0x3142178afb017ca7:0xb79cbe177e1b0a2e
+14,candidates[2].relevance,null,
+14,candidates[2].reviewed,bool,0
+14,candidates[3].document_key,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f:Ci9DQUlRQUNvZENodHljRjlvT2w5WU5VcE9OVEZuUmxOM1pIQXphVmx1Tkc5ZlVXYxAB
+14,candidates[3].text,str,Beautiful relaxing place with amazing fusion cuisine. You cannot miss this hidden place. A must go in Da Nang !
+14,candidates[3].restaurant_name,str,Son Tra Retreat - Garden Lounge & Eatery
+14,candidates[3].restaurant_id,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f
+14,candidates[3].relevance,null,
+14,candidates[3].reviewed,bool,0
+14,candidates[4].document_key,str,0x3142192dea33553f:0x67195ccda4ab2f7f:Ci9DQUlRQUNvZENodHljRjlvT210UWFEa3hNVkl3VjFOelVWVmhlamw1ZW5jNVRVRRAB
+14,candidates[4].text,str,"The best restaurant we have visited so far in Da Nang. Comfortable, clean with great food."
+14,candidates[4].restaurant_name,str,Nhà hàng NHÀ BẾP CHỢ HÀN
+14,candidates[4].restaurant_id,str,0x3142192dea33553f:0x67195ccda4ab2f7f
+14,candidates[4].relevance,null,
+14,candidates[4].reviewed,bool,0
+14,candidates[5].document_key,str,0x31421772a3e3e8c3:0x107487f9a6308c:Ci9DQUlRQUNvZENodHljRjlvT25wU04xbzBiV1ZDVjB4MmRFMUtUbE5pWDNSZlpHYxAB
+14,candidates[5].text,str,Very nice experience in Da Nang
+14,candidates[5].restaurant_name,str,Le Comptoir
+14,candidates[5].restaurant_id,str,0x31421772a3e3e8c3:0x107487f9a6308c
+14,candidates[5].relevance,null,
+14,candidates[5].reviewed,bool,0
+14,candidates[6].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2taWGNGOWFibE5yWDNsamVqQjZhMkZvYzFGcloyYxAB
+14,candidates[6].text,str,"Excellent quality family-run seafood restaurant at very reasonable prices. The lobster, garlic prawns, and barbecued shellfish are fresh and very well cooked. Very popular, well worth a visit, the best in Da Nang."
+14,candidates[6].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+14,candidates[6].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+14,candidates[6].relevance,null,
+14,candidates[6].reviewed,bool,0
+14,candidates[7].document_key,str,0x3142199eef80bd7d:0x74fe36a686707bc2:Ci9DQUlRQUNvZENodHljRjlvT2pKVFpsaHFVbkpIVlVocmEwTlFVa2RUY1d0d1NrRRAB
+14,candidates[7].text,str,"Ơ Kìa - Seafood Restaurant was a really nice find in Da Nang. The menu works well if people want different things, and I appreciated that it felt comfortable for a family meal without losing the lively atmosphere. It’s the kind of place I’d happily go back to when I’m in the mood for seafood and a relaxed dinner out."
+14,candidates[7].restaurant_name,str,Nhà Hàng Hải Sản - Ơ Kìa
+14,candidates[7].restaurant_id,str,0x3142199eef80bd7d:0x74fe36a686707bc2
+14,candidates[7].relevance,null,
+14,candidates[7].reviewed,bool,0
+14,candidates[8].document_key,str,0x314219c3b54c18d7:0x5028941bdf1ab5f5:Ci9DQUlRQUNvZENodHljRjlvT2xWTVMyaHpZMmxhUmtWd2FtdG5kV1JLVUdrNWEzYxAB
+14,candidates[8].text,str,Best pho in da nang
+14,candidates[8].restaurant_name,str,Thìa Gỗ Đà Nẵng
+14,candidates[8].restaurant_id,str,0x314219c3b54c18d7:0x5028941bdf1ab5f5
+14,candidates[8].relevance,null,
+14,candidates[8].reviewed,bool,0
+14,candidates[9].document_key,str,0x314217721a8aafc7:0x1c948e37d3931fef:Ci9DQUlRQUNvZENodHljRjlvT2twUFRGUlhWRWQzWmxsbWVFZzFPR1IxYnpSTVJrRRAB
+14,candidates[9].text,str,"Knowing this Restaurant is very busy and need to wait during peak hour. I have booked one week in advance for my trip in Da Nang.
+
+Upon arrival of booked time, only need to wait few minutes to be seated. Therefore, remember to book if you want to go.
+
+MOC with Fresh seafood, delicious food, nice service, especially Cat provided professional advice on the best way to cook the seafood. Avoided ordering similar taste on dishes. Quynh is also very sweet in helping us during our dinner.
+Thanks MOC for celebrating birthday with me. It makes my birthday trip in Da Nang being unforgettable."
+14,candidates[9].restaurant_name,str,Mộc quán Seafood Đà Nẵng
+14,candidates[9].restaurant_id,str,0x314217721a8aafc7:0x1c948e37d3931fef
+14,candidates[9].relevance,null,
+14,candidates[9].reviewed,bool,0
+15,id,str,Q16
+15,query,str,Affordable dinner in Hai Chau
+15,split,str,test
+15,candidates[0].document_key,str,0x31421772a3e3e8c3:0x107487f9a6308c:Ci9DQUlRQUNvZENodHljRjlvT2t4VVozWnlja1JEVjJKdmF6bFhaWGRzWHpFMGJFRRAB
+15,candidates[0].text,str,"Extraordinary experience, maybe the best dinner I had in 2026. Changing menu every 2 months, can expected seasonal materials used in every dish"
+15,candidates[0].restaurant_name,str,Le Comptoir
+15,candidates[0].restaurant_id,str,0x31421772a3e3e8c3:0x107487f9a6308c
+15,candidates[0].relevance,null,
+15,candidates[0].reviewed,bool,0
+15,candidates[1].document_key,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f:Ci9DQUlRQUNvZENodHljRjlvT2twcGIzbHFlVmg0TjBORmRtaFJTVEF0WlhWcFJFRRAB
+15,candidates[1].text,str,Best dinner spot in Da Nang! Service is fabulous and food was immaculate)
+15,candidates[1].restaurant_name,str,Son Tra Retreat - Garden Lounge & Eatery
+15,candidates[1].restaurant_id,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f
+15,candidates[1].relevance,null,
+15,candidates[1].reviewed,bool,0
+15,candidates[2].document_key,str,0x31420f50b62fbb27:0x36fdfdf03c641bc:Ci9DQUlRQUNvZENodHljRjlvT2twdU1FaFVkVTh5UzFCaGEzVlVVbkpsZEhSaGFtYxAB
+15,candidates[2].text,str,Fantastic dinner with exceptionally fast service! Really delicious Hoi An speciality Cao Lầu and the Thịt Xiên Nướng Cuốn Bánh Tráng 🥰
+15,candidates[2].restaurant_name,str,Bep Nha Hoi An - Cơm Gia Đình - Local Food Restaurant in Hoi An - 호이안맛집
+15,candidates[2].restaurant_id,str,0x31420f50b62fbb27:0x36fdfdf03c641bc
+15,candidates[2].relevance,null,
+15,candidates[2].reviewed,bool,0
+15,candidates[3].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT25ablkwbEpNeTFwZVhac2FXaFZWMEZOYTI5bk1WRRAB
+15,candidates[3].text,str,"This is a fun and lively local restaurant, a perfect spot to try a variety of dishes as there are combo items on the menu. Inside is busy, hardly a spare table. There is two floors and I didn't see any other tourists here. Food looks like it is catered to tourists though, with how it is presented. Flavors were really good. I chose the Mam Ha Noi combo for $149,000. The only thing I couldn't eat were the little shrimp cakes as they were just too greasy. Staff are super friendly, and service is brisk. The little dish of corn comes as a free item after you have finished your meal. A lovely touch."
+15,candidates[3].restaurant_name,str,Cơm nhà vui
+15,candidates[3].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+15,candidates[3].relevance,null,
+15,candidates[3].reviewed,bool,0
+15,candidates[4].document_key,str,0x3169c39c414f896b:0x94dcb7850c39f2e6:ChdDSUhNMG9nS0VJQ0FnSUMtc2NUVzR3RRAB
+15,candidates[4].text,str,Gà ngon
+15,candidates[4].restaurant_name,str,Gà Tre Đèo Le
+15,candidates[4].restaurant_id,str,0x3169c39c414f896b:0x94dcb7850c39f2e6
+15,candidates[4].relevance,null,
+15,candidates[4].reviewed,bool,0
+15,candidates[5].document_key,str,0x31420f0035316a51:0x61b4c81343cfbc5:ChdDSUhNMG9nS0VJQ0FnSURwcE1uOHZBRRAB
+15,candidates[5].text,str,ngon bổ rẻ
+15,candidates[5].restaurant_name,str,Bà Phương
+15,candidates[5].restaurant_id,str,0x31420f0035316a51:0x61b4c81343cfbc5
+15,candidates[5].relevance,null,
+15,candidates[5].reviewed,bool,0
+15,candidates[6].document_key,str,0x314219cb1af915bb:0xa4c05d66b01dc14b:Ci9DQUlRQUNvZENodHljRjlvT2xSRVdqYzRVVFZYT0ZFd01GQXdWSGhhUjJSWFJGRRAB
+15,candidates[6].text,str,Món an ngon
+15,candidates[6].restaurant_name,str,Cá Lửa Restaurant
+15,candidates[6].restaurant_id,str,0x314219cb1af915bb:0xa4c05d66b01dc14b
+15,candidates[6].relevance,null,
+15,candidates[6].reviewed,bool,0
+15,candidates[7].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT21aSk1VazRObk4xVWxwSGMyczNTMnBvY0U1NmJGRRAB
+15,candidates[7].text,str,"My go-to and the most favorite seafood place in Danang!!! Love everything here, especially the garlic butter shrimp 💯- the best!!!!"
+15,candidates[7].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+15,candidates[7].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+15,candidates[7].relevance,null,
+15,candidates[7].reviewed,bool,0
+15,candidates[8].document_key,str,0x314211baac03f7cf:0xe1e723c31b48b6cb:Ci9DQUlRQUNvZENodHljRjlvT2xkWmFXSlBPVTFVUm1wV1pWcHhTbHBYYmw4dFJuYxAB
+15,candidates[8].text,str,Had dinner here after checking in at Marriot. Food was great and staff were friendly!
+15,candidates[8].restaurant_name,str,Madame Son
+15,candidates[8].restaurant_id,str,0x314211baac03f7cf:0xe1e723c31b48b6cb
+15,candidates[8].relevance,null,
+15,candidates[8].reviewed,bool,0
+15,candidates[9].document_key,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2:Ci9DQUlRQUNvZENodHljRjlvT2kwNE5HSlhVaTA0YVdGUlkwaEpRWEYzZUdsWFZtYxAB
+15,candidates[9].text,str,Ngon bổ rẻ
+15,candidates[9].restaurant_name,str,Nhà hàng Hội An Hoa
+15,candidates[9].restaurant_id,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2
+15,candidates[9].relevance,null,
+15,candidates[9].reviewed,bool,0
+16,id,str,Q17
+16,query,str,Friendly service and vegetarian options
+16,split,str,test
+16,candidates[0].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT2pkTFkyNURPWFV5Vkdnd1RrSkRNVE0wWW1NMGRIYxAB
+16,candidates[0].text,str,"You can enjoy delicious vegetarian food in a place surrounded by nature. I think most people would be very satisfied if they ordered noodles and salad. The price is reasonable, the taste is good, and it seems that they can accommodate parties with a larger number of people. They also serve hot pots, so you can go there on both slightly cold and hot days."
+16,candidates[0].restaurant_name,str,Sơn Tịnh quán
+16,candidates[0].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+16,candidates[0].relevance,null,
+16,candidates[0].reviewed,bool,0
+16,candidates[1].document_key,str,0x31420fb803717867:0x50377c5375a75183:Ci9DQUlRQUNvZENodHljRjlvT2poamVUVXpaM05XYzNKUGVWWmFXRU5VTW5CNFptYxAB
+16,candidates[1].text,str,"The ambiance was really amazing and our server, Hana, was very accommodating and friendly which made the experience really amazing. Good food, service, and experience. 5/5"
+16,candidates[1].restaurant_name,str,MẸT Hội An - Vietnamese restaurant & Vegetarian Food MET 9
+16,candidates[1].restaurant_id,str,0x31420fb803717867:0x50377c5375a75183
+16,candidates[1].relevance,null,
+16,candidates[1].reviewed,bool,0
+16,candidates[2].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:Ci9DQUlRQUNvZENodHljRjlvT2xFMGF6UTVPRUZ5ZVd0M2VUSkxUalZ5VUZveVJFRRAB
+16,candidates[2].text,str,Very nice food and service! Will come back one day and eat that vegetables Rice again.
+16,candidates[2].restaurant_name,str,Biển Rạng Sơn Trà
+16,candidates[2].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+16,candidates[2].relevance,null,
+16,candidates[2].reviewed,bool,0
+16,candidates[3].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNqOE9ueWdRRRAB
+16,candidates[3].text,str,"Wow. What an amazing, fresh, interesting vegetarian meal. So glad we went here and thank you to the owners!"
+16,candidates[3].restaurant_name,str,Sơn Tịnh quán
+16,candidates[3].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+16,candidates[3].relevance,null,
+16,candidates[3].reviewed,bool,0
+16,candidates[4].document_key,str,0x31420d9c1d0ab463:0x15ddae1635d59d56:Ci9DQUlRQUNvZENodHljRjlvT2twRE1tTkhPRmN0YVdsdmMxQTFRbWxaZWpOMVVVRRAB
+16,candidates[4].text,str,Great friendly service and delicious food
+16,candidates[4].restaurant_name,str,KOME'S Restaurant Hoi An
+16,candidates[4].restaurant_id,str,0x31420d9c1d0ab463:0x15ddae1635d59d56
+16,candidates[4].relevance,null,
+16,candidates[4].reviewed,bool,0
+16,candidates[5].document_key,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f:Ci9DQUlRQUNvZENodHljRjlvT2xoV2VHdHFMWFJ3Y1ZJMU1Wb3RXbXBPVFd0c2IxRRAB
+16,candidates[5].text,str,"great food and service in a quiet place, its worth visiting and the staff are friendly"
+16,candidates[5].restaurant_name,str,Son Tra Retreat - Garden Lounge & Eatery
+16,candidates[5].restaurant_id,str,0x314217f7df95ea2d:0xfceb5ecbd4ea401f
+16,candidates[5].relevance,null,
+16,candidates[5].reviewed,bool,0
+16,candidates[6].document_key,str,0x31421772a3e3e8c3:0x107487f9a6308c:Ci9DQUlRQUNvZENodHljRjlvT2pOWE5EVkZUV1Z6WTI5eU0wOWlRVmxoZUZoa1RXYxAB
+16,candidates[6].text,str,"Delicious food, friendly service, and a lovely atmosphere."
+16,candidates[6].restaurant_name,str,Le Comptoir
+16,candidates[6].restaurant_id,str,0x31421772a3e3e8c3:0x107487f9a6308c
+16,candidates[6].relevance,null,
+16,candidates[6].reviewed,bool,0
+16,candidates[7].document_key,str,0x31421700501e426b:0xbacc74781a782abf:Ci9DQUlRQUNvZENodHljRjlvT25wamFWUnBiRXd4TmtJd2RuRnhZa0pwU1VKSmFXYxAB
+16,candidates[7].text,str,Great food with vegetarian options. Friendly staff
+16,candidates[7].restaurant_name,str,Cơm Gia Đình - Phở Hà Nội - Mỳ Quảng - Hải sản tươi sống bình dân
+16,candidates[7].restaurant_id,str,0x31421700501e426b:0xbacc74781a782abf
+16,candidates[7].relevance,null,
+16,candidates[7].reviewed,bool,0
+16,candidates[8].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:Ci9DQUlRQUNvZENodHljRjlvT2tWblJ6aFdhV0kxWVhkR04wbEhSa2hhUjIxTk1uYxAB
+16,candidates[8].text,str,"Vegetarian restaurant. Very nice forestry atmosphere, local menu with affordable price. Friendly staff (they are a local family that lives next to the restaurant)."
+16,candidates[8].restaurant_name,str,Sơn Tịnh quán
+16,candidates[8].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+16,candidates[8].relevance,null,
+16,candidates[8].reviewed,bool,0
+16,candidates[9].document_key,str,0x314217f272944dc7:0x6db9d8480275a9f1:ChZDSUhNMG9nS0VJQ0FnSUNyOGVDeUFREAE
+16,candidates[9].text,str,"Great Service, atmosphere was open and not over crowded! The seafood was cooked to perfection! Staff was accommodating and friendly!"
+16,candidates[9].restaurant_name,str,Biển Rạng Sơn Trà
+16,candidates[9].restaurant_id,str,0x314217f272944dc7:0x6db9d8480275a9f1
+16,candidates[9].relevance,null,
+16,candidates[9].reviewed,bool,0
+16,candidates[10].document_key,str,0x3142177e34697651:0x532008812cfe5e2b:Ci9DQUlRQUNvZENodHljRjlvT2pOMWJUSllhSG81VUV4QlZEUmlZVzFRVDJ0bWFWRRAB
+16,candidates[10].text,str,Second time eating here. Food is amazing and tourist friendly. Definitely worth the stop!
+16,candidates[10].restaurant_name,str,Angon Hoi An Restaurant-Local food & Vegetarian
+16,candidates[10].restaurant_id,str,0x3142177e34697651:0x532008812cfe5e2b
+16,candidates[10].relevance,null,
+16,candidates[10].reviewed,bool,0
+17,id,str,Q18
+17,query,str,Quiet restaurant suitable for a family
+17,split,str,test
+17,candidates[0].document_key,str,0x314219cb1af915bb:0xa4c05d66b01dc14b:Ci9DQUlRQUNvZENodHljRjlvT2xSRVdqYzRVVFZYT0ZFd01GQXdWSGhhUjJSWFJGRRAB
+17,candidates[0].text,str,Món an ngon
+17,candidates[0].restaurant_name,str,Cá Lửa Restaurant
+17,candidates[0].restaurant_id,str,0x314219cb1af915bb:0xa4c05d66b01dc14b
+17,candidates[0].relevance,null,
+17,candidates[0].reviewed,bool,0
+17,candidates[1].document_key,str,0x314211f7c8b7318b:0xea358686830f8db:Ci9DQUlRQUNvZENodHljRjlvT2xWT1kxcEdMWEZuV0ZoVFdsWm1WMGd4ZFhVeGNuYxAB
+17,candidates[1].text,str,"Все было вкусно, сервис тоже на высоте!"
+17,candidates[1].restaurant_name,str,Family restaurant
+17,candidates[1].restaurant_id,str,0x314211f7c8b7318b:0xea358686830f8db
+17,candidates[1].relevance,null,
+17,candidates[1].reviewed,bool,0
+17,candidates[2].document_key,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb:ChdDSUhNMG9nS0VJQ0FnSUNQNnVyZWpnRRAB
+17,candidates[2].text,str,"Nice place in a super quiet area, villa with outside seating areas, family business and the food has a nice taste, fresh seafood, and nice staff as well, the owner speaks a little English... they didn't serve coffee, but they ordered outside delivery coffee for me. I really appreciate it. If you are nearby, just come to support the family and give a try"
+17,candidates[2].restaurant_name,str,UNO House Restaurant
+17,candidates[2].restaurant_id,str,0x314218ca180c04c5:0xd44ea9bf5d0662fb
+17,candidates[2].relevance,null,
+17,candidates[2].reviewed,bool,0
+17,candidates[3].document_key,str,0x31423de1c97a729f:0xb752bc89130936c6:ChdDSUhNMG9nS0VJQ0FnSUNVb3RiUnFnRRAB
+17,candidates[3].text,str,Món an ngon va yên tĩnh
+17,candidates[3].restaurant_name,str,Sơn Tịnh quán
+17,candidates[3].restaurant_id,str,0x31423de1c97a729f:0xb752bc89130936c6
+17,candidates[3].relevance,null,
+17,candidates[3].reviewed,bool,0
+17,candidates[4].document_key,str,0x31420f0035316a51:0x61b4c81343cfbc5:ChdDSUhNMG9nS0VJQ0FnSURwcE1uOHZBRRAB
+17,candidates[4].text,str,ngon bổ rẻ
+17,candidates[4].restaurant_name,str,Bà Phương
+17,candidates[4].restaurant_id,str,0x31420f0035316a51:0x61b4c81343cfbc5
+17,candidates[4].relevance,null,
+17,candidates[4].reviewed,bool,0
+17,candidates[5].document_key,str,0x31420d9c1d0ab463:0x15ddae1635d59d56:Ci9DQUlRQUNvZENodHljRjlvT2xOaGFVTmFiR3h4TWtSTGFYRmhka3BhZGxJMlFrRRAB
+17,candidates[5].text,str,Excelente!
+17,candidates[5].restaurant_name,str,KOME'S Restaurant Hoi An
+17,candidates[5].restaurant_id,str,0x31420d9c1d0ab463:0x15ddae1635d59d56
+17,candidates[5].relevance,null,
+17,candidates[5].reviewed,bool,0
+17,candidates[6].document_key,str,0x3142198bd89fe7d5:0x9bcc6ab9b5bf2f8f:Ci9DQUlRQUNvZENodHljRjlvT25kc1JGOU9lWGt0VEc1ZlpFRk9jSE5WTmtSeFNGRRAB
+17,candidates[6].text,str,Ngon
+17,candidates[6].restaurant_name,str,Tiệm Quê Nhà
+17,candidates[6].restaurant_id,str,0x3142198bd89fe7d5:0x9bcc6ab9b5bf2f8f
+17,candidates[6].relevance,null,
+17,candidates[6].reviewed,bool,0
+17,candidates[7].document_key,str,0x314211f7c8b7318b:0xea358686830f8db:Ci9DQUlRQUNvZENodHljRjlvT25WbWVFVXhhMlp3Y1c1MVZrMTFWVGQ1WjNGdGJIYxAB
+17,candidates[7].text,str,If you're looking for a place to eat with delicious food and the most humbling family - come here for sure! I would gladly come here just for the food OR the family that help run it OR just how lovely they all are.
+17,candidates[7].restaurant_name,str,Family restaurant
+17,candidates[7].restaurant_id,str,0x314211f7c8b7318b:0xea358686830f8db
+17,candidates[7].relevance,null,
+17,candidates[7].reviewed,bool,0
+17,candidates[8].document_key,str,0x314211f7c8b7318b:0xea358686830f8db:Ci9DQUlRQUNvZENodHljRjlvT25oRFpsUjRiazVVTkRBdGQyNVVNRXhZVFVSdU9FRRAB
+17,candidates[8].text,str,"Very cosy and family oriented restaurant. It is a family restaurant, as the name suggests, is run by family members. The food portion is very generous and we had two additional pork skewers given to us as complimentary item. To end the dinner with another complimentary water melon slices is like the icing on the cake. The spring roll is a must try and each roll contains three shrimps in it! Will try to come again if got the time. For guests who stay at Wyndham Royal Beachfront Resort, don’t miss it!"
+17,candidates[8].restaurant_name,str,Family restaurant
+17,candidates[8].restaurant_id,str,0x314211f7c8b7318b:0xea358686830f8db
+17,candidates[8].relevance,null,
+17,candidates[8].reviewed,bool,0
+17,candidates[9].document_key,str,0x314219001064ce23:0x67d2fa43164ccba6:ChZDSUhNMG9nS0VJQ0FnSUQ3Mk91N2ZBEAE
+17,candidates[9].text,str,"On the last day of my trip to Da Nang, Vietnam, I came to this restaurant for dinner. It is a garden restaurant with many rockeries and water. The dining area is very designed. After the meal, you can walk around and take pictures. The restaurant's dishes are suitable for small and medium-sized family.
+I like the service here. The service staff are very polite. I also like the ice cubes here. The ice cubes are all very large."
+17,candidates[9].restaurant_name,str,Khu Văn hóa Du lịch Không Gian Xưa
+17,candidates[9].restaurant_id,str,0x314219001064ce23:0x67d2fa43164ccba6
+17,candidates[9].relevance,null,
+17,candidates[9].reviewed,bool,0
+17,candidates[10].document_key,str,0x314211f7c8b7318b:0xea358686830f8db:Ci9DQUlRQUNvZENodHljRjlvT2pCbmQzVnRhRzFMVlhGaVprVkVSelo1ZVdwNE9GRRAB
+17,candidates[10].text,str,"Great family place with huge dishes menu with photos. Nice prices, lovely stuff. Watermelon as a gift! Definitely will come again. Great alternative for the Wyndham’s clients"
+17,candidates[10].restaurant_name,str,Family restaurant
+17,candidates[10].restaurant_id,str,0x314211f7c8b7318b:0xea358686830f8db
+17,candidates[10].relevance,null,
+17,candidates[10].reviewed,bool,0
+17,candidates[11].document_key,str,0x314211f7c8b7318b:0xea358686830f8db:Ci9DQUlRQUNvZENodHljRjlvT2tKVFgyRlJRMXBtT0dodk5VZDNia1JZYUVGcVkwRRAB
+17,candidates[11].text,str,"⭐⭐⭐⭐⭐
+
+A wonderful family restaurant! The food is very tasty, portions are generous, and the prices are very reasonable. We visited several times during our stay and always left satisfied. The staff are friendly and welcoming, and they even served complimentary fruit after the meal, which was a very nice touch. If you are looking for delicious Vietnamese food, a family atmosphere, and great value for money, this is the perfect place. Highly recommended"
+17,candidates[11].restaurant_name,str,Family restaurant
+17,candidates[11].restaurant_id,str,0x314211f7c8b7318b:0xea358686830f8db
+17,candidates[11].relevance,null,
+17,candidates[11].reviewed,bool,0
+17,candidates[12].document_key,str,0x314211baac03f7cf:0xe1e723c31b48b6cb:ChZDSUhNMG9nS0VJQ0FnTURnNWFIUEp3EAE
+17,candidates[12].text,str,"Too quiet for my taste, empty on a weekend!!  But the food was finger licking tasty, creative dishes and mind blowing flavors!!!   Impecable service • Thank you"
+17,candidates[12].restaurant_name,str,Madame Son
+17,candidates[12].restaurant_id,str,0x314211baac03f7cf:0xe1e723c31b48b6cb
+17,candidates[12].relevance,null,
+17,candidates[12].reviewed,bool,0
+18,id,str,Q19
+18,query,str,Nhà hàng nổi bật tại Liên Chiểu
+18,split,str,test
+18,candidates[0].document_key,str,0x3142192dea33553f:0x67195ccda4ab2f7f:Ci9DQUlRQUNvZENodHljRjlvT21wZlpFb3hjWEZIYlhCNWIyZHFaMWxPWlhoWU1YYxAB
+18,candidates[0].text,str,rất tốt
+18,candidates[0].restaurant_name,str,Nhà hàng NHÀ BẾP CHỢ HÀN
+18,candidates[0].restaurant_id,str,0x3142192dea33553f:0x67195ccda4ab2f7f
+18,candidates[0].relevance,null,
+18,candidates[0].reviewed,bool,0
+18,candidates[1].document_key,str,0x31421900120301c5:0xafc948d00abedb26:Ci9DQUlRQUNvZENodHljRjlvT25CWFFWRnRSRTFxTFRWamVuRXlRMmxPUVhwQ1prRRAB
+18,candidates[1].text,str,"đồ ăn ngon, nv nhiệt tình, sẽ còn quay lại"
+18,candidates[1].restaurant_name,str,PHỐ NƯỚNG ( Trần Triệu Luật - Liên Chiểu)
+18,candidates[1].restaurant_id,str,0x31421900120301c5:0xafc948d00abedb26
+18,candidates[1].relevance,null,
+18,candidates[1].reviewed,bool,0
+18,candidates[2].document_key,str,0x31420e76e75e01f5:0x9dfae12b2a89d657:Ci9DQUlRQUNvZENodHljRjlvT25aQ1EzZDFVR0V0VDI1cmJIcFFWbmMyWDBaTVEzYxAB
+18,candidates[2].text,str,Food was amazing
+18,candidates[2].restaurant_name,str,Quán ăn Hoài Linh
+18,candidates[2].restaurant_id,str,0x31420e76e75e01f5:0x9dfae12b2a89d657
+18,candidates[2].relevance,null,
+18,candidates[2].reviewed,bool,0
+18,candidates[3].document_key,str,0x31421900120301c5:0xafc948d00abedb26:Ci9DQUlRQUNvZENodHljRjlvT20wNFdrTnhVREIwWkZaYWJrZHphRGhwV0dWd05IYxAB
+18,candidates[3].text,str,"Đồ ăn siêu ngon nha, sẽ rủ bạn bè quay lại"
+18,candidates[3].restaurant_name,str,PHỐ NƯỚNG ( Trần Triệu Luật - Liên Chiểu)
+18,candidates[3].restaurant_id,str,0x31421900120301c5:0xafc948d00abedb26
+18,candidates[3].relevance,null,
+18,candidates[3].reviewed,bool,0
+18,candidates[4].document_key,str,0x31421900120301c5:0xafc948d00abedb26:Ci9DQUlRQUNvZENodHljRjlvT200NGJURjFkMlkxYm0wMGFtNWFSbEk0VWpSUmNsRRAB
+18,candidates[4].text,str,"Đồ ăn 10đ, các bạn nhân viên vui vẻ nhiệt tình 10đ , hơi nóng chút"
+18,candidates[4].restaurant_name,str,PHỐ NƯỚNG ( Trần Triệu Luật - Liên Chiểu)
+18,candidates[4].restaurant_id,str,0x31421900120301c5:0xafc948d00abedb26
+18,candidates[4].relevance,null,
+18,candidates[4].reviewed,bool,0
+18,candidates[5].document_key,str,0x3142192dea33553f:0x67195ccda4ab2f7f:Ci9DQUlRQUNvZENodHljRjlvT25KbFp5MWhNSGhuVVhCUWNHOUtTVkZGZEhsdFVuYxAB
+18,candidates[5].text,str,"Csak véletlenül találtunk rá. Nagyon finomak az ételek, és a kiszolgálólány is nagyon kedves."
+18,candidates[5].restaurant_name,str,Nhà hàng NHÀ BẾP CHỢ HÀN
+18,candidates[5].restaurant_id,str,0x3142192dea33553f:0x67195ccda4ab2f7f
+18,candidates[5].relevance,null,
+18,candidates[5].reviewed,bool,0
+18,candidates[6].document_key,str,0x3169cf325c294b67:0xae9a0d6c42378e8:ChdDSUhNMG9nS0VJQ0FnSURwby0ydm53RRAB
+18,candidates[6].text,str,Ok
+18,candidates[6].restaurant_name,str,Nhà Hàng Nổi Khởi Nghiệp
+18,candidates[6].restaurant_id,str,0x3169cf325c294b67:0xae9a0d6c42378e8
+18,candidates[6].relevance,null,
+18,candidates[6].reviewed,bool,0
+18,candidates[7].document_key,str,0x314218cf36a82483:0x8df789e7b8d7c27c:Ci9DQUlRQUNvZENodHljRjlvT21sMmNqTXpVRTQwUjJaYVMweDNiVUZSYldKaVRuYxAB
+18,candidates[7].text,str,Rất ồn hát liên tục đặt tiệc sinh nhật nhưng kêu bật 1 bài thổi nến k có
+18,candidates[7].restaurant_name,str,Quán Cờ Lê
+18,candidates[7].restaurant_id,str,0x314218cf36a82483:0x8df789e7b8d7c27c
+18,candidates[7].relevance,null,
+18,candidates[7].reviewed,bool,0
+18,candidates[8].document_key,str,0x3169cf325c294b67:0xae9a0d6c42378e8:ChZDSUhNMG9nS0VJQ0FnSUNaOUozUkJBEAE
+18,candidates[8].text,str,Ngon rất ngon
+18,candidates[8].restaurant_name,str,Nhà Hàng Nổi Khởi Nghiệp
+18,candidates[8].restaurant_id,str,0x3169cf325c294b67:0xae9a0d6c42378e8
+18,candidates[8].relevance,null,
+18,candidates[8].reviewed,bool,0
+18,candidates[9].document_key,str,0x3141f7a278cffbb7:0x975be6514beaaba7:Ci9DQUlRQUNvZENodHljRjlvT21kWlduZzFTWFp4Tm5SZmVGRTJPRFpWVFdaRVpFRRAB
+18,candidates[9].text,str,Spring roll was amazing
+18,candidates[9].restaurant_name,str,NGOC CHI VEGAN RESTAURANTS - BÀ NÀ HILLS
+18,candidates[9].restaurant_id,str,0x3141f7a278cffbb7:0x975be6514beaaba7
+18,candidates[9].relevance,null,
+18,candidates[9].reviewed,bool,0
+18,candidates[10].document_key,str,0x3142192dea33553f:0x67195ccda4ab2f7f:Ci9DQUlRQUNvZENodHljRjlvT25GYVJqRm5OMVpwTFRjeGNHdHdObkJZY1RONVRtYxAB
+18,candidates[10].text,str,Good atmosphere with great foods
+18,candidates[10].restaurant_name,str,Nhà hàng NHÀ BẾP CHỢ HÀN
+18,candidates[10].restaurant_id,str,0x3142192dea33553f:0x67195ccda4ab2f7f
+18,candidates[10].relevance,null,
+18,candidates[10].reviewed,bool,0
+18,candidates[11].document_key,str,0x3169cf325c294b67:0xae9a0d6c42378e8:ChZDSUhNMG9nS0VJQ0FnSURwbzczR0VREAE
+18,candidates[11].text,str,Ok
+18,candidates[11].restaurant_name,str,Nhà Hàng Nổi Khởi Nghiệp
+18,candidates[11].restaurant_id,str,0x3169cf325c294b67:0xae9a0d6c42378e8
+18,candidates[11].relevance,null,
+18,candidates[11].reviewed,bool,0
+18,candidates[12].document_key,str,0x31421900120301c5:0xafc948d00abedb26:Ci9DQUlRQUNvZENodHljRjlvT2sxeFR6TlhaekF4TmpkWmNtTlRlV0ZtZFRrMExXYxAB
+18,candidates[12].text,str,"Quán thoáng mát, đồ ăn ướp ngon nha, nv siêu dễ thương. 10đ"
+18,candidates[12].restaurant_name,str,PHỐ NƯỚNG ( Trần Triệu Luật - Liên Chiểu)
+18,candidates[12].restaurant_id,str,0x31421900120301c5:0xafc948d00abedb26
+18,candidates[12].relevance,null,
+18,candidates[12].reviewed,bool,0
+19,id,str,Q20
+19,query,str,Quán ăn ở Cẩm Lệ có giá hợp lý
+19,split,str,test
+19,candidates[0].document_key,str,0x31420f0035316a51:0x61b4c81343cfbc5:ChdDSUhNMG9nS0VJQ0FnTUR3cS1iRjBBRRAB
+19,candidates[0].text,str,"Giá cả hợp lý, quán rộng rãi, ăn cũng vừa miệng"
+19,candidates[0].restaurant_name,str,Bà Phương
+19,candidates[0].restaurant_id,str,0x31420f0035316a51:0x61b4c81343cfbc5
+19,candidates[0].relevance,null,
+19,candidates[0].reviewed,bool,0
+19,candidates[1].document_key,str,0x31420e76e75e01f5:0x9dfae12b2a89d657:Ci9DQUlRQUNvZENodHljRjlvT21SQ1NtMDNXa3AyVlVoVFdXTmhlVEpPUzBzeFIwRRAB
+19,candidates[1].text,str,"Quán sạch sẽ,đồ ăn ngon,giá cả hợp lý"
+19,candidates[1].restaurant_name,str,Quán ăn Hoài Linh
+19,candidates[1].restaurant_id,str,0x31420e76e75e01f5:0x9dfae12b2a89d657
+19,candidates[1].relevance,null,
+19,candidates[1].reviewed,bool,0
+19,candidates[2].document_key,str,0x31420353228be695:0xe1fc838d2254161a:ChZDSUhNMG9nS0VJQ0FnSUNLOXRpYlF3EAE
+19,candidates[2].text,str,"Ngon, giá cả hợp lý, sạch sẽ"
+19,candidates[2].restaurant_name,str,Quán Diệu Hương
+19,candidates[2].restaurant_id,str,0x31420353228be695:0xe1fc838d2254161a
+19,candidates[2].relevance,null,
+19,candidates[2].reviewed,bool,0
+19,candidates[3].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2xaaFYwSkZNVFI2TVZoYVNFdE5SaTFWUmtaWmQxRRAB
+19,candidates[3].text,str,"Đồ ăn ngon, hợp khẩu vị, giá cũng rất hợp lý."
+19,candidates[3].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+19,candidates[3].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+19,candidates[3].relevance,null,
+19,candidates[3].reviewed,bool,0
+19,candidates[4].document_key,str,0x314219ab4ef3958b:0x960f6fc7c1db919f:Ci9DQUlRQUNvZENodHljRjlvT25sdldYQkpTR3h2Y0c1Tk5YZE1WM05QT1RaclYyYxAB
+19,candidates[4].text,str,"Đồ ăn ổn, khẩu phần ăn không quá nhiều. Giá tiền hợp lý. Nằm ở trên đường 2/9 nên sẽ khá khó tìm chỗ để xe nếu đi giờ cao điểm"
+19,candidates[4].restaurant_name,str,Cơm nhà vui
+19,candidates[4].restaurant_id,str,0x314219ab4ef3958b:0x960f6fc7c1db919f
+19,candidates[4].relevance,null,
+19,candidates[4].reviewed,bool,0
+19,candidates[5].document_key,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15:ChdDSUhNMG9nS0VJQ0FnSUNpdUlTRjFnRRAB
+19,candidates[5].text,str,Quán đẹp. Giá cả hợp lý. Món ăn ngon.
+19,candidates[5].restaurant_name,str,Quán BẾN QUÊ
+19,candidates[5].restaurant_id,str,0x31421d6bd294bfe9:0x1cd3a613c1db9d15
+19,candidates[5].relevance,null,
+19,candidates[5].reviewed,bool,0
+19,candidates[6].document_key,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb:Ci9DQUlRQUNvZENodHljRjlvT2pWdFNVZGpiVzlvVW5CbFJta3RSVkZLT0UxaFFtYxAB
+19,candidates[6].text,str,"Quán ăn ngon, chỗ ngồi thoáng mát, ăn 4 người mà hết có triệu, giá cả quá hợp lý"
+19,candidates[6].restaurant_name,str,Quán Bống - Hải Sản Tươi Sống
+19,candidates[6].restaurant_id,str,0x31421f4e0f84d095:0x7f6d67caaeb00afb
+19,candidates[6].relevance,null,
+19,candidates[6].reviewed,bool,0
+19,candidates[7].document_key,str,0x314219d85545c543:0x901f06685aa3a333:Ci9DQUlRQUNvZENodHljRjlvT2tWTFoySkhhVTQzVmxCU2IyTnhTR3hMT1ZGTVJsRRAB
+19,candidates[7].text,str,"Thức ăn ở đây giá hợp lí , đồ ăn tươi ngon ."
+19,candidates[7].restaurant_name,str,Hải sản Châu Sơn 1 (Châu Nga)
+19,candidates[7].restaurant_id,str,0x314219d85545c543:0x901f06685aa3a333
+19,candidates[7].relevance,null,
+19,candidates[7].reviewed,bool,0
+19,candidates[8].document_key,str,0x3169dbf2dbdc26cf:0x4c49a9a3ee885c02:ChZDSUhNMG9nS0VJQ0FnSUNIdk11ZFlnEAE
+19,candidates[8].text,str,làm ăn cẩu thả tính tiền sai với trong menu
+19,candidates[8].restaurant_name,str,Quán Thiên Hương
+19,candidates[8].restaurant_id,str,0x3169dbf2dbdc26cf:0x4c49a9a3ee885c02
+19,candidates[8].relevance,null,
+19,candidates[8].reviewed,bool,0
+19,candidates[9].document_key,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2:Ci9DQUlRQUNvZENodHljRjlvT21wUlFWSmhMVXR3VFdWak5HeGtWMlk1TTBaSWJIYxAB
+19,candidates[9].text,str,"Ngon, giá cả hợp lý ok"
+19,candidates[9].restaurant_name,str,Nhà hàng Hội An Hoa
+19,candidates[9].restaurant_id,str,0x31420d8bffe738c9:0xb3f24f9bd6df3b2
+19,candidates[9].relevance,null,
+19,candidates[9].reviewed,bool,0
+19,candidates[10].document_key,str,0x31420f000ffaa797:0x6e3b793575f8b793:Ci9DQUlRQUNvZENodHljRjlvT25oRVdHeFZMVmh6VGtWeVVHeEpWbVJFTjFZM09WRRAB
+19,candidates[10].text,str,"Đồ ăn ngon
+Giá hợp lí…"
+19,candidates[10].restaurant_name,str,Vườn Phố Hội Restaurant
+19,candidates[10].restaurant_id,str,0x31420f000ffaa797:0x6e3b793575f8b793
+19,candidates[10].relevance,null,
+19,candidates[10].reviewed,bool,0
+19,candidates[11].document_key,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5:Ci9DQUlRQUNvZENodHljRjlvT2s1TlIyVTVXbkpyTTBSbGRtbDBPSE40TVhaMU1IYxAB
+19,candidates[11].text,str,"quán ngon, giá cả hợp lý"
+19,candidates[11].restaurant_name,str,Đại Dương Quán
+19,candidates[11].restaurant_id,str,0x31421b0e752e0597:0x68e17d7e7c23e1a5
+19,candidates[11].relevance,null,
+19,candidates[11].reviewed,bool,0
+19,candidates[12].document_key,str,0x3169c39c414f896b:0x94dcb7850c39f2e6:ChdDSUhNMG9nS0VJQ0FnSURSOG9HT193RRAB
+19,candidates[12].text,str,"Quán nhậu ngon, giá hợp lý. Thoáng mát"
+19,candidates[12].restaurant_name,str,Gà Tre Đèo Le
+19,candidates[12].restaurant_id,str,0x3169c39c414f896b:0x94dcb7850c39f2e6
+19,candidates[12].relevance,null,
+19,candidates[12].reviewed,bool,0
